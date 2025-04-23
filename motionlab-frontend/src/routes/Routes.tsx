@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import Landing from "../pages/LandingPage";
 import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
@@ -8,6 +9,12 @@ const router = createBrowserRouter([
         element: <App />,
         errorElement: <ErrorPage />,
     },
+    {
+        path: "/Landing",
+        element: <Landing />,
+        errorElement: <ErrorPage />,
+    },
+
 
 ]);
 
