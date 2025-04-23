@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./estadisticas.css";
 import Leaderboard from "./Leaderboard"; // Importar el componente Leaderboard
+import descargaIcon from './iconos/descarga.png';
+import coronaIcon from './iconos/corona.png';
 
 // Tipos de datos
 interface TeamData {
@@ -125,12 +127,15 @@ const Statistics: React.FC = () => {
       <div className="actions-container">
         <button className="btn-return">&lt; Regresar</button>
         <div className="icon-buttons">
-          <button className="icon-btn">⬇️</button>
-          <button className="icon-btn" onClick={toggleLeaderboard}>
-            👑
-          </button>
-        </div>
-      </div>
+          <button className="icon-btn">
+        <img src={descargaIcon} alt="Descargar" className="icon-img" />
+      </button>
+      <button className="icon-btn" onClick={toggleLeaderboard}>
+        <img src={coronaIcon} alt="Leaderboard" className="icon-img" />
+      </button>
+    </div>
+  </div>
+      
 
       <div className="tabs-container">
         <button
