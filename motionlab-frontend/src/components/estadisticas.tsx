@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import './estadisticas.css';
+import React, { useState } from "react";
+import "./estadisticas.css";
+import Leaderboard from "./Leaderboard"; // Importar el componente Leaderboard
 
 // Tipos de datos
 interface TeamData {
@@ -21,25 +22,101 @@ interface StudentData {
 
 // Datos de equipos
 const teamData: TeamData[] = [
-  { team: 'Equipo 1', totalPlays: 12, avgTime: 1.3, avgPlaceToday: 2, avgPlaceHistoric: 3 },
-  { team: 'Equipo 2', totalPlays: 10, avgTime: 1.8, avgPlaceToday: 1, avgPlaceHistoric: 4 },
-  { team: 'Equipo 3', totalPlays: 11, avgTime: 1.2, avgPlaceToday: 4, avgPlaceHistoric: 2 },
-  { team: 'Equipo 4', totalPlays: 13, avgTime: 1.8, avgPlaceToday: 3, avgPlaceHistoric: 1 },
-  { team: 'Equipo 5', totalPlays: 11, avgTime: 1.5, avgPlaceToday: 6, avgPlaceHistoric: 5 },
-  { team: 'Equipo 6', totalPlays: 11, avgTime: 1.3, avgPlaceToday: 6, avgPlaceHistoric: 6 },
+  {
+    team: "Equipo 1",
+    totalPlays: 12,
+    avgTime: 1.3,
+    avgPlaceToday: 2,
+    avgPlaceHistoric: 3,
+  },
+  {
+    team: "Equipo 2",
+    totalPlays: 10,
+    avgTime: 1.8,
+    avgPlaceToday: 1,
+    avgPlaceHistoric: 4,
+  },
+  {
+    team: "Equipo 3",
+    totalPlays: 11,
+    avgTime: 1.2,
+    avgPlaceToday: 4,
+    avgPlaceHistoric: 2,
+  },
+  {
+    team: "Equipo 4",
+    totalPlays: 13,
+    avgTime: 1.8,
+    avgPlaceToday: 3,
+    avgPlaceHistoric: 1,
+  },
+  {
+    team: "Equipo 5",
+    totalPlays: 11,
+    avgTime: 1.5,
+    avgPlaceToday: 6,
+    avgPlaceHistoric: 5,
+  },
+  {
+    team: "Equipo 6",
+    totalPlays: 11,
+    avgTime: 1.3,
+    avgPlaceToday: 6,
+    avgPlaceHistoric: 6,
+  },
 ];
 
 // Datos de alumnos
 const studentData: StudentData[] = [
-  { student: 'AXXXX', team: '1', totalPlays: 4, avgTime: 1.8, avgPlaceToday: 2, avgPlaceHistoric: 2 },
-  { student: 'AXXXX', team: '4', totalPlays: 1, avgTime: 1.9, avgPlaceToday: 3, avgPlaceHistoric: 1 },
-  { student: 'AXXXX', team: '2', totalPlays: 4, avgTime: 1.2, avgPlaceToday: 1, avgPlaceHistoric: 3 },
-  { student: 'AXXXX', team: '2', totalPlays: 4, avgTime: 1.5, avgPlaceToday: 2, avgPlaceHistoric: 2 },
-  { student: 'AXXXX', team: '3', totalPlays: 4, avgTime: 0.9, avgPlaceToday: 4, avgPlaceHistoric: 1 },
+  {
+    student: "AXXXX",
+    team: "1",
+    totalPlays: 4,
+    avgTime: 1.8,
+    avgPlaceToday: 2,
+    avgPlaceHistoric: 2,
+  },
+  {
+    student: "AXXXX",
+    team: "4",
+    totalPlays: 1,
+    avgTime: 1.9,
+    avgPlaceToday: 3,
+    avgPlaceHistoric: 1,
+  },
+  {
+    student: "AXXXX",
+    team: "2",
+    totalPlays: 4,
+    avgTime: 1.2,
+    avgPlaceToday: 1,
+    avgPlaceHistoric: 3,
+  },
+  {
+    student: "AXXXX",
+    team: "2",
+    totalPlays: 4,
+    avgTime: 1.5,
+    avgPlaceToday: 2,
+    avgPlaceHistoric: 2,
+  },
+  {
+    student: "AXXXX",
+    team: "3",
+    totalPlays: 4,
+    avgTime: 0.9,
+    avgPlaceToday: 4,
+    avgPlaceHistoric: 1,
+  },
 ];
 
 const Statistics: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'equipos' | 'alumnos'>('equipos');
+  const [activeTab, setActiveTab] = useState<"equipos" | "alumnos">("equipos");
+  const [showLeaderboard, setShowLeaderboard] = useState<boolean>(false);
+
+  const toggleLeaderboard = () => {
+    setShowLeaderboard(!showLeaderboard);
+  };
 
   return (
     <div className="container">
@@ -49,32 +126,37 @@ const Statistics: React.FC = () => {
         <button className="btn-return">&lt; Regresar</button>
         <div className="icon-buttons">
           <button className="icon-btn">⬇️</button>
-          <button className="icon-btn">👑</button>
+          <button className="icon-btn" onClick={toggleLeaderboard}>
+            👑
+          </button>
         </div>
       </div>
 
       <div className="tabs-container">
         <button
-          className={`tab-btn ${activeTab === 'equipos' ? 'tab-equipos' : ''}`}
-          onClick={() => setActiveTab('equipos')}
+          className={`tab-btn ${activeTab === "equipos" ? "tab-equipos" : ""}`}
+          onClick={() => setActiveTab("equipos")}
         >
           Equipos
         </button>
         <button
-          className={`tab-btn ${activeTab === 'alumnos' ? 'tab-alumnos' : ''}`}
-          onClick={() => setActiveTab('alumnos')}
+          className={`tab-btn ${activeTab === "alumnos" ? "tab-alumnos" : ""}`}
+          onClick={() => setActiveTab("alumnos")}
         >
           Alumnos
         </button>
       </div>
 
       <div className="table-container">
-        {activeTab === 'equipos' ? (
+        {activeTab === "equipos" ? (
           <TeamsTable data={teamData} />
         ) : (
           <StudentsTable data={studentData} />
         )}
       </div>
+
+      {/* Renderizar el componente Leaderboard cuando showLeaderboard es true */}
+      {showLeaderboard && <Leaderboard onClose={toggleLeaderboard} />}
     </div>
   );
 };

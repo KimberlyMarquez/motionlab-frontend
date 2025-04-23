@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Outlet } from "react-router";
 
 function App() {
   return (
@@ -9,4 +9,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
