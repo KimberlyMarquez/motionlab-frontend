@@ -2,6 +2,16 @@ body {
   background-color: #eef5fc;
 }
 
+.background-container {
+  background-image: url('/background.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   max-width: 1000px;
   background-color: #e8f1ff;

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import ErrorPage from "../pages/ErrorPage";
-import Statistics from "../components/estadisticas";
+import Statistics from "../pages/estadisticas";
 
 const router = createBrowserRouter([
   {

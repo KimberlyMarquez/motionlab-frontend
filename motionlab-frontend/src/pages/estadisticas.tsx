@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./estadisticas.css";
-import Leaderboard from "./Leaderboard";
-import descargaIcon from './iconos/descarga.png';
-import coronaIcon from './iconos/corona.png';
+import Leaderboard from "../components/Leaderboard";
+import descargaIcon from '../components/iconos/descarga.png';
+import coronaIcon from '../components/iconos/corona.png';
 
 // Tipos de datos
 interface TeamData {
@@ -123,47 +123,49 @@ const Statistics: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <div className="header">ESTADÍSTICAS</div>
+    <div className="background-container">
+      <div className="container">
+        <div className="header">ESTADÍSTICAS</div>
 
-      <div className="actions-container">
-        <button className="btn-return" onClick={() => navigate(-1)}>
-          &lt; Regresar
-        </button>
-        <div className="icon-buttons">
-          <button className="icon-btn">
-            <img src={descargaIcon} alt="Descargar" className="icon-img" />
+        <div className="actions-container">
+          <button className="btn-return" onClick={() => navigate(-1)}>
+            &lt; Regresar
           </button>
-          <button className="icon-btn" onClick={toggleLeaderboard}>
-            <img src={coronaIcon} alt="Leaderboard" className="icon-img" />
+          <div className="icon-buttons">
+            <button className="icon-btn">
+              <img src={descargaIcon} alt="Descargar" className="icon-img" />
+            </button>
+            <button className="icon-btn" onClick={toggleLeaderboard}>
+              <img src={coronaIcon} alt="Leaderboard" className="icon-img" />
+            </button>
+          </div>
+        </div>
+
+        <div className="tabs-container">
+          <button
+            className={`tab-btn ${activeTab === "equipos" ? "tab-equipos" : ""}`}
+            onClick={() => setActiveTab("equipos")}
+          >
+            Equipos
+          </button>
+          <button
+            className={`tab-btn ${activeTab === "alumnos" ? "tab-alumnos" : ""}`}
+            onClick={() => setActiveTab("alumnos")}
+          >
+            Alumnos
           </button>
         </div>
-      </div>
 
-      <div className="tabs-container">
-        <button
-          className={`tab-btn ${activeTab === "equipos" ? "tab-equipos" : ""}`}
-          onClick={() => setActiveTab("equipos")}
-        >
-          Equipos
-        </button>
-        <button
-          className={`tab-btn ${activeTab === "alumnos" ? "tab-alumnos" : ""}`}
-          onClick={() => setActiveTab("alumnos")}
-        >
-          Alumnos
-        </button>
-      </div>
+        <div className="table-container">
+          {activeTab === "equipos" ? (
+            <TeamsTable data={teamData} />
+          ) : (
+            <StudentsTable data={studentData} />
+          )}
+        </div>
 
-      <div className="table-container">
-        {activeTab === "equipos" ? (
-          <TeamsTable data={teamData} />
-        ) : (
-          <StudentsTable data={studentData} />
-        )}
+        {showLeaderboard && <Leaderboard onClose={toggleLeaderboard} />}
       </div>
-
-      {showLeaderboard && <Leaderboard onClose={toggleLeaderboard} />}
     </div>
   );
 };
