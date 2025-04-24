@@ -1,158 +1,230 @@
-
 body {
-    background-color: #eef5fc;
-  }
-  
+  background-color: #eef5fc;
+}
+
+.container {
+  max-width: 1000px;
+  background-color: #e8f1ff;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin: 40px auto;
+  overflow: hidden;
+}
+
+.header {
+  background-color: #547EBC;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-weight: bold;
+  font-size: 1.7rem;
+  position: relative;
+  margin: -10px auto 20px;
+  max-width: 300px;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+  z-index: 10;
+}
+
+.btn-return {
+  background-color: #6B95D6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: bold;
+  margin: 15px 0 0 15px;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  position: absolute;
+  top: 40px;
+  left: 50px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin-bottom: 0px;
+}
+
+.icon-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 15px 15px 0 0;
+}
+
+.icon-btn {
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid #5b7cb400;
+  border-radius: 5px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.icon-img {
+  width: 24px;
+  height: 22px;
+}
+
+.tabs-container {
+  padding: 0 15px;
+  margin: 10px 0 15px;
+  display: flex;
+  gap: 5px;
+}
+
+.tab-btn {
+  border: none;
+  border-radius: 20px;
+  padding: 10px 24px;
+  margin-right: 0;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #f2f2f2;
+  color: #333;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tab-equipos {
+  background-color: #547EBC;
+  color: white;
+}
+
+.tab-alumnos {
+  background-color: #70C2AD;
+  color: white;
+}
+
+.tab-btn:hover {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.table-container {
+  padding: 0 15px 15px 15px;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.stats-table thead tr {
+  background-color: #BFD3F3;
+  color: black;
+  font-weight: normal;
+  border-bottom: 1px solid #eee;
+}
+
+.stats-table th {
+  padding: 12px 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.stats-table th:first-child {
+  text-align: left;
+}
+
+.stats-table tbody tr {
+  background-color: #92B3E6;
+}
+
+.stats-table tbody tr:nth-child(odd) {
+  background-color: #92B3E6;
+}
+
+.stats-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.stats-table td:first-child {
+  text-align: left;
+}
+
+.table-alumnos thead tr {
+  background-color: #95CDBD;
+}
+
+.table-alumnos tbody tr {
+  background-color: #6DAB9B;
+}
+
+.table-alumnos tbody tr:nth-child(odd) {
+  background-color: #6DAB9B;
+}
+
+/* RESPONSIVE TABLET STYLE */
+@media (max-width: 1024px) and (min-width: 600px) {
   .container {
-    max-width: 1000px;
-    background-color: #e8f1ff;
-    border-radius: 30px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    padding: 0;
-    margin: 40px auto;
-    overflow: hidden;
+    margin: 30px 20px;
+    border-radius: 25px;
   }
-  
+
   .header {
-    background-color: #547EBC;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    font-weight: bold;
-    font-size: 1.7rem;
-    margin-bottom: 20px;
-    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+    font-size: 1.5rem;
+    max-width: 260px;
+    padding: 18px 0;
   }
-  
-  
-  .btn-return {
-    background-color: #6B95D6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-weight: bold;
-    margin: 15px 0 0 15px;
-  }
-  
+
   .actions-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 15px;
-    margin-bottom: 15px;
-  }
-  
-  .icon-buttons {
-    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: static;
+    width: 100%;
+    padding: 10px 20px;
     gap: 10px;
-    margin: 15px 15px 0 0;
   }
-  
+
+  .btn-return {
+    margin: 10px 0;
+    padding: 8px 14px;
+    font-size: 1rem;
+  }
+
+  .icon-buttons {
+    justify-content: flex-start;
+  }
+
   .icon-btn {
-    background-color: rgba(255, 255, 255, 0);
-    border: 1px solid #5b7cb400;
-    color: #5b7cb4;
-    border-radius: 5px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
   }
 
   .icon-img {
-    width: 24px;
-    height: 22px;
+    width: 22px;
+    height: 20px;
   }
-  
+
   .tabs-container {
-    padding: 0 15px;
-    margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
   }
-  
+
   .tab-btn {
-    border: none;
-    border-radius: 20px;
-    padding: 10px 24px;
-    margin-right: 5px;
-    font-weight: 500;
-    cursor: pointer;
-    background-color: #f2f2f2;
-    color: #333;
-    transition: background-color 0.2s, color 0.2s;
-  }
-  
-  .tab-equipos {
-    background-color: #547EBC;
-    color: white;
-  }
-  
-  .tab-alumnos {
-    background-color: #70C2AD;
-    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
   }
 
-  .tab-btn:hover {
-    background-color: #e0e0e0;
-    color: #000;
-  }
-  
-  .table-container {
-    padding: 0 15px 15px 15px;
-  }
-  
-  .stats-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 15px;
-    overflow: hidden;
-  }
-  
-  .stats-table thead tr {
-    background-color: #BFD3F3;
-    color: black;
-    font-weight: normal;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .stats-table th {
-    padding: 12px 15px;
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  .stats-table th:first-child {
-    text-align: left;
-  }
-  
-  .stats-table tbody tr {
-    background-color: #92B3E6;
-  }
-  
-  .stats-table tbody tr:nth-child(odd) {
-    background-color: #92B3E6;
-  }
-  
+  .stats-table th,
   .stats-table td {
-    padding: 12px 15px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .stats-table td:first-child {
-    text-align: left;
+    padding: 10px 12px;
+    font-size: 1rem;
   }
 
-  .table-alumnos thead tr {
-    background-color: #95CDBD;
+  .stats-table {
+    font-size: 0.95rem;
   }
-  
-  .table-alumnos tbody tr {
-    background-color: #6DAB9B;
-  }
-  
-  .table-alumnos tbody tr:nth-child(odd) {
-    background-color: #6DAB9B;
-  }
+}

@@ -5,8 +5,6 @@ import Leaderboard from "./Leaderboard";
 import descargaIcon from './iconos/descarga.png';
 import coronaIcon from './iconos/corona.png';
 
-const navigate = useNavigate();
-
 // Tipos de datos
 interface TeamData {
   team: string;
@@ -118,6 +116,7 @@ const studentData: StudentData[] = [
 const Statistics: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"equipos" | "alumnos">("equipos");
   const [showLeaderboard, setShowLeaderboard] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const toggleLeaderboard = () => {
     setShowLeaderboard(!showLeaderboard);
@@ -128,17 +127,18 @@ const Statistics: React.FC = () => {
       <div className="header">ESTADÍSTICAS</div>
 
       <div className="actions-container">
-      <button className="btn-return" onClick={() => navigate(-1)}>&lt; Regresar</button>
+        <button className="btn-return" onClick={() => navigate(-1)}>
+          &lt; Regresar
+        </button>
         <div className="icon-buttons">
           <button className="icon-btn">
-        <img src={descargaIcon} alt="Descargar" className="icon-img" />
-      </button>
-      <button className="icon-btn" onClick={toggleLeaderboard}>
-        <img src={coronaIcon} alt="Leaderboard" className="icon-img" />
-      </button>
-    </div>
-  </div>
-      
+            <img src={descargaIcon} alt="Descargar" className="icon-img" />
+          </button>
+          <button className="icon-btn" onClick={toggleLeaderboard}>
+            <img src={coronaIcon} alt="Leaderboard" className="icon-img" />
+          </button>
+        </div>
+      </div>
 
       <div className="tabs-container">
         <button
@@ -163,7 +163,6 @@ const Statistics: React.FC = () => {
         )}
       </div>
 
-      {/* Renderizar el componente Leaderboard cuando showLeaderboard es true */}
       {showLeaderboard && <Leaderboard onClose={toggleLeaderboard} />}
     </div>
   );
