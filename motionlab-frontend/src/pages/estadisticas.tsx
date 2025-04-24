@@ -125,20 +125,22 @@ const Statistics: React.FC = () => {
   return (
     <div className="background-container">
       <div className="container">
-        <div className="header">ESTADÍSTICAS</div>
+        <div className="header-container">
 
-        <div className="actions-container">
-          <button className="btn-return" onClick={() => navigate(-1)}>
-            &lt; Regresar
-          </button>
-          <div className="icon-buttons">
-            <button className="icon-btn">
-              <img src={descargaIcon} alt="Descargar" className="icon-img" />
+          <div className="actions-container">
+            <button className="btn-return" onClick={() => navigate(-1)}>
+              &lt; Regresar
             </button>
-            <button className="icon-btn" onClick={toggleLeaderboard}>
-              <img src={coronaIcon} alt="Leaderboard" className="icon-img" />
-            </button>
+            <div className="icon-buttons">
+              <button className="icon-btn">
+                <img src={descargaIcon} alt="Descargar" className="icon-img" />
+              </button>
+              <button className="icon-btn" onClick={toggleLeaderboard}>
+                <img src={coronaIcon} alt="Leaderboard" className="icon-img" />
+              </button>
+            </div>
           </div>
+          <div className="header">ESTADÍSTICAS</div>
         </div>
 
         <div className="tabs-container">
