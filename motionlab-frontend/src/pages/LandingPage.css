@@ -1,0 +1,27 @@
+.landing-page-container {
+    background-image: url('/assets/LandingPage/LandingBackground1.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+html, body {
+    overflow: hidden;
+    height: 100%; 
+}
+
+.footer {
+    margin-top: auto;
+}
+
+a {
+    font-family: 'Jersey 20', sans-serif;
+    font-size: 70px;
+    text-decoration: none !important;
+    color: white !important;
+    background-color: #4971B4;
+    border-radius: 20px
+}
