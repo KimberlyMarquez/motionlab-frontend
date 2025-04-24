@@ -1,0 +1,33 @@
+.background-container {
+    background-image: url('/background.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.btn-regresar {
+    position: absolute;
+    top:120px;
+    left: 230px;
+    background-color: #92B3E6;
+    color: white;
+    font-family: 'Jersey 20', sans-serif;
+    font-size: 1.6rem;
+    padding: 0rem 1rem;
+    border-radius: 16px;
+    border: 5px solid #6B95D6;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
