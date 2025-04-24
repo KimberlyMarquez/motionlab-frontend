@@ -1,27 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { TeamData } from "my-types";
+import { StudentData } from "my-types";
 import "./estadisticas.css";
 import Leaderboard from "../components/Leaderboard";
 import descargaIcon from '../components/iconos/descarga.png';
 import coronaIcon from '../components/iconos/corona.png';
 
-// Tipos de datos
-interface TeamData {
-  team: string;
-  totalPlays: number;
-  avgTime: number;
-  avgPlaceToday: number;
-  avgPlaceHistoric: number;
-}
 
-interface StudentData {
-  student: string;
-  team: string;
-  totalPlays: number;
-  avgTime: number;
-  avgPlaceToday: number;
-  avgPlaceHistoric: number;
-}
 
 // Datos de equipos
 const teamData: TeamData[] = [
