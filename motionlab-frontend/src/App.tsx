@@ -21,6 +21,7 @@ const App = () => {
             onLogout={() => setCodigoAccedido(null)}
           />
         )}
+    
       </div>
     </div>
   );
