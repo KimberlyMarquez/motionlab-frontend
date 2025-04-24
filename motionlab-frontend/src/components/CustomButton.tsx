@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 interface Props {
   label: string;
@@ -17,7 +17,8 @@ const CustomButton: React.FC<Props> = ({ label, onClick }) => {
         border: "4px solid #4971B4",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)",
         fontFamily: '"Jersey 20", sans-serif',
-        fontSize: "3.2rem"
+        fontSize: "3.2rem",
+        letterSpacing: "2px"
       }}
       onClick={onClick}
     >

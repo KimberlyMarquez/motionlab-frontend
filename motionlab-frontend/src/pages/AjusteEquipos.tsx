@@ -2,22 +2,25 @@ import { useState } from 'react';
 import AjustesContainer from '../components/AjustesContainer';
 import EquipoControl from '../components/EquipoControl';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 import CustomButton from '../components/CustomButton';
 import '../pages/Ajustes.css';
 
 const AjusteEquipos = () => {
   const [equipos, setEquipos] = useState(6);
   const [integrantes, setIntegrantes] = useState(5);
+  const navigate = useNavigate();
  
   const handleSiguiente = () => {
     console.log('Equipos:', equipos, 'Integrantes:', integrantes);
+    navigate ('/parametros');
   };
 
   return (
     <>
     <div className="background-container">
         <div className="main-content">
-      <AjustesContainer label= "AJUSTE DE EQUIPOS">
+      <AjustesContainer label= "AJUSTE DE EQUIPOS" pag_anterior="/">
       
         <div className="d-flex justify-content-around flex-wrap mt-4">
           <EquipoControl

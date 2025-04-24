@@ -1,66 +1,31 @@
 import { useNavigate } from 'react-router-dom';
+import '../pages/Ajustes.css';
 
 interface Props {
   label: string;
   children: React.ReactNode;
+  pag_anterior: string;
 }
 
-const AjustesContainer: React.FC<Props> = ({ label, children }) => {
+const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) => {
   const navigate = useNavigate();
 
   const handleRegresar = () => {
-    navigate('/');
+    navigate(pag_anterior);
   };
 
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
-      <div
-        className="shadow-lg p-4"
-        style={{
-          backgroundColor: '#E8F1FF',
-          width: '100%',
-          maxWidth: '1200px',
-          height: '80%',
-          borderRadius: '100px',
-          border: '1px solid black',
-        }}
-      >
-          <button
-            onClick={handleRegresar}
-            style={{
-                position: 'absolute',
-                left: 170,
-                backgroundColor: '#92B3E6',
-                color: 'white',
-                fontFamily: '"Jersey 20", sans-serif',
-                fontSize: '1.6rem',
-                padding: '0rem 1rem',
-                borderRadius: '16px',
-                border: '5px solid #6B95D6',
-                boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.2)',
-                letterSpacing: '1px',
-            }}
-            >
-            &lt; Regresar
-            </button>
+      <div className="ajustes-box shadow-lg p-4">
+        <button className="btn-regresar" onClick={handleRegresar}>
+          &lt; Regresar
+        </button>
 
-        
-          <div className="position-absolute start-50 translate-middle-x"
-            style={{
-              top: 58,
-              backgroundColor: '#547EBC',
-              color: 'white',
-              borderRadius: '0 0 16px 16px',
-              fontWeight: 'bold',
-              fontSize: '2.5rem',
-              padding: '1rem 3rem',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            {label}
-          </div>
+        <div className="ajustes-label position-absolute start-50 translate-middle-x">
+          {label}
+        </div>
 
-        <div style={{ marginTop: '90px', height: '80%' }}>
+        <div className="ajustes-content">
           <div className="h-100 d-flex flex-column justify-content-center">
             {children}
           </div>
@@ -71,4 +36,5 @@ const AjustesContainer: React.FC<Props> = ({ label, children }) => {
 };
 
 export default AjustesContainer;
+
 
