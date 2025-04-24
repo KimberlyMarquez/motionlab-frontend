@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./estadisticas.css";
-import Leaderboard from "./Leaderboard"; // Importar el componente Leaderboard
+import Leaderboard from "./Leaderboard";
 import descargaIcon from './iconos/descarga.png';
 import coronaIcon from './iconos/corona.png';
+
+const navigate = useNavigate();
 
 // Tipos de datos
 interface TeamData {
@@ -125,7 +128,7 @@ const Statistics: React.FC = () => {
       <div className="header">ESTADÍSTICAS</div>
 
       <div className="actions-container">
-        <button className="btn-return">&lt; Regresar</button>
+      <button className="btn-return" onClick={() => navigate(-1)}>&lt; Regresar</button>
         <div className="icon-buttons">
           <button className="icon-btn">
         <img src={descargaIcon} alt="Descargar" className="icon-img" />

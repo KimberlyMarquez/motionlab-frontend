@@ -20,9 +20,21 @@ const teamInfo: TeamInfo[] = [
   { name: "Equipo 4", time: 0.02, position: 4 },
   { name: "Equipo 5", time: 0.02, position: 5 },
   { name: "Equipo 6", time: 0.02, position: 6 },
+  { name: "Equipo 1", time: 0.02, position: 1 },
+  { name: "Equipo 2", time: 0.02, position: 2 },
+  { name: "Equipo 3", time: 0.02, position: 3 },
+  { name: "Equipo 4", time: 0.02, position: 4 },
+  { name: "Equipo 5", time: 0.02, position: 5 },
+  { name: "Equipo 6", time: 0.02, position: 6 },
 ];
 
 const studentInfo: StudentInfo[] = [
+  { name: "Estudiante 1", time: 0.02, position: 1 },
+  { name: "Estudiante 4", time: 0.02, position: 2 },
+  { name: "Estudiante 5", time: 0.02, position: 3 },
+  { name: "Estudiante 2", time: 0.02, position: 4 },
+  { name: "Estudiante 3", time: 0.02, position: 5 },
+  { name: "Estudiante 6", time: 0.02, position: 6 },
   { name: "Estudiante 1", time: 0.02, position: 1 },
   { name: "Estudiante 4", time: 0.02, position: 2 },
   { name: "Estudiante 5", time: 0.02, position: 3 },
