@@ -8,7 +8,7 @@ import '../pages/Pages.css';
 
 const LoginAlumnos: React.FC = () => {
   const [matriculas, setMatriculas] = useState(['', '', '', '', '']);
-  const [codigo, setCodigo] = useState(''); // Si necesitas manejar un código
+  const [codigo] = useState(''); 
   const navigate = useNavigate();
 
   const handleMatriculaChange = (index: number, value: string) => {

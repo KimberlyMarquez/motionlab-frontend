@@ -36,5 +36,3 @@ const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) =>
 };
 
 export default AjustesContainer;
-
-

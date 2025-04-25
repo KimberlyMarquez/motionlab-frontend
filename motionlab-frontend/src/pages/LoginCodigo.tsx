@@ -23,7 +23,14 @@ const LoginCodigo: React.FC = () => {
         <LogoutButton onClick={() => console.log("Logout")} />
         <FormContainer>
           <div className="text-center w-100">
-            <label className="form-label fw-bold mb-2 fs-5" style={{color: '#032B6F'}}>Código</label>
+            <label className="form-label fw-bold mb-3 fs-5" 
+            style={{
+              color: '#032B6F',
+              fontFamily: '"Inter", sans-serif'
+            }}
+            >
+              Código
+            </label>
             <input
               type="text"
               className="form-control mb-5"
@@ -32,16 +39,16 @@ const LoginCodigo: React.FC = () => {
               style={{ 
                 backgroundColor: '#f2f2f2',
                 border: 'none',
-                borderRadius: '16px',
+                borderRadius: '10px',
                 padding: '0.75rem',
                 fontSize: '1.1rem',
                 boxShadow: 'none',
                 outline: 'none',
-                width: '17%',
+                width: '19%',
                 margin: '0 auto',
               }}
             />
-            <CustomButton label="Acceder" onClick={handleSubmit} />
+            <CustomButton label="ACCEDER" onClick={handleSubmit} />
           </div>
         </FormContainer>
         </div>

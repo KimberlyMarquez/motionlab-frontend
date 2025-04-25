@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import AjustesContainer from '../components/AjustesContainer';
 import Footer from '../components/Footer';
 import ButtonOrange from '../components/ButtonOrange';
