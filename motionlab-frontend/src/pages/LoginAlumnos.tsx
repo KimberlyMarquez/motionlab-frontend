@@ -21,7 +21,7 @@ const LoginAlumnos: React.FC = () => {
 
   const handleSubmit = () => {
     if (codigo.trim()) {
-      navigate('/parametros');
+      navigate('/lobby');
     }
   };
 
@@ -34,7 +34,7 @@ const LoginAlumnos: React.FC = () => {
     console.log('Usuario cerró sesión');
   };
 
-  const handleBack = () => {
+  const handleRegresar = () => {
     navigate(-1);
   };
 
@@ -46,9 +46,9 @@ const LoginAlumnos: React.FC = () => {
 
           <FormContainer>
             <div className="d-flex justify-content-between align-items-center mb-5 px-4">
-              <button className="btn-regresar-encabezado" onClick={handleBack}>
-                &larr; Regresar
-              </button>
+            <div className="btn-regresar-encabezado"onClick={handleRegresar}>
+              < ButtonRegresar label='< REGRESAR' />
+            </div>
               <div className="codigo-box">{codigo}</div>
             </div>
 

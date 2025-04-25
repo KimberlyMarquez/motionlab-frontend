@@ -1,4 +1,4 @@
-import '../pages/Ajustes.css';
+import '../components/Ajustes.css';
 
 interface ControlProps {
   label: React.ReactNode;

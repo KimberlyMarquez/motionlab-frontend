@@ -15,7 +15,7 @@ interface Props {
             padding: '0rem 2rem',
             borderRadius: '16px',
             border: '5px solid #6B95D6',
-            boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.2)',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
             letterSpacing: '1px'
         }}
         onClick={onClick}

@@ -17,32 +17,10 @@
     overflow: hidden;
 }
 
-.btn-reg {
-    position: absolute;
-    top:120px;
-    left: 230px;
-    background-color: #92B3E6;
-    color: white;
-    font-family: 'Jersey 20', sans-serif;
-    font-size: 1.6rem;
-    padding: 0rem 1rem;
-    border-radius: 16px;
-    border: 5px solid #6B95D6;
-    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
-    letter-spacing: 1px;
-}
-
 .btn-regresar-encabezado {
-  background-color: #92B3E6;
-  color: white;
-  font-family: 'Jersey 20', sans-serif;
-  font-size: 1.6rem;
-  padding: 0rem 1rem;
-  border-radius: 16px;
-  border: 5px solid #6B95D6;
-  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
-  letter-spacing: 1px;
-  margin-left: -35px; /* Adjust this value to align further left */
+    position: absolute;
+    left: 270px;
+    top: 140px;
 }
 
 .input-matricula {
@@ -67,4 +45,7 @@
     padding: 0 1rem;
     font-family: 'Inter', sans-serif;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position:absolute;
+    top: 140px;
+    right: 270px;
   }

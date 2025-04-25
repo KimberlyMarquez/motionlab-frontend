@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import ButtonRegresar from '../components/ButtonRegresar';
-import '../pages/Ajustes.css';
+import '../components/Ajustes.css';
 
 interface Props {
   label: string;
