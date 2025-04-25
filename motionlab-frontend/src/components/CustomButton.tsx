@@ -21,7 +21,6 @@ const CustomButton: React.FC<Props> = ({ label, onClick }) => {
         fontSize: "2.4rem",
         letterSpacing: "1px",
         padding: "0rem",
-        marginTop: "3rem",
         cursor: "pointer", 
         transition: "background-color 0.3s ease", 
       }}

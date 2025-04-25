@@ -12,7 +12,7 @@ const LoginCodigo: React.FC = () => {
   const handleSubmit = () => {
     if (codigo.trim()) {
       console.log('Accediendo con código:', codigo);
-      navigate ('/login');
+      navigate('/login', { state: { codigo } });
     }
   };
 
@@ -51,8 +51,8 @@ const LoginCodigo: React.FC = () => {
             <CustomButton label="ACCEDER" onClick={handleSubmit} />
           </div>
         </FormContainer>
-        </div>
-        <Footer />
+      </div>
+      <Footer />
     </div>
     </>
   );
