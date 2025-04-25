@@ -1,0 +1,56 @@
+.background-container {
+    background-image: url('/background.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    overflow: hidden;
+  }
+  
+.lobby-box {
+    background-color: #E8F1FF;
+    width: 100%;
+    max-width: 1300px;
+    height: 87%;
+    border-radius: 80px;
+}
+  
+  
+.lobby-label {
+    top: 27px;
+    background-color: #547EBC;
+    color: white;
+    border-radius: 0 0 16px 16px;
+    font-weight: bold;
+    font-size: 2.5rem;
+    padding: 2rem 3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+  
+.lobby-content {
+    margin-top: 90px;
+    height: 80%;
+}
+
+.codigo {
+    font-size: 1rem;
+    text-align: center;
+    color: #E8F1FF;
+}
+
+.logo{
+    position:absolute;
+    top: 20px;
+    left:130px;
+
+}

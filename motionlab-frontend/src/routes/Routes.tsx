@@ -3,6 +3,7 @@ import AjusteEquipos from "../pages/AjusteEquipos";
 import ParametrosIniciales from "../pages/ParametrosIniciales";
 import LoginCodigo from "../pages/LoginCodigo";
 import LoginAlumnos from "../pages/LoginAlumnos";
+import LobbyAlumnos from "../pages/LobbyAlumnos"
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     path: "/parametros",
     element: <ParametrosIniciales />,
   },
+  {
+    path: "/lobby",
+    element: <LobbyAlumnos />
+  }
 ]);
 
 export default router;
