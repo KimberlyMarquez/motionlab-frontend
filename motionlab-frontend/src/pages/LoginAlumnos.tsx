@@ -4,6 +4,7 @@ import LogoutButton from '../components/LogoutButton';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../components/CustomButton';
+import ButtonRegresar from '../components/ButtonRegresar';
 import '../pages/Pages.css';
 
 const LoginAlumnos: React.FC = () => {
@@ -33,7 +34,7 @@ const LoginAlumnos: React.FC = () => {
     console.log('User logged out');
   }
 
-  const handleBack = () => {
+  const handleRegresar = () => {
     console.log("Regresar a la página anterior");
     navigate(-1); 
   };
@@ -44,9 +45,9 @@ const LoginAlumnos: React.FC = () => {
       <div className="main-content">
         <LogoutButton onClick={onLogout} />
         <FormContainer>
-          <button className="btn-regresar" onClick={handleBack}>
-            &larr; Regresar
-          </button>
+          <div className="btn-reg"onClick={handleRegresar}>
+            < ButtonRegresar label='< REGRESAR' />
+          </div>
           <div className="d-flex justify-content-between align-items-center mb-2 mt-5">
             <span className="fw-bold">{codigo}</span>
           </div>

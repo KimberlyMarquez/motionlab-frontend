@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import AjustesContainer from '../components/AjustesContainer';
 import Footer from '../components/Footer';
 import ButtonOrange from '../components/ButtonOrange';
@@ -15,7 +14,7 @@ const ParametrosIniciales = () => {
     <>
       <div className="background-container">
         <div className="main-content">
-          <AjustesContainer label="PARÁMETROS INICIALES" pag_anterior="/">
+          <AjustesContainer label="PARÁMETROS INICIALES" pag_anterior="/ajuste-equipos">
             <div className="d-flex flex-column align-items-center gap-4 mt-4">
               <ParametrosControl label="Revoluciones por minuto" unidad="rpm" valorInicial={60} />
               <ParametrosControl label="Tamaño de la rueda" unidad="cm" valorInicial={30} />

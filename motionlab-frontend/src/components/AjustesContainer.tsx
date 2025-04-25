@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import ButtonRegresar from '../components/ButtonRegresar';
 import '../pages/Ajustes.css';
 
 interface Props {
@@ -17,9 +18,9 @@ const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) =>
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
       <div className="ajustes-box shadow-lg p-4">
-        <button className="btn-regresar" onClick={handleRegresar}>
-          &lt; Regresar
-        </button>
+        <div className="btn-reg"onClick={handleRegresar}>
+          < ButtonRegresar label='< REGRESAR' />
+        </div>
 
         <div className="ajustes-label position-absolute start-50 translate-middle-x">
           {label}
