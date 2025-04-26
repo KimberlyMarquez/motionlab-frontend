@@ -15,7 +15,6 @@ const Main = () => {
           <h3 className="mt-4 mb-4"><b>Ingresar:</b></h3>
           <EquipoButton />
           <ProfesorButton />
-          <SiguienteButton />
         </div>
       </div>
       <Footer />
