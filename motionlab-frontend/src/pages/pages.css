@@ -10,8 +10,184 @@ html, body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  }
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.btn-regresar-encabezado {
+  position: absolute;
+  left: 270px;
+  top: 140px;
+}
+
+.btn-orange{
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 72px;
+}
+
+.input-matricula {
+max-width: 500px;
+width: 100%;
+background-color: #f2f2f2;
+border: none;
+border-radius: 10px;
+padding: 0.75rem;
+font-size: 1.1rem;
+box-shadow: none;
+outline: none;
+margin: 0 auto;
+}
+
+.loading{
+  background-color: white;
+  color: #547EBC;
+  left: 50%;
+  bottom: 9%;
+  border-radius: 15px 15px 0 0;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 0.5rem 5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  position: absolute;
+}
+
+.codigo-box {
+  background-color: white;
+  color: #4E79A7;
+  font-weight: bold;
+  font-size: 1.9rem;
+  border-radius: 10px;
+  padding: 0 1rem;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position:absolute;
+  top: 140px;
+  right: 270px;
+}
+
+.equipos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.equipo-card {
+  text-align: center;
+  width:250px;
+}
+
+.equipo-title {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/nube.svg');
+  display: flex;
+  flex-direction: column;
+  color: #C85332;
+  border-radius: 12px 12px 0 0;
+  width: 250px;
+  padding: 1.5rem 1.5rem 0.7rem;
+  font-weight: bold;
+  font-size: 1.6rem;
+  font-family: "Jersey 20", sans-serif;
+  margin-bottom: 0;
+  letter-spacing: 2px;
+}
+
+.integrantes-list {
+  background: #F3F8FF;
+  border-radius: 0 0 16px 16px;
+  padding: 0.4rem;
+  width: 150px;
+  box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+}
+
+.integrante-name {
+  color: #547EBC;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.info-icons {
+  display: flex;
+  gap: 1rem;
+  top: 70px;
+  right:160px;
+  position:absolute;
+}
+
+.icon-with-text {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: #C85332;
+  color: white;
+  padding: 0rem 2rem;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.icon-text {
+  font-size: 2rem;
+  font-family: "Jersey 20", sans-serif;
+}
+
+.boton-eliminar {
+  background-color: white;
+  color: #C85332;
+  border: 3px solid #C85332;
+  border-radius: 30%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}  
+
+.bg-personalized {
+  background-color: #C85332;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.plus-inside-btn {
+  background-color: white;
+  color: #C85332;
+  border: none;
+  border-radius: 8px;
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-button-fixed {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+}
