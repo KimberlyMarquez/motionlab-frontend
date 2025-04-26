@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Landing from "../pages/LandingPage";
+import LogInProfesores from "../pages/LogInProfesores";
 import ErrorPage from "../pages/ErrorPage";
+import LanzarPartidaProfesor from "../pages/LanzarPartidaProfesor";
 
 const router = createBrowserRouter([
     {
@@ -10,12 +11,15 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
     },
     {
-        path: "/Landing",
-        element: <Landing />,
+        path: "/loginprofesores",
+        element: <LogInProfesores />,
         errorElement: <ErrorPage />,
     },
-
-
+    {
+        path: "/lanzarpartidaprofesor",
+        element: <LanzarPartidaProfesor />,
+        errorElement: <ErrorPage />,
+    }
 ]);
 
 export default router;
