@@ -6,7 +6,7 @@ import LogInCard from '../components/LogInProfesores/LogInCard';
 const LogInProfesores = () => {
     return(
         <>  
-            <div className="background-container">
+            <div className="background-container flex-column">
                 <LogInCard />
             <GoBackButton />
             <Footer />

@@ -8,7 +8,7 @@ const LanzarPartidaProfesor = () => {
 
     return(
         <>  
-            <div className="background-container">
+            <div className="background-container flex-column">
                 <LanzarPartidaCard nomina={nomina}/>
             <LogOutButton />
             <Footer />

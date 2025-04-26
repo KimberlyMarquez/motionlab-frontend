@@ -16,6 +16,6 @@
     transition: transform 0.2s ease;
 }
 
-.goback-icon:hover {
+.icon:hover {
     transform: scale(1.05);
 }
