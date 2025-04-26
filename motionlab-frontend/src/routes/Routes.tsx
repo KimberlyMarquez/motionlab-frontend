@@ -4,6 +4,7 @@ import ParametrosIniciales from "../pages/ParametrosIniciales";
 import LoginCodigo from "../pages/LoginCodigo";
 import LoginAlumnos from "../pages/LoginAlumnos";
 import LobbyAlumnos from "../pages/LobbyAlumnos"
+import LobbyProfesor from "../pages/LobbyProfesor";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/lobby",
     element: <LobbyAlumnos />
+  },
+  {
+    path: "/lobbyprofesor",
+    element: <LobbyProfesor />
   }
 ]);
 

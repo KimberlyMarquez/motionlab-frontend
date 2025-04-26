@@ -54,7 +54,7 @@ const LobbyAlumnos = () => {
                 <IconWithText icon={<FaUsers size={40} />} text={equipos} />
             </div>
             
-            <div className="d-flex justify-content-around flex-wrap mt-4">
+            <div className="d-flex justify-content-around flex-wrap">
               <Equipos equipos={equipos} integrantes={integrantes} />
             </div>
 

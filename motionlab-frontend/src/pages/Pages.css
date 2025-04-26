@@ -93,9 +93,9 @@
     color: #C85332;
     border-radius: 12px 12px 0 0;
     width: 250px;
-    padding: 2rem 1rem 1rem;
+    padding: 1.5rem 1.5rem 0.7rem;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-family: "Jersey 20", sans-serif;
     margin-bottom: 0;
     letter-spacing: 2px;
@@ -104,8 +104,8 @@
   .integrantes-list {
     background: #F3F8FF;
     border-radius: 0 0 16px 16px;
-    padding: 0.5rem;
-    width: 180px;
+    padding: 0.4rem;
+    width: 150px;
     box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
     margin: 0 auto;
   }
@@ -113,7 +113,7 @@
   .integrante-name {
     color: #547EBC;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0;
   }
   
@@ -140,3 +140,48 @@
     font-size: 2rem;
     font-family: "Jersey 20", sans-serif;
   }
+
+  .boton-eliminar {
+    background-color: white;
+    color: #C85332;
+    border: 3px solid #C85332;
+    border-radius: 30%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }  
+
+  .bg-personalized {
+    background-color: #C85332;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+  }
+
+  .plus-inside-btn {
+    background-color: white;
+    color: #C85332;
+    border: none;
+    border-radius: 8px;
+    margin-left: 8px;
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .start-button-fixed {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+  }
+  
