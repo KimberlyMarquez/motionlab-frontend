@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Landing from "../pages/LandingPage";
+import LogInProfesores from "../pages/LogInProfesores";
 import ErrorPage from "../pages/ErrorPage";
 import Main from "../pages/MainPage";
+import LanzarPartidaProfesor from "../pages/LanzarPartidaProfesor";
+import Landing from "../pages/LandingPage"
 
 const router = createBrowserRouter([
     {

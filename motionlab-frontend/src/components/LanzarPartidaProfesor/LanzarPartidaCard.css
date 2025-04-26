@@ -1,0 +1,56 @@
+.lanzar-container {
+  background-color: #e6f0ff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 500px;
+  height: 470px;
+  text-align: center;
+  margin: auto;
+  z-index: 100;
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+
+.lanzar-title {
+  color: #C85332;
+  font-size: 2.2rem;
+  margin-bottom: 1.8rem;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.lanzar-box {
+  background-color: white;
+  border-radius: 20px;
+  padding: 2.8rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.stats-link {
+  color: #032B6F;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 1.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.stats-link:hover {
+  color: #4a8dff;
+}
+
+.lanzar-button{
+  font-size: 2.7rem;
+  line-height: 1.2;
+  padding: 1.2rem 8rem;
+  width: 70px;
+  height: 145px;
+  transition: transform 0.2s ease;
+}
+
+.lanzar-button:hover {
+  transform: scale(1.05);
+}
