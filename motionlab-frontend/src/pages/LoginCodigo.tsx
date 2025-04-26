@@ -4,6 +4,7 @@ import LogoutButton from '../components/LogoutButton';
 import CustomButton from '../components/CustomButtonT4';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
+import '../pages/Pages.css';
 
 const LoginCodigo: React.FC = () => {
   const [codigo, setCodigo] = useState('');
