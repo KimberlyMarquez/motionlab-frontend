@@ -3,10 +3,12 @@ import Footer from '../components/Footer';
 import ButtonOrange from '../components/ButtonOrange';
 import Parametros from '../components/Parametros';
 import '../pages/Pages.css';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const ParametrosIniciales = () => {
+  const navigate = useNavigate();
   const handleSiguiente = () => {
-    // Lógica para continuar o navegar
+    navigate('/lobbyprofesor', { state: { codigo: 'SIN-CÓDIGO' } });
     console.log('Iniciando nueva partida...');
   };
 
