@@ -11,7 +11,7 @@ const LoginAlumnos: React.FC = () => {
   const [matriculas, setMatriculas] = useState(['', '', '', '', '']);
   const navigate = useNavigate();
   const location = useLocation();
-  const codigo = location.state?.codigo || '';
+  const codigo = location.state?.codigo || "sin código";
 
   const handleMatriculaChange = (index: number, value: string) => {
     const nuevasMatriculas = [...matriculas];
@@ -47,13 +47,13 @@ const LoginAlumnos: React.FC = () => {
           <FormContainer>
             <div className="d-flex justify-content-between align-items-center mb-5 px-4">
             <div className="btn-regresar-encabezado"onClick={handleRegresar}>
-              < ButtonRegresar label='< REGRESAR' />
+              < ButtonRegresar label='< Regresar' />
             </div>
               <div className="codigo-box">{codigo}</div>
             </div>
 
             <div className="text-center mb-5 mt-4">
-              <label className="form-label fw-bold fs-5" style={{ color: '#032B6F' }}>
+              <label className="form-label fw-bold fs-5" style={{ color: '#032B6F', fontFamily:'"Inter", sans serif' }}>
                 Matrículas
               </label>
 

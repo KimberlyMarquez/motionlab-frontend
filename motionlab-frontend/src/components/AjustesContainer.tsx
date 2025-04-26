@@ -20,7 +20,7 @@ const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) =>
       <div className="ajustes-box shadow-lg p-4">
         <div>
             <div className="btn-reg"onClick={handleRegresar}>
-            < ButtonRegresar label='< REGRESAR' />
+            < ButtonRegresar label='< Regresar' />
             </div>
 
             <div className="ajustes-label position-absolute start-50 translate-middle-x">

@@ -1,4 +1,3 @@
-
 interface IconWithTextProps {
   icon: React.ReactNode;
   text: string | number;

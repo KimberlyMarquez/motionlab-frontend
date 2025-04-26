@@ -9,7 +9,6 @@ const CustomButton: React.FC<Props> = ({ label, onClick, disabled = false }) => 
     <button
       onClick={onClick}
       disabled={disabled}
-      className="fw-bold"
       style={{
         backgroundColor: disabled ? "#b86c4f" : "#E77951",
         color: "#fff",

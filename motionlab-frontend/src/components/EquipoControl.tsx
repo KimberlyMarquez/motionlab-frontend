@@ -10,7 +10,7 @@ interface ControlProps {
 const Control: React.FC<ControlProps> = ({ label, value, onIncrement, onDecrement }) => (
   <div className="text-center mb-4">
 
-    <h2 className="fw-bold mb-3" style={{ color: '#547EBC', fontSize: '2.5rem'}}>
+    <h2 className="fw-bold mb-3" style={{ color: '#547EBC', fontSize: '2.5rem', fontFamily: '"Inter", sans-serif' }}>
         {label}
     </h2>
 

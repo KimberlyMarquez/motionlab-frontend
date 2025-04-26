@@ -22,7 +22,7 @@ const ParametrosIniciales = () => {
             </div>
 
             <div className="btn-orange text-center">
-              <ButtonOrange label="NUEVA PARTIDA >" onClick={handleSiguiente} />
+              <ButtonOrange label="NUEVA PARTIDA" onClick={handleSiguiente} />
             </div>
           </AjustesContainer>
         </div>

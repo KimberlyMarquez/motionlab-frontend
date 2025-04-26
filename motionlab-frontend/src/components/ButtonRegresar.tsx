@@ -6,7 +6,6 @@ interface Props {
   const CustomButton: React.FC<Props> = ({ label, onClick }) => {
     return (
       <button
-        className="fw-bold"
         style={{
             backgroundColor: '#92B3E6',
             color: 'white',

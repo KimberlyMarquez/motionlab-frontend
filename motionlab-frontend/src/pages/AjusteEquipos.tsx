@@ -19,7 +19,7 @@ const AjusteEquipos = () => {
   return (
     <>
     <div className="background-container">
-        <div className="main-content">
+      <div className="main-content">
       <AjustesContainer label= "AJUSTE DE EQUIPOS" pag_anterior="/">
       
         <div className="d-flex justify-content-around flex-wrap mt-4">
