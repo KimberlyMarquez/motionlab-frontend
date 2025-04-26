@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Leaderboard.css";
+import { FaCrown } from "react-icons/fa";
 
 interface TeamInfo {
   name: string;
@@ -35,6 +36,20 @@ interface LeaderboardProps {
   onClose?: () => void;
 }
 
+// 🔧 Función para asignar clase según posición
+const getTimeContainerClass = (position: number): string => {
+  switch (position) {
+    case 1:
+      return "time-container first-place";
+    case 2:
+      return "time-container second-place";
+    case 3:
+      return "time-container third-place";
+    default:
+      return "time-container";
+  }
+};
+
 const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState<"equipos" | "alumnos">("equipos");
 
@@ -51,9 +66,12 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
           )}
           <div className="popup-header">
             <span></span>
-            <h2>👑LEADERBOARD👑</h2>
+            <FaCrown className="icon-crown" />
+            <h2>LEADERBOARD</h2>
+            <FaCrown className="icon-crown" />
           </div>
         </div>
+
         <div className="tabs">
           <button
             className={`tab tab-left ${
@@ -72,12 +90,14 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
             Alumnos
           </button>
         </div>
+
         <div
           className={`ranking-list ${
             activeTab === "equipos" ? "ranking-equipos" : "ranking-alumnos"
           }`}
         >
           <div className="subtitulo">Online HighScore</div>
+
           {dataToDisplay.map((item, index) => (
             <div
               key={index}
@@ -92,7 +112,10 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
               }`}
             >
               <span className="position">{item.position}</span>
-              <span className="time">{item.time.toFixed(2)}s</span>
+
+              <div className={getTimeContainerClass(item.position)}>
+                <span className="time">{item.time.toFixed(2)}s</span>
+              </div>
               <span className="name">{item.name}</span>
             </div>
           ))}
