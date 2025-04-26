@@ -1,18 +1,8 @@
 import React, { useState } from "react";
+import { TeamInfo } from "my-types";
+import { StudentInfo } from "my-types";
 import "./Leaderboard.css";
 import { FaCrown } from "react-icons/fa";
-
-interface TeamInfo {
-  name: string;
-  time: number;
-  position: number;
-}
-
-interface StudentInfo {
-  name: string;
-  time: number;
-  position: number;
-}
 
 const teamInfo: TeamInfo[] = [
   { name: "Equipo 1", time: 0.02, position: 1 },
