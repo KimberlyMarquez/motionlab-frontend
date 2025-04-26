@@ -18,12 +18,14 @@ const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) =>
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
       <div className="ajustes-box shadow-lg p-4">
-        <div className="btn-reg"onClick={handleRegresar}>
-          < ButtonRegresar label='< REGRESAR' />
-        </div>
+        <div>
+            <div className="btn-reg"onClick={handleRegresar}>
+            < ButtonRegresar label='< REGRESAR' />
+            </div>
 
-        <div className="ajustes-label position-absolute start-50 translate-middle-x">
-          {label}
+            <div className="ajustes-label position-absolute start-50 translate-middle-x">
+            {label}
+            </div>
         </div>
 
         <div className="ajustes-content">

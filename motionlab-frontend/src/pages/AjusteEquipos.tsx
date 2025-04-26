@@ -30,7 +30,7 @@ const AjusteEquipos = () => {
                 </>
               }
             value={equipos}
-            onIncrement={() => setEquipos(e => e + 1)}
+            onIncrement={() => setEquipos(e => Math.max(8, e - 1))}
             onDecrement={() => setEquipos(e => Math.max(1, e - 1))}
           />
           <EquipoControl
@@ -40,7 +40,7 @@ const AjusteEquipos = () => {
                 </>
               }
             value={integrantes}
-            onIncrement={() => setIntegrantes(i => i + 1)}
+            onIncrement={() => setIntegrantes(i => Math.max(5, i - 1))}
             onDecrement={() => setIntegrantes(i => Math.max(1, i - 1))}
           />
         </div>

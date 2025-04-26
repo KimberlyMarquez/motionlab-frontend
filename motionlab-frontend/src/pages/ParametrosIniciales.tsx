@@ -1,8 +1,8 @@
 import AjustesContainer from '../components/AjustesContainer';
 import Footer from '../components/Footer';
 import ButtonOrange from '../components/ButtonOrange';
-import ParametrosControl from '../components/Parametros';
-import '../pages/ParametrosIniciales.css';
+import Parametros from '../components/Parametros';
+import '../pages/Pages.css';
 
 const ParametrosIniciales = () => {
   const handleSiguiente = () => {
@@ -15,13 +15,13 @@ const ParametrosIniciales = () => {
       <div className="background-container">
         <div className="main-content">
           <AjustesContainer label="PARÁMETROS INICIALES" pag_anterior="/ajuste-equipos">
-            <div className="d-flex flex-column align-items-center gap-4 mt-4">
-              <ParametrosControl label="Revoluciones por minuto" unidad="rpm" valorInicial={60} />
-              <ParametrosControl label="Tamaño de la rueda" unidad="cm" valorInicial={30} />
-              <ParametrosControl label="Distancia" unidad="m" valorInicial={100} />
+            <div className="d-flex flex-column align-items-center  mt-2">
+              <Parametros label="Revoluciones por minuto" unidad="rpm" valorInicial={60} />
+              <Parametros label="Tamaño de la rueda" unidad="cm" valorInicial={30} />
+              <Parametros label="Distancia" unidad="m" valorInicial={100} />
             </div>
 
-            <div className="btn-orange text-center mt-5">
+            <div className="btn-orange text-center">
               <ButtonOrange label="NUEVA PARTIDA >" onClick={handleSiguiente} />
             </div>
           </AjustesContainer>

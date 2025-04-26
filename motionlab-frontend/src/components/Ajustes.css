@@ -40,20 +40,19 @@
   
 .ajustes-box {
     background-color: #E8F1FF;
-    width: 100%;
-    max-width: 1200px;
+    width: 90%;
+    max-width: 90%;
     height: 80%;
     border-radius: 100px;
     border: 1px solid black;
 }
   
 .btn-reg {
-    position: absolute;
-    left: 170px;
+    margin-left: 50px;
 }
   
 .ajustes-label {
-    top: 52px;
+    top: 54px;
     background-color: #547EBC;
     color: white;
     border-radius: 0 0 16px 16px;
@@ -64,7 +63,7 @@
 }
   
 .ajustes-content {
-    margin-top: 90px;
+    margin-top: 50px;
     height: 80%;
 }
   

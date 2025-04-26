@@ -23,6 +23,14 @@
     top: 140px;
 }
 
+.btn-orange{
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 72px;
+}
+
 .input-matricula {
   max-width: 500px;
   width: 100%;
@@ -34,6 +42,19 @@
   box-shadow: none;
   outline: none;
   margin: 0 auto;
+}
+
+.loading{
+    background-color: white;
+    color: #547EBC;
+    left: 50%;
+    bottom: 9%;
+    border-radius: 15px 15px 0 0;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: 0.5rem 5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    position: absolute;
 }
 
   .codigo-box {
@@ -48,4 +69,74 @@
     position:absolute;
     top: 140px;
     right: 270px;
+  }
+
+  .equipos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .equipo-card {
+    text-align: center;
+    width:250px;
+  }
+  
+  .equipo-title {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/nube.svg');
+    display: flex;
+    flex-direction: column;
+    color: #C85332;
+    border-radius: 12px 12px 0 0;
+    width: 250px;
+    padding: 2rem 1rem 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: "Jersey 20", sans-serif;
+    margin-bottom: 0;
+    letter-spacing: 2px;
+  }
+  
+  .integrantes-list {
+    background: #F3F8FF;
+    border-radius: 0 0 16px 16px;
+    padding: 0.5rem;
+    width: 180px;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+  }
+
+  .integrante-name {
+    color: #547EBC;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .info-icons {
+    display: flex;
+    gap: 1rem;
+    top: 70px;
+    right:160px;
+    position:absolute;
+  }
+  
+  .icon-with-text {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background-color: #C85332;
+    color: white;
+    padding: 0rem 2rem;
+    border-radius: 12px;
+    font-weight: bold;
+  }
+  
+  .icon-text {
+    font-size: 2rem;
+    font-family: "Jersey 20", sans-serif;
   }

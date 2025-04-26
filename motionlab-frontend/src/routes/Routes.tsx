@@ -7,7 +7,7 @@ import LobbyAlumnos from "../pages/LobbyAlumnos"
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/codigo",
     element: <LoginCodigo />,
   },
   {
