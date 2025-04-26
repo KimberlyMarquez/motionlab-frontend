@@ -1,6 +1,6 @@
 import './MainPage.css';
 import Footer from '../components/Footer';
-import ReturnButton from '../components/MainPage/ReturnButton';
+import GoBackButtonMain from '../components/MainPage/GoBackButtonMain';
 import EquipoButton from '../components/MainPage/EquipoButton';
 import ProfesorButton from '../components/MainPage/ProfesorButton';
 import SiguienteButton from '../components/MainPage/SiguienteButton';
@@ -8,7 +8,7 @@ import SiguienteButton from '../components/MainPage/SiguienteButton';
 const Main = () => {
   return (
     <div className="main-page-container">
-      <a href="/"><ReturnButton /></a>
+      <GoBackButtonMain/>
       <div className="wrapper-main">
         <div className="container d-flex flex-column align-items-center justify-content-center mt-5">
           <h1 className="d-flex"><b>¡Bienvenido a MotionLab!</b></h1>

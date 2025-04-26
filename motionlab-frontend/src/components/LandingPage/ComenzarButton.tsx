@@ -1,7 +1,15 @@
+import { useNavigate } from 'react-router-dom'; 
 
 const ComenzarButton = () => {
+
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate("/Main");
+  };
+
     return(
-        <a className="comenzarbutton" href="/Main"> COMENZAR </a>
+        <button className="comenzarbutton" onClick={handleGoBack}> COMENZAR </button>
     )
 }
 

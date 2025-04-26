@@ -1,6 +1,15 @@
+import { useNavigate } from 'react-router-dom'; 
+
 const SiguienteButton = () => {
+
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate("/loginprofesores");
+  };
+
     return(
-        <a href="/loginprofesores" className="siguiente ps-4 pe-4 mt-2 mb-3"> SIGUIENTE </a>
+        <button className="siguiente" onClick={handleGoBack}> SIGUIENTE </button>
     )
 }
 
