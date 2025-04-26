@@ -18,6 +18,16 @@ const router = createBrowserRouter([
                 path: "/Main",
                 element: <Main />,
             },
+            {
+                path: "/loginprofesores",
+                element: <LogInProfesores />,
+                errorElement: <ErrorPage />,
+            },
+            {
+                path: "/lanzarpartidaprofesor",
+                element: <LanzarPartidaProfesor />,
+                errorElement: <ErrorPage />,
+            }
         ]
     },
 

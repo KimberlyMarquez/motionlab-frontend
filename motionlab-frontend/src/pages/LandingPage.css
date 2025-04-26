@@ -1,27 +1,56 @@
+/* Ensure the full viewport is utilized */
+html, body {
+    overflow: hidden;
+    height: 100%; 
+    margin: 0; /* Removes default margin */
+}
+
+/* Main container layout for the landing page */
 .landing-page-container {
-    background-image: url('/assets/LandingPage/LandingBackground1.svg');
+    background-image: url('/assets/LandingPage/LandingBackground.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh; 
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Stack wrapper and footer vertically */
 }
 
-html, body {
-    overflow: hidden;
-    height: 100%; 
+.wrapper {
+    flex: 1; /* Expands to fill remaining space between the footer and top */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
-.footer {
-    margin-top: auto;
-}
-
-a {
+.comenzarbutton {
     font-family: 'Jersey 20', sans-serif;
-    font-size: 70px;
+    font-size: 55px;
     text-decoration: none !important;
     color: white !important;
-    background-color: #4971B4;
-    border-radius: 20px
+    background-color: #547EBC;
+    border-radius: 20px;
+    border: 7px solid #4971B4;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.655); /* Solid box shadow without blur */
+    padding: 15px 70px; /* Combines padding-left and padding-right */
+}
+
+.comenzar{
+    transition: transform 0.2s ease; /* Smooth hover effect */
+}
+
+.comenzar:hover {
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+/* Logo size */
+.Logo {
+    width: 610px !important;
+    height: 288px !important;
+}
+
+/* Optional shadow effect for .Guy */
+.Guy {
+    padding-right: 320px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2); /* Sharp shadow with no blur */
 }
