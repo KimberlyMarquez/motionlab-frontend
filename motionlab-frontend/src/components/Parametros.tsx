@@ -7,9 +7,11 @@ interface Props {
     label: string;
     unidad: string;
     valorInicial: number;
+    min: number;
+    max: number;
 }
 
-const ParametrosControl = ({ label, unidad, valorInicial }: Props) => {
+const ParametrosControl = ({ label, unidad, valorInicial, min, max}: Props) => {
     const [valor, setValor] = useState(valorInicial);
 
     const reset = () => setValor(valorInicial);
@@ -22,8 +24,8 @@ const ParametrosControl = ({ label, unidad, valorInicial }: Props) => {
             <div className="parametro-controls">
                 <input
                     type="range"
-                    min={0}
-                    max={300}
+                    min={min}
+                    max={max}
                     value={valor}
                     onChange={(e) => setValor(Number(e.target.value))}
                     className="slider"

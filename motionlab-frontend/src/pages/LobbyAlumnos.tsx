@@ -7,7 +7,7 @@ import { FaUser, FaUsers } from 'react-icons/fa';
 import '../pages/Pages.css';
 
 const LobbyAlumnos = () => {
-  const [equipos, setEquipos] = useState(8);
+  const [equipos, setEquipos] = useState(7);
   const [integrantes, setIntegrantes] = useState(5);
 
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ const LobbyAlumnos = () => {
         <LobbyContainer label={codigo} pag_anterior="/">
 
             <div className="info-icons">
-                <IconWithText icon={<FaUser size={30} />} text={integrantes} />
+                <IconWithText icon={<FaUser size={30} />} text={integrantes*equipos} />
                 <IconWithText icon={<FaUsers size={40} />} text={equipos} />
             </div>
             
