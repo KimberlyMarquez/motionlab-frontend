@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import LobbyContainer from '../components/LobbyContainer';
 import Footer from '../components/Footer';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import IconWithText from '../components/IconWithText';
 import { FaUser, FaUsers } from 'react-icons/fa';
 import '../pages/Pages.css';
@@ -9,7 +9,10 @@ import '../pages/Pages.css';
 const LobbyAlumnos = () => {
   const [equipos, setEquipos] = useState(8);
   const [integrantes, setIntegrantes] = useState(5);
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const codigo = location.state?.codigo || 'SIN-CÓDIGO';
  
   const handleSiguiente = () => {
     console.log('Equipos:', equipos, 'Integrantes:', integrantes);
@@ -47,7 +50,7 @@ const LobbyAlumnos = () => {
     <>
       <div className="background-container">
         <div className="main-content">
-        <LobbyContainer label="vrfd" pag_anterior="/">
+        <LobbyContainer label={codigo} pag_anterior="/">
 
             <div className="info-icons">
                 <IconWithText icon={<FaUser size={30} />} text={integrantes} />
