@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import FormContainer from '../components/FormContainer';
 import LogoutButton from '../components/LogoutButton';
 import Footer from '../components/Footer';
-import CustomButton from '../components/CustomButton';
+import CustomButton from '../components/CustomButtonT4';
 import ButtonRegresar from '../components/ButtonRegresar';
 import '../pages/Pages.css';
 

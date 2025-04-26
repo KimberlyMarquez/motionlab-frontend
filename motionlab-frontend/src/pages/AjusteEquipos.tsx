@@ -3,7 +3,7 @@ import AjustesContainer from '../components/AjustesContainer';
 import EquipoControl from '../components/EquipoControl';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
-import CustomButton from '../components/CustomButton';
+import CustomButton from '../components/CustomButtonT4';
 import '../pages/Pages.css';
 
 const AjusteEquipos = () => {
