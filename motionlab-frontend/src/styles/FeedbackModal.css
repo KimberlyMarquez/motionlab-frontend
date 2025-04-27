@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.feedback-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-dialog {
+    margin: 0 auto;
+    max-width: 800px;
+    width: 90%;
+}
+
+/* HEADER */
+.modal-header-custom {
+    background-color: #FFFFFF;
+    padding: 5px;
+    border-bottom: black;
+}
+
+.modal-title {
+    font-weight: bold;
+    color: #C85332 !important;
+    font-family: "Jersey 20", sans-serif;
+    font-size: 37px !important;
+    padding-left: 15px;
+    width: 100%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.custom-close-button {
+    background-color: white;
+    color: #C85332;
+    border: 4px solid #C85332;
+    border-radius: 12px; 
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;           
+    align-items: center;     
+    justify-content: center; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;     
+}
+
+.custom-close-button:hover {
+    background-color: #C85332; 
+    color: white;
+}
+
+.custom-close-button .close-icon {
+    font-weight: 900;
+    font-size: 24px; 
+    position: absolute;      
+    top: 50%;              
+    left: 50%;             
+    transform: translate(-50%, -60%);
+    line-height: 1;
+}
+
+/* BODY */
+.modal-body-custom{
+    background-color: #E8F1FF;
+    color: #032B6F;
+    font-family: "Inter", sans-serif;
+    font-weight: bolder;
+}
+
+.sub-title{
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.reminder{
+    background-color: #69BFDA;
+    color: white;
+    border-radius: 20px;
+    border: 3px solid #A2DEF0;
+    pointer-events: none;
+    font-size: 18px;
+    font-weight: bold;
+    height: 28px;
+    width: 118px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 10px 10px -6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 16px;
+}
+
+.list{
+    padding-left: 48px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .modal-title {
+        font-size: 28px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .modal-title {
+        font-size: 24px;
+    }
+
+}

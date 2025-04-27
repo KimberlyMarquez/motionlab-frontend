@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaUser, FaCrown, FaMap, FaLightbulb, FaSignOutAlt, FaFlag, FaClock, FaSync, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import FeedbaclModal from '../components/FeedbackModal';
+import InfoModal from '../components/TutoModal';
 import '../styles/Simulador.css';
 interface SimuladorProps {
     equipoId: string;
@@ -31,7 +33,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const [isGoalThreeCompleted, setIsGoalThreeCompleted] = useState<boolean>(false);
     const [statusMessage, setStatusMessage] = useState<string>("");
     const [statusType, setStatusType] = useState<"success" | "warning" | "error" | "">("");
-    const [alumnos, setAlumnos] = useState<string[]>(['A123456', 'A234567', 'A345678', 'A456789', 'A567890']);
+    const [alumnos, setAlumnos] = useState<string[]>(['A01255262', 'A234567', 'A345678', 'A456789', 'A567890']);
     const [alumnoActualIndex, setAlumnoActualIndex] = useState<number>(0);
     const [tiemposRegistrados, setTiemposRegistrados] = useState<{ [key: string]: number }>({});
     const [tiempoTotalGlobal, setTiempoTotalGlobal] = useState<number>(0);
@@ -39,6 +41,11 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const [allStudentsCompleted, setAllStudentsCompleted] = useState<boolean>(false);
     const [hasRunSimulation, setHasRunSimulation] = useState<boolean>(false);
     const [simulationCompleted, setSimulationCompleted] = useState<boolean>(false);
+
+    // Modales
+    const [showInfoModal, setShowInfoModal] = useState(false);
+    const [showFeedbaclModal, setshowFeedbaclModal] = useState(false);
+
     // Panel de metas 
     const [isGoalsPanelCollapsed, setIsGoalsPanelCollapsed] = useState(true);
     const timerRef = useRef<number | null>(null);
@@ -141,7 +148,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         setAdditionalMassInput(additionalMass.toFixed(2));
         setMotorPowerInput(motorPower.toFixed(2));
     }, [pilotMass, chassisMass, additionalMass, motorPower]);
- 
+
     const toggleGoalsPanel = () => {
         setIsGoalsPanelCollapsed(!isGoalsPanelCollapsed);
     };
@@ -160,7 +167,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         return rampAngleRadians;
     };
     const getCarRotationAngle = (xPos: number) => {
-        if (xPos < rampStartX || xPos > rampEndX) return 0; 
+        if (xPos < rampStartX || xPos > rampEndX) return 0;
         return -calculateRampAngle();
     };
     // Calculos
@@ -226,16 +233,16 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     // Comienzo de la simulación
     const startSimulation = () => {
         if (isRunning && !isPaused) return;
-        
+
         // Clear existing simulation timer
         if (simulationTimerRef.current) {
             clearInterval(simulationTimerRef.current);
             simulationTimerRef.current = null;
         }
-        
+
         setStatusMessage("");
         setStatusType("");
-        
+
         if (isPaused) {
             setIsPaused(false);
         } else {
@@ -253,14 +260,14 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             setHasRunSimulation(true);
             setSimulationCompleted(false);
         }
-        
+
         // Timer
         simulationTimerRef.current = window.setInterval(() => {
             setTime(prevTime => prevTime + 0.01);
         }, 10);
-        
+
         ensureTimerRunning();
-        
+
         if (animationRef.current) cancelAnimationFrame(animationRef.current);
         lastTimeRef.current = performance.now();
         animateKart();
@@ -284,13 +291,13 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                 setStatusMessage(`El carro se detuvo al ${progressPercent}% del recorrido total.`);
                 setStatusType("warning");
                 setSimulationCompleted(true);
-                
+
 
                 if (simulationTimerRef.current) {
                     clearInterval(simulationTimerRef.current);
                     simulationTimerRef.current = null;
                 }
-                
+
                 if (animationRef.current) cancelAnimationFrame(animationRef.current);
                 setIsRunning(false);
                 return;
@@ -316,12 +323,12 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                 setStatusMessage("¡Simulación completada con éxito!");
                 setStatusType("success");
                 setSimulationCompleted(true);
-                
+
                 if (simulationTimerRef.current) {
                     clearInterval(simulationTimerRef.current);
                     simulationTimerRef.current = null;
                 }
-                
+
                 setIsRunning(false);
             }
             const newY = calculateYPosition(newX);
@@ -348,22 +355,22 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     // Pausar la simulación
     const pauseSimulation = () => {
         setIsPaused(true);
-        
+
         // Detener la animación
         if (animationRef.current) cancelAnimationFrame(animationRef.current);
-        
+
         if (simulationTimerRef.current) {
             clearInterval(simulationTimerRef.current);
             simulationTimerRef.current = null;
         }
-        
+
         ensureTimerRunning();
     };
     // Cancelar la simulación
     const cancelSimulation = () => {
         setIsRunning(false);
         setIsPaused(false);
-        setTime(0); 
+        setTime(0);
         positionRef.current = { x: 50, y: 0 };
         setCarPosition(positionRef.current);
         velocityRef.current = 0;
@@ -455,7 +462,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         timerRef.current = window.setInterval(() => {
             setTiempoTotalGlobal(prevGlobal => prevGlobal + 0.01);
         }, 10);
-        
+
         return () => {
             if (timerRef.current) {
                 clearInterval(timerRef.current);
@@ -465,7 +472,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     }, []);
 
     const ensureTimerRunning = () => {
-        
+
         if (!timerRef.current) {
             timerRef.current = window.setInterval(() => {
                 setTiempoTotalGlobal(prevGlobal => prevGlobal + 0.01);
@@ -482,21 +489,33 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         <div className="simulador-container">
             <div className="top-bar">
                 <div className="team-info">
-                    <FaUser className="icon" />
-                    <span>EQUIPO {equipoId}</span>
-                    <FaCrown className="icon" />
-                    <FaMap className="icon" />
-                    <FaLightbulb className="icon" />
+                    <img src="/Users.svg" alt=""  className='icon'/>
+                    <span className='team-text'>EQUIPO {equipoId}</span>
+                    <FaCrown className="icon"
+                        onClick={() => setshowFeedbaclModal(true)}
+                        style={{ cursor: 'pointer' }}
+                    />
+                    <FaLightbulb className="icon"
+                        onClick={() => setShowInfoModal(true)}
+                        style={{ cursor: 'pointer' }}
+                    />
                 </div>
+
+                <div className="student-info">
+                    <div>Simulación de</div>
+                    <div className="matricula">{alumnos[alumnoActualIndex]}</div>
+                </div>
+
                 <div className="timer">
-                    <FaClock className="icon" />
+                    <div className="timer-icon-container">
+                    <img src="/Clock.svg" alt=""  className='icon'/>
+                    </div>
+                    <div className="timer-value-container">
                     <span>{formatTime(tiempoTotalGlobal)}</span>
+                    </div>
                 </div>
             </div>
-            <div className="student-info">
-                <div>Simulación de</div>
-                <div className="matricula">{alumnos[alumnoActualIndex]}</div>
-            </div>
+
             <div className="main-area">
                 <div className="simulation-landscape">
                     <div className="ground"></div>
@@ -545,9 +564,9 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                         style={{
                             left: `${carPosition.x}px`,
                             bottom: `${groundLevel + carPosition.y}px`,
-                            transform: `rotate(${getCarRotationAngle(carPosition.x)}rad)`, 
-                            transformOrigin: 'bottom center', 
-                            transition: 'transform 0.2s ease-out' 
+                            transform: `rotate(${getCarRotationAngle(carPosition.x)}rad)`,
+                            transformOrigin: 'bottom center',
+                            transition: 'transform 0.2s ease-out'
                         }}
                     >
                         <div className="car-image"></div>
@@ -785,6 +804,18 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                 </div>
                 <button className="ready-btn" onClick={handleReadyClick} disabled={allStudentsCompleted || isRunning || isPaused || !simulationCompleted}>LISTO</button>
             </div>
+
+            <InfoModal
+                show={showInfoModal}
+                onHide={() => setShowInfoModal(false)}
+            />
+
+
+            <FeedbaclModal
+                show={showFeedbaclModal}
+                onHide={() => setshowFeedbaclModal(false)}
+            />
+
         </div>
     );
 };
