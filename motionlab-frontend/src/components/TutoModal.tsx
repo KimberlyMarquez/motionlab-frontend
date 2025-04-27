@@ -18,12 +18,19 @@ interface Tooltip {
 
 const InfoModal: React.FC<InfoModalProps> = ({ show, onHide }) => {
     const [tooltips, setTooltips] = useState<Tooltip[]>([
-        { id: 1, x: 13, y: 25, text: "Leaderboard", visible: false, arrowPosition: 'arrow-top' },
-        { id: 2, x: 30, y: 8, text: "Tutorial", visible: false, arrowPosition: 'arrow-left' },
-        { id: 3, x: 44, y: 22, text: "Metas", visible: false, arrowPosition: 'arrow-right' }
+        { id: 1, x: 10, y: 16, text: "Leaderboard", visible: false, arrowPosition: 'arrow-top' },
+        { id: 2, x: 25, y: 5, text: "Tutorial", visible: false, arrowPosition: 'arrow-left' },
+        { id: 3, x: 52, y: 23, text: "Metas", visible: false, arrowPosition: 'arrow-right' },
+        { id: 1, x: 30, y: 23, text: "Turno del Estudiante", visible: false, arrowPosition: 'arrow-top' },
+        { id: 3, x: 25, y: 40, text: "Tiempos por Estudiante", visible: false, arrowPosition: 'arrow-left' },
+        { id: 1, x: 10, y: 55, text: "Meta Asignada", visible: false, arrowPosition: 'arrow-bottom' },
+        { id: 1, x: 2, y: 74, text: "Salida", visible: false, arrowPosition: 'arrow-bottom' },
+        { id: 1, x: 29, y: 64, text: "Tiempo Transcurrido por Estudiante", visible: false, arrowPosition: 'arrow-bottom' },
+        { id: 1, x: 50, y: 87, text: "Finalizar Turno", visible: false, arrowPosition: 'arrow-left' },
+        { id: 3, x: 52, y: 87, text: "Comenzar Simulación", visible: false, arrowPosition: 'arrow-right' },
+
     ]);
 
-    // Animación para mostrar los tooltips uno por uno
     useEffect(() => {
         if (!show) return;
 
@@ -55,7 +62,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ show, onHide }) => {
             <Modal.Body className="modal-body-custom">
                 <div className="image-container">
                     <img
-                        src="/img/Fakepic.png"
+                        src="/TutoIMG.png"
                         alt="Guía del simulador"
                         className="simulator-image"
                     />

@@ -13,11 +13,10 @@
     width: 90%;
 }
 
-/* HEADER */
 .modal-header-custom {
     background-color: #FFFFFF;
     padding: 5px;
-    border-bottom: black;
+    border-bottom: 1px solid black !important;
 }
 
 .modal-title {
@@ -61,12 +60,12 @@
     line-height: 1;
 }
 
-/* BODY */
 .modal-body-custom{
     background-color: #E8F1FF;
     color: #032B6F;
     font-family: "Inter", sans-serif;
     font-weight: bolder;
+    border-radius: 0 0 12px 12px;
 }
 
 .sub-title{
@@ -96,7 +95,7 @@
     padding-left: 48px;
 }
 
-/* Media Queries */
+
 @media (max-width: 768px) {
     .modal-title {
         font-size: 28px;

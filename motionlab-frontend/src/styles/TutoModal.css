@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
 
-/* Estilos para centrar el modal */
 .tutorial-modal {
     display: flex;
     align-items: center;
@@ -13,7 +12,6 @@
     width: 90%;
 }
 
-/* Estilos del header */
 .modal-header-custom {
     background-color: #FFFFFF;
     padding: 15px;
@@ -52,7 +50,6 @@
     color: white;
 }
 
-/* La X dentro del botón */
 .custom-close-button .close-icon {
     font-weight: 900;
     font-size: 24px; 
@@ -63,7 +60,6 @@
     line-height: 1;
 }
 
-/* Contenedor de imagen responsivo */
 .image-container {
     width: 100%;
     display: flex;
@@ -81,7 +77,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Tooltips rediseñados con la flecha personalizable */
 .tooltip {
     position: absolute;
     background-color: white;
@@ -93,9 +88,9 @@
     transition: all 0.5s ease;
     max-width: 200px;
     z-index: 10;
+    text-align: center !important;
 }
 
-/* Pseudo-elemento para crear la flecha */
 .tooltip::before {
     content: "";
     position: absolute;
@@ -105,7 +100,6 @@
     clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 }
 
-/* Clases para posicionar la flecha en diferentes ubicaciones */
 .tooltip.arrow-top::before {
     top: -15px;
     left: 50%;
@@ -140,7 +134,6 @@
     animation: bounce 1.5s infinite;
 }
 
-/* Animaciones */
 @keyframes bounce {
 
     0%,
@@ -153,7 +146,6 @@
     }
 }
 
-/* Media queries para responsividad */
 @media (max-width: 768px) {
     .modal-title {
         font-size: 28px;

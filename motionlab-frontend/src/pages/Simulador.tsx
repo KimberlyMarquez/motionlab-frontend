@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaUser, FaCrown, FaMap, FaLightbulb, FaSignOutAlt, FaFlag, FaClock, FaSync, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import FeedbaclModal from '../components/FeedbackModal';
+import { FaUser, FaCrown, FaMap, FaLightbulb, FaSignOutAlt, FaFlag, FaClock, FaSync, FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
+import FeedbackModal from '../components/FeedbackModal';
 import InfoModal from '../components/TutoModal';
 import '../styles/Simulador.css';
 interface SimuladorProps {
@@ -33,7 +33,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const [isGoalThreeCompleted, setIsGoalThreeCompleted] = useState<boolean>(false);
     const [statusMessage, setStatusMessage] = useState<string>("");
     const [statusType, setStatusType] = useState<"success" | "warning" | "error" | "">("");
-    const [alumnos, setAlumnos] = useState<string[]>(['A01255262', 'A234567', 'A345678', 'A456789', 'A567890']);
+    const [alumnos, setAlumnos] = useState<string[]>(['A01255262', 'A23456007', 'A34056780', 'A45006789', 'A56700890']);
     const [alumnoActualIndex, setAlumnoActualIndex] = useState<number>(0);
     const [tiemposRegistrados, setTiemposRegistrados] = useState<{ [key: string]: number }>({});
     const [tiempoTotalGlobal, setTiempoTotalGlobal] = useState<number>(0);
@@ -44,7 +44,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
 
     // Modales
     const [showInfoModal, setShowInfoModal] = useState(false);
-    const [showFeedbaclModal, setshowFeedbaclModal] = useState(false);
+    const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
     // Panel de metas 
     const [isGoalsPanelCollapsed, setIsGoalsPanelCollapsed] = useState(true);
@@ -61,7 +61,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const HP_TO_WATTS = 745.7;
     const CM_TO_M = 0.01;
     const PIXELS_PER_METER = 30;
-    const groundLevel = 80;
+    const groundLevel = 200; //Se cambio el alto del groun level
     // Dimensiones del carro
     const CAR_WIDTH = 50;
     // Calculos de las posiciones de la rampa
@@ -343,6 +343,9 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             }
             if (!isGoalTwoCompleted && isRampTopReached) {
                 setIsGoalTwoCompleted(true);
+            }
+            if (isGoalThreeCompleted) {
+                setIsGoalThreeCompleted(true);
                 setStatusMessage("¡El carro ha llegado al final del recorrido con éxito!");
                 setStatusType("success");
             }
@@ -368,6 +371,11 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     };
     // Cancelar la simulación
     const cancelSimulation = () => {
+        if (simulationTimerRef.current) {
+            clearInterval(simulationTimerRef.current);
+            simulationTimerRef.current = null;
+        }
+
         setIsRunning(false);
         setIsPaused(false);
         setTime(0);
@@ -426,6 +434,8 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             setIsRunning(false);
             setIsPaused(false);
             console.log("Tiempos registrados:", tiemposRegistrados);
+
+            setShowFeedbackModal(true);
         }
     };
     const resetParameters = () => {
@@ -489,12 +499,9 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         <div className="simulador-container">
             <div className="top-bar">
                 <div className="team-info">
-                    <img src="/Users.svg" alt=""  className='icon'/>
+                    <img src="/Users.svg" alt="" className='icon' />
                     <span className='team-text'>EQUIPO {equipoId}</span>
-                    <FaCrown className="icon"
-                        onClick={() => setshowFeedbaclModal(true)}
-                        style={{ cursor: 'pointer' }}
-                    />
+                    <FaCrown className="icon" />
                     <FaLightbulb className="icon"
                         onClick={() => setShowInfoModal(true)}
                         style={{ cursor: 'pointer' }}
@@ -508,16 +515,26 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
 
                 <div className="timer">
                     <div className="timer-icon-container">
-                    <img src="/Clock.svg" alt=""  className='icon'/>
+                        <img src="/Clock.svg" alt="" className='icon' />
                     </div>
                     <div className="timer-value-container">
-                    <span>{formatTime(tiempoTotalGlobal)}</span>
+                        <span>{formatTime(tiempoTotalGlobal)}</span>
                     </div>
                 </div>
             </div>
 
             <div className="main-area">
                 <div className="simulation-landscape">
+                    <div className="registered-times">
+                        <h4 className='register-label'>Tiempos Registrados</h4>
+                        <ul className='register-students'>
+                            {Object.entries(tiemposRegistrados).map(([alumno, tiempo]) => (
+                                <li key={alumno}>
+                                    {alumno}: {formatTime(tiempo)}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                     <div className="ground"></div>
                     <div
                         className="hill"
@@ -535,7 +552,6 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             width: `${platformLength}px`,
                             height: `${rampHeight}px`,
                             bottom: `${groundLevel}px`,
-                            backgroundColor: '#689F38',
                             position: 'absolute'
                         }}
                     ></div>
@@ -548,15 +564,15 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                         }}
                     ></div>
                     <div className="flag flag-1" style={{ left: `${flag1X}px`, bottom: `${groundLevel}px` }}>
-                        <FaFlag className="flag-icon" style={{ color: isGoalOneCompleted ? '#4CAF50' : '#FF5722' }} />
+                        <FaFlag className="flag-icon" style={{ color: isGoalOneCompleted ? '#547EBC' : '#C85332' }} />
                         <span className="flag-number">1</span>
                     </div>
                     <div className="flag flag-2" style={{ left: `${flag2X}px`, bottom: `${groundLevel + rampHeight}px` }}>
-                        <FaFlag className="flag-icon" style={{ color: isGoalTwoCompleted ? '#4CAF50' : '#FF5722' }} />
+                        <FaFlag className="flag-icon" style={{ color: isGoalTwoCompleted ? '#547EBC' : '#C85332' }} />
                         <span className="flag-number">2</span>
                     </div>
                     <div className="flag flag-3" style={{ left: `${flag3X}px`, bottom: `${groundLevel + rampHeight}px` }}>
-                        <FaFlag className="flag-icon" style={{ color: isGoalThreeCompleted ? '#4CAF50' : '#FF5722' }} />
+                        <FaFlag className="flag-icon" style={{ color: isGoalThreeCompleted ? '#547EBC' : '#C85332' }} />
                         <span className="flag-number">3</span>
                     </div>
                     <div
@@ -571,8 +587,23 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                     >
                         <div className="car-image"></div>
                     </div>
+                    <div className='bottom'>
+                        <button className="signout-btn">
+                            <img src="/SignOut.svg" alt="" />
+                        </button>
+                        <div className='center-container'>
+                            <div className='time'>
+                                <div className="timer-icon-container">
+                                    <img src="/Clockblanco.svg" alt="" className='icon-bottom' />
+                                </div>
+                                <div className="time-display">
+                                    <span>{formatTime(tiempoTotalGlobal - tiempoInicioAlumnoActual)}</span>
+                                </div>
+                            </div>
+                            <button className="ready-btn" onClick={handleReadyClick} disabled={allStudentsCompleted || isRunning || isPaused || !simulationCompleted}>LISTO</button>
+                        </div>
+                    </div>
                 </div>
-                {/* Panel de Metas Compacto */}
                 <div className={`compact-goals-panel ${isGoalsPanelCollapsed ? 'collapsed' : ''}`}>
                     <button className="toggle-compact-goals" onClick={toggleGoalsPanel}>
                         {isGoalsPanelCollapsed ? (
@@ -585,7 +616,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                         <span className="metas-title">METAS</span>
                         <div className="compact-goal-item">
                             <div className="compact-flag-container">
-                                <FaFlag className="flag-icon" style={{ color: isGoalOneCompleted ? '#4CAF50' : '#FF5722' }} />
+                                <FaFlag className="flag-icon" style={{ color: isGoalOneCompleted ? '#547EBC' : '#C85332' }} />
                                 <span className="flag-number">1</span>
                             </div>
                             <span className={`goal-text ${isGoalOneCompleted ? 'completed' : ''}`}
@@ -596,7 +627,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                         </div>
                         <div className="compact-goal-item">
                             <div className="compact-flag-container">
-                                <FaFlag className="flag-icon" style={{ color: isGoalTwoCompleted ? '#4CAF50' : '#FF5722' }} />
+                                <FaFlag className="flag-icon" style={{ color: isGoalTwoCompleted ? '#547EBC' : '#C85332' }} />
                                 <span className="flag-number">2</span>
                             </div>
                             <span className={`goal-text ${isGoalTwoCompleted ? 'completed' : ''}`}
@@ -607,7 +638,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                         </div>
                         <div className="compact-goal-item">
                             <div className="compact-flag-container">
-                                <FaFlag className="flag-icon" style={{ color: isGoalThreeCompleted ? '#4CAF50' : '#FF5722' }} />
+                                <FaFlag className="flag-icon" style={{ color: isGoalThreeCompleted ? '#547EBC' : '#C85332' }} />
                                 <span className="flag-number">3</span>
                             </div>
                             <span className={`goal-text ${isGoalThreeCompleted ? 'completed' : ''}`}
@@ -626,21 +657,24 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             onClick={resetParameters}
                             disabled={isRunning}
                         >
-                            <FaSync />
+                            <img src="/Refresh.png" alt="" />
                         </button>
                     </div>
                     <div className="parameter-group">
                         <div className="parameter">
-                            <label>Revoluciones por minuto (rpm):</label>
+                            <label>Revoluciones por minuto:</label>
                             <input type="text" value={rpm} readOnly />
+                            <p>rpm</p>
                         </div>
                         <div className="parameter">
-                            <label>Tamaño de la rueda (cm):</label>
+                            <label>Tamaño de la rueda:</label>
                             <input type="text" value={wheelSize} readOnly />
+                            <p>cm</p>
                         </div>
                         <div className="parameter">
-                            <label>Distancia de la rampa (m):</label>
+                            <label>Distancia de la rampa:</label>
                             <input type="text" value={distance} readOnly />
+                            <p>m</p>
                         </div>
                     </div>
                     <div className="parameter-group user-params">
@@ -755,16 +789,6 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             <span>{formatTime(time)}</span>
                         </div>
                     </div>
-                    <div className="registered-times">
-                        <h4>Tiempos Registrados:</h4>
-                        <ul>
-                            {Object.entries(tiemposRegistrados).map(([alumno, tiempo]) => (
-                                <li key={alumno}>
-                                    {alumno}: {formatTime(tiempo)}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
                     {statusMessage && (
                         <div className={`status-message ${statusType}`}>
                             {statusMessage}
@@ -783,26 +807,17 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             onClick={pauseSimulation}
                             disabled={(!isRunning || isPaused) || allStudentsCompleted}
                         >
-                            PAUSE
+                            <img src="/Pause.svg" alt="" />
                         </button>
                         <button
                             className="control-btn cancel-btn"
                             onClick={cancelSimulation}
                             disabled={(!isRunning && !isPaused) || allStudentsCompleted}
                         >
-                            CANCEL
+                            <FaTimes className='cross' />
                         </button>
                     </div>
                 </div>
-            </div>
-            <div className="bottom-bar">
-                <button className="signout-btn">
-                    <FaSignOutAlt />
-                </button>
-                <div className="alumno-tiempo">
-                    <span>Tiempo alumno: {formatTime(tiempoTotalGlobal - tiempoInicioAlumnoActual)}</span>
-                </div>
-                <button className="ready-btn" onClick={handleReadyClick} disabled={allStudentsCompleted || isRunning || isPaused || !simulationCompleted}>LISTO</button>
             </div>
 
             <InfoModal
@@ -811,10 +826,11 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             />
 
 
-            <FeedbaclModal
-                show={showFeedbaclModal}
-                onHide={() => setshowFeedbaclModal(false)}
+            <FeedbackModal
+                show={showFeedbackModal}
+                onHide={() => setShowFeedbackModal(false)}
             />
+
 
         </div>
     );
