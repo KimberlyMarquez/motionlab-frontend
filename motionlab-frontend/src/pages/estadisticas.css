@@ -1,0 +1,262 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5eacc;
+}
+
+.background-container {
+  background-image: url("/background.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  width: 90%;
+  background-color: #e8f1ff;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.header-container {
+  position: relative;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #547ebc;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  font-weight: bold;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 2.2rem;
+  position: relative;
+  margin: 0 auto;
+  max-width: 300px;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+}
+
+.btn-return {
+  background-color: #6b95d6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 20px;
+  font-family: "Jersey 20", cursive;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.btn-return:hover {
+  background-color: #5a80c0;
+}
+
+.actions-container {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+.icon-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  background-color: transparent;
+  border: none;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon-img {
+  width: 24px;
+  height: 23px;
+}
+
+.tabs-container {
+  padding: 0 15px;
+  margin: 10px 0 15px;
+  font-size: 20px;
+  display: flex;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.tab-btn {
+  border: none;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  padding: 10px 24px;
+  margin-right: 0;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #f2f2f2;
+  color: #333;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tab-equipos {
+  background-color: #547ebc;
+  color: white;
+}
+
+.tab-alumnos {
+  background-color: #70c2ad;
+  color: white;
+}
+
+.tab-btn:hover {
+  opacity: 0.9;
+}
+
+.table-container {
+  padding: 0 15px 15px 15px;
+}
+
+/* Fixed height container for the students table with scrollbar */
+.table-container-scrollable {
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 15px;
+}
+
+/* Styling the scrollbar */
+.table-container-scrollable::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-container-scrollable::-webkit-scrollbar-track {
+  background: #dde9fc;
+  border-radius: 10px;
+}
+
+.table-container-scrollable::-webkit-scrollbar-thumb {
+  background: #547ebc;
+  border-radius: 10px;
+}
+
+.table-container-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #3a5d96;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.stats-table thead tr {
+  background-color: #bfd3f3;
+  color: black;
+  font-weight: normal;
+}
+
+.stats-table th {
+  padding: 12px 15px;
+  text-align: center;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.stats-table th:first-child {
+  text-align: left;
+}
+
+.stats-table tbody tr {
+  background-color: #92b3e6;
+}
+
+.stats-table tbody tr:nth-child(odd) {
+  background-color: #92b3e6;
+}
+
+.stats-table tbody tr:nth-child(even) {
+  background-color: #a4c2f0;
+}
+
+.stats-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.stats-table td:first-child {
+  text-align: left;
+}
+
+.table-alumnos thead tr {
+  background-color: #95cdbd;
+}
+
+.table-alumnos tbody tr {
+  background-color: #6dab9b;
+}
+
+.table-alumnos tbody tr:nth-child(odd) {
+  background-color: #6dab9b;
+}
+
+.table-alumnos tbody tr:nth-child(even) {
+  background-color: #7dbcab;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+
+  .header {
+    font-size: 1.3rem;
+    max-width: 250px;
+  }
+
+  .stats-table {
+    font-size: 0.9rem;
+  }
+
+  .stats-table th,
+  .stats-table td {
+    padding: 8px 10px;
+  }
+
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .table-container-scrollable {
+    max-height: 300px;
+  }
+}
