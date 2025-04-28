@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
 
 
 * {
@@ -483,17 +482,6 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   border: none;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-}
-
-
-.slider-container::after {
-  content: '';
-  position: absolute;
-  right: 77px;
-  width: 4px;
-  height: 15px;
-  background: #0F2853;
-  z-index: 1;
 }
 
 .value-input-container {
