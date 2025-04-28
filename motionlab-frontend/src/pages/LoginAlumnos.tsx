@@ -13,6 +13,11 @@ const LoginAlumnos: React.FC = () => {
   const location = useLocation();
   const codigo = location.state?.codigo || "sin código";
 
+  const validarMatricula = (matricula: string) => {
+    const regex = /^A0\d{7}$/;
+    return regex.test(matricula);
+  };
+
   const handleMatriculaChange = (index: number, value: string) => {
     const nuevasMatriculas = [...matriculas];
     nuevasMatriculas[index] = value;
@@ -20,6 +25,28 @@ const LoginAlumnos: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    const matriculasNoVacias = matriculas.filter((m) => m.trim() !== '');
+
+    // Validar: debe haber al menos una matrícula
+    if (matriculasNoVacias.length === 0) {
+      alert('Debe ingresar al menos una matrícula.');
+      return;
+    }
+
+    // Validar que todas las escritas estén correctas
+    const algunaInvalida = matriculasNoVacias.some((m) => !validarMatricula(m));
+    if (algunaInvalida) {
+      alert('Las matrículas escritas deben empezar con A0 y tener exactamente 7 números.');
+      return;
+    }
+
+    // Validar que no haya repetidas
+    const hayRepetidas = new Set(matriculasNoVacias).size !== matriculasNoVacias.length;
+    if (hayRepetidas) {
+      alert('No puede haber matrículas repetidas.');
+      return;
+    }
+
     if (codigo.trim()) {
       navigate('/lobby');
     }
@@ -46,14 +73,14 @@ const LoginAlumnos: React.FC = () => {
 
           <FormContainer>
             <div className="d-flex justify-content-between align-items-center mb-5 px-4">
-            <div className="btn-regresar-encabezado"onClick={handleRegresar}>
-              < ButtonRegresar label='< Regresar' />
-            </div>
+              <div className="btn-regresar-encabezado" onClick={handleRegresar}>
+                <ButtonRegresar label='< Regresar' />
+              </div>
               <div className="codigo-box">{codigo}</div>
             </div>
 
             <div className="text-center mb-5 mt-4">
-              <label className="form-label fw-bold fs-5" style={{ color: '#032B6F', fontFamily:'"Inter", sans serif' }}>
+              <label className="form-label fw-bold fs-5" style={{ color: '#032B6F', fontFamily: '"Inter", sans-serif' }}>
                 Matrículas
               </label>
 
@@ -78,7 +105,7 @@ const LoginAlumnos: React.FC = () => {
                   }}
                 />
               ))}
-              
+
               <div className='mb-5 mt-3'>
                 <CustomButton label="¡UNIRSE!" onClick={handleSubmit} />
               </div>
