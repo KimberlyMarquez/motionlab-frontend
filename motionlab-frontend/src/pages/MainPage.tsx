@@ -3,7 +3,6 @@ import Footer from '../components/Footer';
 import GoBackButtonMain from '../components/MainPage/GoBackButtonMain';
 import EquipoButton from '../components/MainPage/EquipoButton';
 import ProfesorButton from '../components/MainPage/ProfesorButton';
-import SiguienteButton from '../components/MainPage/SiguienteButton';
 
 const Main = () => {
   return (

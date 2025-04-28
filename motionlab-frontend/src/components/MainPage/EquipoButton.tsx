@@ -3,7 +3,7 @@ import { useNavigate } from "react-router"
 const EquipoButton = () => {
     const navigate = useNavigate();
     const handleLoginEquipo = () => {
-        navigate("/login");
+        navigate("/codigo");
       };
 
     return(
