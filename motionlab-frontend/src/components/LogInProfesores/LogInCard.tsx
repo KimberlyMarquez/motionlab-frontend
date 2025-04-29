@@ -2,13 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import CustomButton from '../CustomButton';
 import './LoginCard.css';
 import { useState } from 'react';
+import { teacherLogin } from '../../api/authAPI';
 
 const LoginCard = () => {
   const navigate = useNavigate();
   const [nomina, setNomina] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const nominaRegex = /^L\d{8}$/;
@@ -18,8 +19,14 @@ const LoginCard = () => {
       return;
     }
 
-    localStorage.setItem('nomina', nomina);
-    navigate('/lanzarpartidaprofesor');
+    const res = await teacherLogin(nomina, password);
+
+    if (res.status === "success") {
+      localStorage.setItem('teacherId', res.payload);
+      navigate('/lanzarpartidaprofesor');
+    } else {
+      alert(res.message);
+    }
   };
 
   return (
