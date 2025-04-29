@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import LobbyContainer from '../components/LobbyContainer';
-import { useLocation } from 'react-router-dom';
 import IconWithText from '../components/IconWithText';
 import { FaUser, FaUsers, FaTrashAlt } from 'react-icons/fa';
 import CustomButton from '../components/ButtonOrange';
@@ -10,61 +9,52 @@ import '../pages/Pages.css';
 interface Equipo {
   nombre: string;
   matriculas: string[];
-  teamId?: number;
+  teamId: number;
 }
 
 const LobbyProfesor = () => {
   const [equipos, setEquipos] = useState<Equipo[]>([]);
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
 
-  const codigo = location.state?.codigo || 'SIN-CÓDIGO';
-  const matchId = location.state?.matchId || null;
-  const totalEquiposPlaneados = location.state?.teams || 0;
+  // 🔥 Cargamos datos desde sessionStorage
+  const codigo = sessionStorage.getItem("codigo") || "SIN-CÓDIGO";
+  const matchId = sessionStorage.getItem("matchId");
+  const totalEquiposPlaneados = parseInt(sessionStorage.getItem("teams") || "0");
+
+  const fetchEquipos = async () => {
+    if (!matchId) return;
+
+    setLoading(true);
+    const res = await getLobbyTeams(matchId);
+
+    if (res.status === "success") {
+      const equiposReales = res.payload.map((team: any, idx: number) => ({
+        nombre: `Equipo ${idx + 1}`,
+        matriculas: team.students.map((s: any) => `A${s.id}`),
+        teamId: team.teamId,
+      }));
+
+      setEquipos(equiposReales);
+    } else {
+      console.error(res.message);
+    }
+
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const fetchEquipos = async () => {
-      if (!matchId || !totalEquiposPlaneados) return;
-
-      setLoading(true);
-      const res = await getLobbyTeams(matchId.toString());
-
-      if (res.status === "success") {
-        const equiposReales = res.payload.map((team: any, idx: number) => ({
-          nombre: `Equipo ${idx + 1}`,
-          matriculas: team.students.map((s: any) => `A${s.id}`),
-          teamId: team.teamId,
-        }));
-
-        const faltan = totalEquiposPlaneados - equiposReales.length;
-        const vacios: Equipo[] = Array.from({ length: faltan > 0 ? faltan : 0 }, (_, i) => ({
-          nombre: `Equipo ${equiposReales.length + i + 1}`,
-          matriculas: [],
-        }));
-
-        const equiposFinales = [...equiposReales, ...vacios];
-
-        setEquipos(equiposFinales);
-      } else {
-        console.error(res.message);
-      }
-      setLoading(false);
-    };
-
     fetchEquipos();
-  }, [matchId, totalEquiposPlaneados]);
+  }, [matchId]);
 
   const eliminarEquipo = async (index: number) => {
     const equipo = equipos[index];
-
-    if (!equipo.teamId) return; // No borrar si es equipo inventado (vacío)
+    const confirmacion = window.confirm(`¿Eliminar ${equipo.nombre}?`);
+    if (!confirmacion) return;
 
     try {
       const res = await deleteTeamFromLobby(equipo.teamId.toString());
       if (res.status === "success") {
-        const copia = [...equipos];
-        copia.splice(index, 1);
-        setEquipos(copia);
+        await fetchEquipos(); // recarga los equipos tras eliminar
       } else {
         console.error(res.message);
       }
@@ -90,45 +80,47 @@ const LobbyProfesor = () => {
             </div>
           </div>
 
-          <div
-            className="equipos-grid-container"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              justifyItems: 'center',
-              gap: '2rem',
-              padding: '0 2rem'
-            }}
-          >
-            {loading ? (
-              <p>Cargando equipos...</p>
-            ) : equipos.map((equipo, i) => (
-              <div key={i} className="equipo-card position-relative">
-                {equipo.teamId && (
+          {loading ? (
+            <p className="text-center mt-3">Cargando equipos...</p>
+          ) : equipos.length === 0 ? (
+            <p className="text-center mt-4 text-muted">Aún no hay equipos creados</p>
+          ) : (
+            <div
+              className="equipos-grid-container"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                justifyItems: 'center',
+                gap: '2rem',
+                padding: '0 2rem'
+              }}
+            >
+              {equipos.map((equipo, i) => (
+                <div key={i} className="equipo-card position-relative">
                   <button
                     onClick={() => eliminarEquipo(i)}
                     className="boton-eliminar position-absolute top-0 start-50 translate-middle"
                   >
                     <FaTrashAlt />
                   </button>
-                )}
 
-                <h5 className="equipo-title">{equipo.nombre}</h5>
+                  <h5 className="equipo-title">{equipo.nombre}</h5>
 
-                <div className="integrantes-list shadow">
-                  {equipo.matriculas.length > 0 ? (
-                    equipo.matriculas.map((mat, idx) => (
-                      <div key={idx} className="integrante-name">
-                        {mat}
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-muted" style={{ fontSize: '0.9rem' }}>Sin alumnos</p>
-                  )}
+                  <div className="integrantes-list shadow">
+                    {equipo.matriculas.length > 0 ? (
+                      equipo.matriculas.map((mat, idx) => (
+                        <div key={idx} className="integrante-name">
+                          {mat}
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-muted" style={{ fontSize: '0.9rem' }}>Sin alumnos</p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           <div className="start-button-fixed">
             <CustomButton
@@ -137,7 +129,6 @@ const LobbyProfesor = () => {
               disabled={equipos.length === 0}
             />
           </div>
-
         </LobbyContainer>
       </div>
     </div>

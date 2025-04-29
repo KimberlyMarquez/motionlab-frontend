@@ -37,15 +37,13 @@ const ParametrosIniciales = () => {
       });
   
       console.log('Partida creada:', response.payload);
+
+      sessionStorage.setItem("codigo", response.payload.code);
+      sessionStorage.setItem("matchId", response.payload.id.toString());
+      sessionStorage.setItem("teams", response.payload.teams.toString());
+      sessionStorage.setItem("members", response.payload.members.toString());
   
-      navigate('/lobbyprofesor', { 
-        state: { 
-          codigo: response.payload.code,
-          matchId: response.payload.id,
-          teams: response.payload.teams,
-          members: response.payload.members
-        }
-      });
+      navigate('/lobbyprofesor');
   
       console.log('Código:', response.payload.code, 'Profesor:', teacherId, 'Equipos:', response.payload.teams, 'Integrantes:', response.payload.members, 'RPM:', rpm, 'Rueda:', rueda, 'Distancia:', distancia);
     } catch (error) {
