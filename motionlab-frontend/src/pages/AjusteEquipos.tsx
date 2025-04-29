@@ -13,7 +13,7 @@ const AjusteEquipos = () => {
  
   const handleSiguiente = () => {
     console.log('Equipos:', equipos, 'Integrantes:', integrantes);
-    navigate ('/parametros');
+    navigate ('/parametros', { state : { equipos, integrantes }});
   };
 
   return (
@@ -30,7 +30,7 @@ const AjusteEquipos = () => {
                 </>
               }
             value={equipos}
-            onIncrement={() => setEquipos(e => Math.max(8, e - 1))}
+            onIncrement={() => setEquipos(e => Math.min(8, e + 1))}
             onDecrement={() => setEquipos(e => Math.max(1, e - 1))}
           />
           <EquipoControl
@@ -40,7 +40,7 @@ const AjusteEquipos = () => {
                 </>
               }
             value={integrantes}
-            onIncrement={() => setIntegrantes(i => Math.max(5, i - 1))}
+            onIncrement={() => setIntegrantes(i => Math.min(5, i + 1))}
             onDecrement={() => setIntegrantes(i => Math.max(1, i - 1))}
           />
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import './Parametros.css';
@@ -9,12 +9,17 @@ interface Props {
     valorInicial: number;
     min: number;
     max: number;
+    onChange: (valor: number) => void;
 }
 
-const ParametrosControl = ({ label, unidad, valorInicial, min, max}: Props) => {
+const ParametrosControl = ({ label, unidad, valorInicial, min, max, onChange}: Props) => {
     const [valor, setValor] = useState(valorInicial);
 
     const reset = () => setValor(valorInicial);
+
+    useEffect(() => {
+        onChange(valor);
+    }, [valor, onChange]);
 
     return (
         <div className="parametro-container">
