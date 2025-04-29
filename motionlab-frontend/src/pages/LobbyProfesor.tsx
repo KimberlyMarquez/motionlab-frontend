@@ -18,7 +18,6 @@ const LobbyProfesor = () => {
 
   const codigo = sessionStorage.getItem("codigo") || "SIN-CÓDIGO";
   const matchId = sessionStorage.getItem("matchId");
-  const totalEquiposPlaneados = parseInt(sessionStorage.getItem("teams") || "0");
 
   const fetchEquipos = async () => {
     if (!matchId) return;
