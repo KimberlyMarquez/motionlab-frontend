@@ -184,3 +184,11 @@
     z-index: 999;
   }
   
+  .user-params {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+  
+  }
