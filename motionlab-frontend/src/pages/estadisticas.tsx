@@ -187,7 +187,7 @@ const Statistics: React.FC = () => {
   };
 
   return (
-    <div className="background-container">
+    <div className="background-container1">
       <div className="container">
         <div className="header-container">
           <div className="actions-container">
