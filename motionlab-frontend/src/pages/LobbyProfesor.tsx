@@ -16,7 +16,6 @@ const LobbyProfesor = () => {
   const [equipos, setEquipos] = useState<Equipo[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔥 Cargamos datos desde sessionStorage
   const codigo = sessionStorage.getItem("codigo") || "SIN-CÓDIGO";
   const matchId = sessionStorage.getItem("matchId");
   const totalEquiposPlaneados = parseInt(sessionStorage.getItem("teams") || "0");
@@ -54,7 +53,7 @@ const LobbyProfesor = () => {
     try {
       const res = await deleteTeamFromLobby(equipo.teamId.toString());
       if (res.status === "success") {
-        await fetchEquipos(); // recarga los equipos tras eliminar
+        await fetchEquipos(); 
       } else {
         console.error(res.message);
       }
