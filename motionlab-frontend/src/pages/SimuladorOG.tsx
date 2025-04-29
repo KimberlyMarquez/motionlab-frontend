@@ -1,35 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-    FaCrown,
-    FaLightbulb,
-    FaFlag,
-    FaChevronLeft,
-    FaChevronRight,
-    FaTimes,
-} from "react-icons/fa";
-import FeedbackModal from "../components/FeedbackModal";
-import InfoModal from "../components/TutoModal";
-import "../styles/Simulador.css";
-import { getCalcSimulacion } from "../api/SimuladorAPI";
-
+import React, { useState, useEffect, useRef } from 'react';
+import { FaUser, FaCrown, FaMap, FaLightbulb, FaSignOutAlt, FaFlag, FaClock, FaSync, FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
+import FeedbackModal from '../components/FeedbackModal';
+import InfoModal from '../components/TutoModal';
+import '../styles/Simulador.css';
 interface SimuladorProps {
     equipoId: string;
 }
-
-type MovementData = {
-    time: number; // El tiempo en segundos desde el inicio de la simulación
-    x: number; // Posición X del carro
-    y: number; // Posición Y del carro
-    velocity: number; // Velocidad del carro
-    isRampBaseReached: boolean; // Si se ha alcanzado la base de la rampa
-    isRampTopReached: boolean; // Si se ha alcanzado la cima de la rampa
-    isGoalOneCompleted: boolean; // Si se ha completado el primer objetivo
-    isGoalTwoCompleted: boolean; // Si se ha completado el segundo objetivo
-    isGoalThreeCompleted: boolean; // Si se ha completado el tercer objetivo
-    distanceTraveled: number; // Distancia recorrida por el carro
-    progressPercent: number;
-    failedToClimbHill: boolean; // Porcentaje de progreso en el recorrido total
-};
 const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     // Parametros del profesor
     const [rpm, setRpm] = useState<number>(2000);
@@ -54,45 +30,33 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const [distanceTraveled, setDistanceTraveled] = useState<number>(0);
     const [isGoalOneCompleted, setIsGoalOneCompleted] = useState<boolean>(false);
     const [isGoalTwoCompleted, setIsGoalTwoCompleted] = useState<boolean>(false);
-    const [isGoalThreeCompleted, setIsGoalThreeCompleted] =
-        useState<boolean>(false);
+    const [isGoalThreeCompleted, setIsGoalThreeCompleted] = useState<boolean>(false);
     const [statusMessage, setStatusMessage] = useState<string>("");
-    const [statusType, setStatusType] = useState<
-        "success" | "warning" | "error" | ""
-    >("");
-    const [alumnos, setAlumnos] = useState<string[]>([
-        "A01255262",
-        "A23456007",
-    ]);
+    const [statusType, setStatusType] = useState<"success" | "warning" | "error" | "">("");
+    const [alumnos, setAlumnos] = useState<string[]>(['A01255262', 'A23456007', 'A34056780', 'A45006789', 'A56700890']);
     const [alumnoActualIndex, setAlumnoActualIndex] = useState<number>(0);
-    const [tiemposRegistrados, setTiemposRegistrados] = useState<{
-        [key: string]: number;
-    }>({});
+    const [tiemposRegistrados, setTiemposRegistrados] = useState<{ [key: string]: number }>({});
     const [tiempoTotalGlobal, setTiempoTotalGlobal] = useState<number>(0);
-    const [tiempoInicioAlumnoActual, setTiempoInicioAlumnoActual] =
-        useState<number>(0);
-    const [allStudentsCompleted, setAllStudentsCompleted] =
-        useState<boolean>(false);
+    const [tiempoInicioAlumnoActual, setTiempoInicioAlumnoActual] = useState<number>(0);
+    const [allStudentsCompleted, setAllStudentsCompleted] = useState<boolean>(false);
     const [hasRunSimulation, setHasRunSimulation] = useState<boolean>(false);
-    const [simulationCompleted, setSimulationCompleted] =
-        useState<boolean>(false);
+    const [simulationCompleted, setSimulationCompleted] = useState<boolean>(false);
 
     // Modales
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
-    // Panel de metas
+    // Panel de metas 
     const [isGoalsPanelCollapsed, setIsGoalsPanelCollapsed] = useState(true);
     const timerRef = useRef<number | null>(null);
     const animationRef = useRef<number | null>(null);
     const lastTimeRef = useRef<number>(0);
     const velocityRef = useRef<number>(0);
-    const positionRef = useRef<{ x: number; y: number }>({ x: 50, y: 0 });
+    const positionRef = useRef<{ x: number, y: number }>({ x: 50, y: 0 });
     const distanceRef = useRef<number>(0);
     const simulationTimerRef = useRef<number | null>(null);
-    const movementDataRef = useRef<MovementData[]>([]);
 
-    // Constantes
+    // Constantes 
     const GRAVITY = 9.81;
     const HP_TO_WATTS = 745.7;
     const CM_TO_M = 0.01;
@@ -102,7 +66,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const CAR_WIDTH = 50;
     // Calculos de las posiciones de la rampa
     const rampStartX = 250;
-    const rampEndX = rampStartX + distance * PIXELS_PER_METER;
+    const rampEndX = rampStartX + (distance * PIXELS_PER_METER);
     const rampHeight = 120;
     const platformLength = 120;
     const platformEndX = rampEndX + platformLength;
@@ -117,11 +81,10 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const tramo2Pixels = flag2X - flag1X;
     const tramo3Pixels = flag3X - flag2X;
     const totalCoursePixels = tramo1Pixels + tramo2Pixels + tramo3Pixels;
+    const totalCourseMeters = totalCoursePixels / PIXELS_PER_METER;
 
     // Handles
-    const handlePilotMassInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handlePilotMassInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setPilotMassInput(value);
         const numValue = parseFloat(value);
@@ -129,9 +92,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             setPilotMass(numValue);
         }
     };
-    const handleChassisMassInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleChassisMassInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setChassisMassInput(value);
         const numValue = parseFloat(value);
@@ -139,9 +100,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             setChassisMass(numValue);
         }
     };
-    const handleAdditionalMassInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleAdditionalMassInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setAdditionalMassInput(value);
         const numValue = parseFloat(value);
@@ -149,9 +108,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             setAdditionalMass(numValue);
         }
     };
-    const handleMotorPowerInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
+    const handleMotorPowerInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setMotorPowerInput(value);
         const numValue = parseFloat(value);
@@ -195,9 +152,15 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const toggleGoalsPanel = () => {
         setIsGoalsPanelCollapsed(!isGoalsPanelCollapsed);
     };
-
-
-    // Calcular ángulo de la rampaZ
+    // Calcular masa total
+    const getTotalMass = () => pilotMass + chassisMass + additionalMass;
+    // Calculate velocidad máxima
+    const calculateMaxVelocity = () => {
+        const radiansPerSecond = (rpm * 2 * Math.PI) / 60;
+        const wheelCircumference = 2 * Math.PI * (wheelSize * CM_TO_M);
+        return radiansPerSecond * wheelCircumference;
+    };
+    // Calcular ángulo de la rampa
     const calculateRampAngle = () => {
         const heightInMeters = rampHeight / PIXELS_PER_METER;
         const rampAngleRadians = Math.atan(heightInMeters / distance);
@@ -207,21 +170,71 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         if (xPos < rampStartX || xPos > rampEndX) return 0;
         return -calculateRampAngle();
     };
+    // Calculos
+    const calculateAcceleration = (velocity: number) => {
+        const totalMass = getTotalMass();
+        if (totalMass <= 0 || motorPower <= 0) {
+            return 0;
+        }
+        const maxVelocity = calculateMaxVelocity();
+        const powerFactor = motorPower / 8;
+        const baseAcceleration = 3 * powerFactor;
+        const rpmFactor = rpm > 0 ? rpm / 3000 : 0.5;
+        const rpmAdjustedAcceleration = baseAcceleration * rpmFactor;
+        const massRatio = 130 / totalMass;
+        const massAdjustedAcceleration = rpmAdjustedAcceleration * massRatio;
+        const velocityRatio = maxVelocity > 0 ? velocity / maxVelocity : 0;
+        const velocityFactor = Math.max(0, 1 - Math.pow(velocityRatio, 2));
+        const velocityResistance = 0.05 * Math.pow(velocity, 2);
+        let hillResistance = 0;
+        if (positionRef.current.x >= rampStartX && positionRef.current.x <= rampEndX) {
+            const rampAngle = calculateRampAngle();
+            hillResistance = GRAVITY * Math.sin(rampAngle) * totalMass;
+            const frictionCoefficient = 0.1;
+            const frictionForce = frictionCoefficient * totalMass * GRAVITY * Math.cos(rampAngle);
+            hillResistance += frictionForce;
+        }
+        const availablePower = motorPower * HP_TO_WATTS;
+        const motorForce = velocity > 0.001 ? availablePower / velocity : availablePower * 10;
+        const netForce = (massAdjustedAcceleration * velocityFactor * totalMass) - hillResistance - (velocityResistance * totalMass);
+        const finalAcceleration = netForce / totalMass;
+        return finalAcceleration;
+    };
+    // Calcular posición Y
+    const calculateYPosition = (xPos: number) => {
+        if (xPos < rampStartX) {
+            return 0;
+        } else if (xPos > rampEndX) {
+            return rampHeight;
+        } else {
+            const rampProgress = (xPos - rampStartX) / (rampEndX - rampStartX);
+            return rampProgress * rampHeight;
+        }
+    };
+    // Calculate progreso total
+    const calculateTotalProgress = (xPos: number) => {
+        if (xPos <= flag1X) {
+            return ((xPos - startX) / totalCoursePixels) * 100;
+        } else if (xPos <= flag2X) {
+            const tramo1Percent = tramo1Pixels / totalCoursePixels * 100;
+            const tramo2Progress = (xPos - flag1X) / tramo2Pixels;
+            const tramo2Percent = tramo2Progress * (tramo2Pixels / totalCoursePixels * 100);
+            return tramo1Percent + tramo2Percent;
+        } else if (xPos <= flag3X) {
+            const tramo1Percent = tramo1Pixels / totalCoursePixels * 100;
+            const tramo2Percent = tramo2Pixels / totalCoursePixels * 100;
+            const tramo3Progress = (xPos - flag2X) / tramo3Pixels;
+            const tramo3Percent = tramo3Progress * (tramo3Pixels / totalCoursePixels * 100);
+            return tramo1Percent + tramo2Percent + tramo3Percent;
+        } else {
+            return 100;
+        }
+    };
     // Comienzo de la simulación
-    const startSimulation = async () => {
+    const startSimulation = () => {
         if (isRunning && !isPaused) return;
 
-        const dataToSend = {
-            pilotMass: pilotMass,
-            chassisMass: chassisMass,
-            additionalMass: additionalMass,
-            motorPower: motorPower,
-            matchId: 1,
-        };
-
-        const response = await getCalcSimulacion(dataToSend);
-        movementDataRef.current = response.payload;
-
+        // Clear existing simulation timer
         if (simulationTimerRef.current) {
             clearInterval(simulationTimerRef.current);
             simulationTimerRef.current = null;
@@ -250,7 +263,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
 
         // Timer
         simulationTimerRef.current = window.setInterval(() => {
-            setTime((prevTime) => prevTime + 0.01);
+            setTime(prevTime => prevTime + 0.01);
         }, 10);
 
         ensureTimerRunning();
@@ -259,117 +272,90 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         lastTimeRef.current = performance.now();
         animateKart();
     };
-
+    // Animación
     const animateKart = () => {
-        const movementData = movementDataRef.current;
-        let currentFrameIndex = 0;
-        const animationStartTime = performance.now();
-
-        // Reset simulation state
-        lastTimeRef.current = animationStartTime;
-
         const animate = (timestamp: number) => {
             if (!isRunning || isPaused) return;
-
-            // Calculate how much time has passed since the animation started
-            const elapsedTime = (timestamp - animationStartTime) / 1000;
-
-            // Find the appropriate frame in our precalculated data
-            while (
-                currentFrameIndex < movementData.length - 1 &&
-                movementData[currentFrameIndex + 1].time <= elapsedTime
-            ) {
-                currentFrameIndex++;
+            const deltaTime = (timestamp - lastTimeRef.current) / 1000;
+            lastTimeRef.current = timestamp;
+            const acceleration = calculateAcceleration(velocityRef.current);
+            velocityRef.current += acceleration * deltaTime;
+            const isOnRamp = positionRef.current.x >= rampStartX && positionRef.current.x <= rampEndX;
+            if (isOnRamp && velocityRef.current < 0) {
+                velocityRef.current = Math.max(velocityRef.current, -3.0);
             }
 
-            const currentFrame = movementData[currentFrameIndex];
+            if (isOnRamp && Math.abs(velocityRef.current) < 0.05) {
+                velocityRef.current = 0;
+                const progressPercent = Math.round(calculateTotalProgress(positionRef.current.x));
+                setStatusMessage(`El carro se detuvo al ${progressPercent}% del recorrido total.`);
+                setStatusType("warning");
+                setSimulationCompleted(true);
 
-            positionRef.current = { x: currentFrame.x, y: currentFrame.y };
-            velocityRef.current = currentFrame.velocity;
-            distanceRef.current = currentFrame.distanceTraveled;
 
+                if (simulationTimerRef.current) {
+                    clearInterval(simulationTimerRef.current);
+                    simulationTimerRef.current = null;
+                }
+
+                if (animationRef.current) cancelAnimationFrame(animationRef.current);
+                setIsRunning(false);
+                return;
+            }
+            const distanceIncrement = velocityRef.current * deltaTime + 0.5 * acceleration * Math.pow(deltaTime, 2);
+            distanceRef.current += distanceIncrement;
+            let newX = 50 + (distanceRef.current * PIXELS_PER_METER);
+            if (newX < 50) {
+                newX = 50;
+                velocityRef.current = 0;
+                distanceRef.current = 0;
+                setIsRunning(false);
+                setStatusMessage("El carro no tiene suficiente potencia para subir la rampa.");
+                setStatusType("error");
+                setSimulationCompleted(true);
+            }
+            // Carro al llegar a la pared
+            if (newX + CAR_WIDTH >= wallX) {
+                newX = wallX - CAR_WIDTH;
+                distanceRef.current = (newX - 50) / PIXELS_PER_METER;
+                velocityRef.current = 0;
+                setIsGoalThreeCompleted(true);
+                setStatusMessage("¡Simulación completada con éxito!");
+                setStatusType("success");
+                setSimulationCompleted(true);
+
+                if (simulationTimerRef.current) {
+                    clearInterval(simulationTimerRef.current);
+                    simulationTimerRef.current = null;
+                }
+
+                setIsRunning(false);
+            }
+            const newY = calculateYPosition(newX);
+            const isRampBaseReached = newX >= rampStartX;
+            const isRampTopReached = newX >= rampEndX;
+            positionRef.current = { x: newX, y: newY };
             setCarPosition(positionRef.current);
             setCurrentVelocity(velocityRef.current);
             setDistanceTraveled(distanceRef.current);
-
-            // Check if the cart failed to climb the hill
-            if (currentFrame.failedToClimbHill && velocityRef.current < 0) {
-                setStatusMessage(
-                    "El carro no puede subir la rampa. La masa es demasiada y/o la potencia muy poca."
-                );
-                setStatusType("error");
-                setSimulationCompleted(true);
-                setIsRunning(false);
-
-                if (simulationTimerRef.current) {
-                    clearInterval(simulationTimerRef.current);
-                    simulationTimerRef.current = null;
-                }
-
-                return;
-            }
-
-            if (!isGoalOneCompleted && currentFrame.isGoalOneCompleted) {
+            if (!isGoalOneCompleted && isRampBaseReached) {
                 setIsGoalOneCompleted(true);
             }
-
-            if (!isGoalTwoCompleted && currentFrame.isGoalTwoCompleted) {
+            if (!isGoalTwoCompleted && isRampTopReached) {
                 setIsGoalTwoCompleted(true);
             }
-
-            if (!isGoalThreeCompleted && currentFrame.isGoalThreeCompleted) {
+            if (isGoalThreeCompleted) {
                 setIsGoalThreeCompleted(true);
-                setStatusMessage(
-                    "¡El carro ha llegado al final del recorrido con éxito!"
-                );
+                setStatusMessage("¡El carro ha llegado al final del recorrido con éxito!");
                 setStatusType("success");
-                setSimulationCompleted(true);
-                setIsRunning(false);
-
-                if (simulationTimerRef.current) {
-                    clearInterval(simulationTimerRef.current);
-                    simulationTimerRef.current = null;
-                }
-
-                return;
             }
-
-            // Check if simulation should end based on other conditions
-            if (currentFrameIndex >= movementData.length - 1) {
-                const isOnRamp =
-                    currentFrame.x >= rampStartX && currentFrame.x <= rampEndX;
-
-                if (isOnRamp && Math.abs(currentFrame.velocity) < 0.05) {
-                    setStatusMessage(
-                        `El carro se detuvo al ${currentFrame.progressPercent}% del recorrido total.`
-                    );
-                    setStatusType("warning");
-                    setSimulationCompleted(true);
-                } else if (currentFrame.x <= 50) {
-                    setStatusMessage(
-                        "El carro no tiene suficiente potencia para subir la rampa."
-                    );
-                    setStatusType("error");
-                    setSimulationCompleted(true);
-                }
-                setIsRunning(false);
-
-                if (simulationTimerRef.current) {
-                    clearInterval(simulationTimerRef.current);
-                    simulationTimerRef.current = null;
-                }
-
-                return;
-            }
-
             if (isRunning) {
                 animationRef.current = requestAnimationFrame(animate);
             }
         };
-
         animationRef.current = requestAnimationFrame(animate);
     };
-
+    // Pausar la simulación
     const pauseSimulation = () => {
         setIsPaused(true);
 
@@ -416,14 +402,14 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         // Registrar el tiempo del alumno actual
         const alumnoActual = alumnos[alumnoActualIndex];
         const tiempoAlumno = tiempoTotalGlobal - tiempoInicioAlumnoActual;
-        setTiemposRegistrados((prev) => ({
+        setTiemposRegistrados(prev => ({
             ...prev,
-            [alumnoActual]: tiempoAlumno,
+            [alumnoActual]: tiempoAlumno
         }));
 
         // Verificar si hay más alumnos en la lista
         if (alumnoActualIndex < alumnos.length - 1) {
-            setAlumnoActualIndex((prev) => prev + 1);
+            setAlumnoActualIndex(prev => prev + 1);
             cancelSimulation();
             setTiempoInicioAlumnoActual(tiempoTotalGlobal);
             setHasRunSimulation(false);
@@ -484,7 +470,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
 
     useEffect(() => {
         timerRef.current = window.setInterval(() => {
-            setTiempoTotalGlobal((prevGlobal) => prevGlobal + 0.01);
+            setTiempoTotalGlobal(prevGlobal => prevGlobal + 0.01);
         }, 10);
 
         return () => {
@@ -496,9 +482,10 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     }, []);
 
     const ensureTimerRunning = () => {
+
         if (!timerRef.current) {
             timerRef.current = window.setInterval(() => {
-                setTiempoTotalGlobal((prevGlobal) => prevGlobal + 0.01);
+                setTiempoTotalGlobal(prevGlobal => prevGlobal + 0.01);
             }, 10);
         }
     };
@@ -506,21 +493,18 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
         const milliseconds = Math.floor((time % 1) * 100);
-        return `${minutes.toString().padStart(2, "0")}:${seconds
-            .toString()
-            .padStart(2, "0")}.${milliseconds.toString().padStart(2, "0")}`;
+        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
     };
     return (
         <div className="simulador-container">
             <div className="top-bar">
                 <div className="team-info">
-                    <img src="/Users.svg" alt="" className="icon" />
-                    <span className="team-text">EQUIPO {equipoId}</span>
+                    <img src="/Users.svg" alt="" className='icon' />
+                    <span className='team-text'>EQUIPO {equipoId}</span>
                     <FaCrown className="icon" />
-                    <FaLightbulb
-                        className="icon"
+                    <FaLightbulb className="icon"
                         onClick={() => setShowInfoModal(true)}
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                     />
                 </div>
 
@@ -531,7 +515,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
 
                 <div className="timer">
                     <div className="timer-icon-container">
-                        <img src="/Clock.svg" alt="" className="icon" />
+                        <img src="/Clock.svg" alt="" className='icon' />
                     </div>
                     <div className="timer-value-container">
                         <span>{formatTime(tiempoTotalGlobal)}</span>
@@ -542,8 +526,8 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             <div className="main-area">
                 <div className="simulation-landscape">
                     <div className="registered-times">
-                        <h4 className="register-label">Tiempos Registrados</h4>
-                        <ul className="register-students">
+                        <h4 className='register-label'>Tiempos Registrados</h4>
+                        <ul className='register-students'>
                             {Object.entries(tiemposRegistrados).map(([alumno, tiempo]) => (
                                 <li key={alumno}>
                                     {alumno}: {formatTime(tiempo)}
@@ -558,7 +542,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             left: `${rampStartX}px`,
                             width: `${distance * PIXELS_PER_METER}px`,
                             height: `${rampHeight}px`,
-                            bottom: `${groundLevel}px`,
+                            bottom: `${groundLevel}px`
                         }}
                     ></div>
                     <div
@@ -568,7 +552,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             width: `${platformLength}px`,
                             height: `${rampHeight}px`,
                             bottom: `${groundLevel}px`,
-                            position: "absolute",
+                            position: 'absolute'
                         }}
                     ></div>
                     <div
@@ -576,43 +560,19 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                         style={{
                             left: `${wallX}px`,
                             height: `${rampHeight + 40}px`,
-                            bottom: `${groundLevel}px`,
+                            bottom: `${groundLevel}px`
                         }}
                     ></div>
-                    <div
-                        className="flag flag-1"
-                        style={{ left: `${flag1X}px`, bottom: `${groundLevel}px` }}
-                    >
-                        <FaFlag
-                            className="flag-icon"
-                            style={{ color: isGoalOneCompleted ? "#547EBC" : "#C85332" }}
-                        />
+                    <div className="flag flag-1" style={{ left: `${flag1X}px`, bottom: `${groundLevel}px` }}>
+                        <FaFlag className="flag-icon" style={{ color: isGoalOneCompleted ? '#547EBC' : '#C85332' }} />
                         <span className="flag-number">1</span>
                     </div>
-                    <div
-                        className="flag flag-2"
-                        style={{
-                            left: `${flag2X}px`,
-                            bottom: `${groundLevel + rampHeight}px`,
-                        }}
-                    >
-                        <FaFlag
-                            className="flag-icon"
-                            style={{ color: isGoalTwoCompleted ? "#547EBC" : "#C85332" }}
-                        />
+                    <div className="flag flag-2" style={{ left: `${flag2X}px`, bottom: `${groundLevel + rampHeight}px` }}>
+                        <FaFlag className="flag-icon" style={{ color: isGoalTwoCompleted ? '#547EBC' : '#C85332' }} />
                         <span className="flag-number">2</span>
                     </div>
-                    <div
-                        className="flag flag-3"
-                        style={{
-                            left: `${flag3X}px`,
-                            bottom: `${groundLevel + rampHeight}px`,
-                        }}
-                    >
-                        <FaFlag
-                            className="flag-icon"
-                            style={{ color: isGoalThreeCompleted ? "#547EBC" : "#C85332" }}
-                        />
+                    <div className="flag flag-3" style={{ left: `${flag3X}px`, bottom: `${groundLevel + rampHeight}px` }}>
+                        <FaFlag className="flag-icon" style={{ color: isGoalThreeCompleted ? '#547EBC' : '#C85332' }} />
                         <span className="flag-number">3</span>
                     </div>
                     <div
@@ -621,46 +581,30 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             left: `${carPosition.x}px`,
                             bottom: `${groundLevel + carPosition.y}px`,
                             transform: `rotate(${getCarRotationAngle(carPosition.x)}rad)`,
-                            transformOrigin: "bottom center",
-                            transition: "transform 0.2s ease-out",
+                            transformOrigin: 'bottom center',
+                            transition: 'transform 0.2s ease-out'
                         }}
                     >
                         <div className="car-image"></div>
                     </div>
-                    <div className="bottom">
+                    <div className='bottom'>
                         <button className="signout-btn">
                             <img src="/SignOut.svg" alt="" />
                         </button>
-                        <div className="center-container">
-                            <div className="time">
+                        <div className='center-container'>
+                            <div className='time'>
                                 <div className="timer-icon-container">
-                                    <img src="/Clockblanco.svg" alt="" className="icon-bottom" />
+                                    <img src="/Clockblanco.svg" alt="" className='icon-bottom' />
                                 </div>
                                 <div className="time-display">
-                                    <span>
-                                        {formatTime(tiempoTotalGlobal - tiempoInicioAlumnoActual)}
-                                    </span>
+                                    <span>{formatTime(tiempoTotalGlobal - tiempoInicioAlumnoActual)}</span>
                                 </div>
                             </div>
-                            <button
-                                className="ready-btn"
-                                onClick={handleReadyClick}
-                                disabled={
-                                    allStudentsCompleted ||
-                                    isRunning ||
-                                    isPaused ||
-                                    !simulationCompleted
-                                }
-                            >
-                                LISTO
-                            </button>
+                            <button className="ready-btn" onClick={handleReadyClick} disabled={allStudentsCompleted || isRunning || isPaused || !simulationCompleted}>LISTO</button>
                         </div>
                     </div>
                 </div>
-                <div
-                    className={`compact-goals-panel ${isGoalsPanelCollapsed ? "collapsed" : ""
-                        }`}
-                >
+                <div className={`compact-goals-panel ${isGoalsPanelCollapsed ? 'collapsed' : ''}`}>
                     <button className="toggle-compact-goals" onClick={toggleGoalsPanel}>
                         {isGoalsPanelCollapsed ? (
                             <FaChevronLeft className="toggle-icon" />
@@ -672,56 +616,33 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                         <span className="metas-title">METAS</span>
                         <div className="compact-goal-item">
                             <div className="compact-flag-container">
-                                <FaFlag
-                                    className="flag-icon"
-                                    style={{ color: isGoalOneCompleted ? "#547EBC" : "#C85332" }}
-                                />
+                                <FaFlag className="flag-icon" style={{ color: isGoalOneCompleted ? '#547EBC' : '#C85332' }} />
                                 <span className="flag-number">1</span>
                             </div>
-                            <span
-                                className={`goal-text ${isGoalOneCompleted ? "completed" : ""}`}
-                                style={{
-                                    textDecoration: isGoalOneCompleted ? "line-through" : "none",
-                                }}
+                            <span className={`goal-text ${isGoalOneCompleted ? 'completed' : ''}`}
+                                style={{ textDecoration: isGoalOneCompleted ? 'line-through' : 'none' }}
                             >
                                 Llegar a la base de la rampa.
                             </span>
                         </div>
                         <div className="compact-goal-item">
                             <div className="compact-flag-container">
-                                <FaFlag
-                                    className="flag-icon"
-                                    style={{ color: isGoalTwoCompleted ? "#547EBC" : "#C85332" }}
-                                />
+                                <FaFlag className="flag-icon" style={{ color: isGoalTwoCompleted ? '#547EBC' : '#C85332' }} />
                                 <span className="flag-number">2</span>
                             </div>
-                            <span
-                                className={`goal-text ${isGoalTwoCompleted ? "completed" : ""}`}
-                                style={{
-                                    textDecoration: isGoalTwoCompleted ? "line-through" : "none",
-                                }}
+                            <span className={`goal-text ${isGoalTwoCompleted ? 'completed' : ''}`}
+                                style={{ textDecoration: isGoalTwoCompleted ? 'line-through' : 'none' }}
                             >
                                 Llegar a la cima de la rampa.
                             </span>
                         </div>
                         <div className="compact-goal-item">
                             <div className="compact-flag-container">
-                                <FaFlag
-                                    className="flag-icon"
-                                    style={{
-                                        color: isGoalThreeCompleted ? "#547EBC" : "#C85332",
-                                    }}
-                                />
+                                <FaFlag className="flag-icon" style={{ color: isGoalThreeCompleted ? '#547EBC' : '#C85332' }} />
                                 <span className="flag-number">3</span>
                             </div>
-                            <span
-                                className={`goal-text ${isGoalThreeCompleted ? "completed" : ""
-                                    }`}
-                                style={{
-                                    textDecoration: isGoalThreeCompleted
-                                        ? "line-through"
-                                        : "none",
-                                }}
+                            <span className={`goal-text ${isGoalThreeCompleted ? 'completed' : ''}`}
+                                style={{ textDecoration: isGoalThreeCompleted ? 'line-through' : 'none' }}
                             >
                                 Completar el recorrido.
                             </span>
@@ -766,9 +687,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                                     max="120"
                                     step="0.01"
                                     value={pilotMass}
-                                    onChange={(e) =>
-                                        handleSliderChange(e, setPilotMass, setPilotMassInput)
-                                    }
+                                    onChange={(e) => handleSliderChange(e, setPilotMass, setPilotMassInput)}
                                     disabled={isRunning}
                                 />
                                 <div className="value-input-container">
@@ -777,15 +696,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                                         className="value-input"
                                         value={pilotMassInput}
                                         onChange={handlePilotMassInputChange}
-                                        onBlur={() =>
-                                            handleInputBlur(
-                                                pilotMassInput,
-                                                setPilotMass,
-                                                setPilotMassInput,
-                                                30,
-                                                120
-                                            )
-                                        }
+                                        onBlur={() => handleInputBlur(pilotMassInput, setPilotMass, setPilotMassInput, 30, 120)}
                                         disabled={isRunning}
                                     />
                                 </div>
@@ -800,9 +711,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                                     max="80"
                                     step="0.01"
                                     value={chassisMass}
-                                    onChange={(e) =>
-                                        handleSliderChange(e, setChassisMass, setChassisMassInput)
-                                    }
+                                    onChange={(e) => handleSliderChange(e, setChassisMass, setChassisMassInput)}
                                     disabled={isRunning}
                                 />
                                 <div className="value-input-container">
@@ -811,15 +720,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                                         className="value-input"
                                         value={chassisMassInput}
                                         onChange={handleChassisMassInputChange}
-                                        onBlur={() =>
-                                            handleInputBlur(
-                                                chassisMassInput,
-                                                setChassisMass,
-                                                setChassisMassInput,
-                                                20,
-                                                80
-                                            )
-                                        }
+                                        onBlur={() => handleInputBlur(chassisMassInput, setChassisMass, setChassisMassInput, 20, 80)}
                                         disabled={isRunning}
                                     />
                                 </div>
@@ -834,13 +735,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                                     max="30"
                                     step="0.01"
                                     value={additionalMass}
-                                    onChange={(e) =>
-                                        handleSliderChange(
-                                            e,
-                                            setAdditionalMass,
-                                            setAdditionalMassInput
-                                        )
-                                    }
+                                    onChange={(e) => handleSliderChange(e, setAdditionalMass, setAdditionalMassInput)}
                                     disabled={isRunning}
                                 />
                                 <div className="value-input-container">
@@ -849,15 +744,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                                         className="value-input"
                                         value={additionalMassInput}
                                         onChange={handleAdditionalMassInputChange}
-                                        onBlur={() =>
-                                            handleInputBlur(
-                                                additionalMassInput,
-                                                setAdditionalMass,
-                                                setAdditionalMassInput,
-                                                0,
-                                                30
-                                            )
-                                        }
+                                        onBlur={() => handleInputBlur(additionalMassInput, setAdditionalMass, setAdditionalMassInput, 0, 30)}
                                         disabled={isRunning}
                                     />
                                 </div>
@@ -872,9 +759,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                                     max="25"
                                     step="0.01"
                                     value={motorPower}
-                                    onChange={(e) =>
-                                        handleSliderChange(e, setMotorPower, setMotorPowerInput)
-                                    }
+                                    onChange={(e) => handleSliderChange(e, setMotorPower, setMotorPowerInput)}
                                     disabled={isRunning}
                                 />
                                 <div className="value-input-container">
@@ -883,15 +768,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                                         className="value-input"
                                         value={motorPowerInput}
                                         onChange={handleMotorPowerInputChange}
-                                        onBlur={() =>
-                                            handleInputBlur(
-                                                motorPowerInput,
-                                                setMotorPower,
-                                                setMotorPowerInput,
-                                                5,
-                                                25
-                                            )
-                                        }
+                                        onBlur={() => handleInputBlur(motorPowerInput, setMotorPower, setMotorPowerInput, 5, 25)}
                                         disabled={isRunning}
                                     />
                                 </div>
@@ -917,10 +794,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             {statusMessage}
                         </div>
                     )}
-                    <div
-                        className={`control-buttons ${allStudentsCompleted ? "all-completed" : ""
-                            }`}
-                    >
+                    <div className={`control-buttons ${allStudentsCompleted ? 'all-completed' : ''}`}>
                         <button
                             className="control-btn start-btn"
                             onClick={startSimulation}
@@ -931,7 +805,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                         <button
                             className="control-btn pause-btn"
                             onClick={pauseSimulation}
-                            disabled={!isRunning || isPaused || allStudentsCompleted}
+                            disabled={(!isRunning || isPaused) || allStudentsCompleted}
                         >
                             <img src="/Pause.svg" alt="" />
                         </button>
@@ -940,25 +814,27 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
                             onClick={cancelSimulation}
                             disabled={(!isRunning && !isPaused) || allStudentsCompleted}
                         >
-                            <FaTimes className="cross" />
+                            <FaTimes className='cross' />
                         </button>
                     </div>
                 </div>
             </div>
 
-            <InfoModal show={showInfoModal} onHide={() => setShowInfoModal(false)} />
+            <InfoModal
+                show={showInfoModal}
+                onHide={() => setShowInfoModal(false)}
+            />
+
 
             <FeedbackModal
                 show={showFeedbackModal}
                 onHide={() => setShowFeedbackModal(false)}
-                tiemposRegistrados={tiemposRegistrados}
-                goalsCompleted={{
-                    goal1: isGoalOneCompleted,
-                    goal2: isGoalTwoCompleted,
-                    goal3: isGoalThreeCompleted
-                }}
             />
+
+
         </div>
     );
 };
 export default Simulador;
+
+
