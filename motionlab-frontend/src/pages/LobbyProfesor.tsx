@@ -4,6 +4,7 @@ import IconWithText from '../components/IconWithText';
 import { FaUser, FaUsers, FaTrashAlt } from 'react-icons/fa';
 import CustomButton from '../components/ButtonOrange';
 import { getLobbyTeams, deleteTeamFromLobby } from '../api/lobbyAPI';
+import { changeMatchStatus } from '../api/MatchAPI';
 import '../pages/Pages.css';
 
 interface Equipo {
@@ -18,6 +19,22 @@ const LobbyProfesor = () => {
 
   const codigo = sessionStorage.getItem("codigo") || "SIN-CÓDIGO";
   const matchId = sessionStorage.getItem("matchId");
+
+  const handleStartClick = async () => {
+    if (!matchId) return;
+  
+    try {
+      const response = await changeMatchStatus(parseInt(matchId));
+      if (response.status === "success") {
+        console.log("Partida iniciada");
+      } else {
+        console.error("Error al iniciar la partida:", response.message);
+      }
+    } catch (error) {
+      console.error("Error en la petición al iniciar la partida:", error);
+    }
+  };
+  
 
   const fetchEquipos = async (showLoading = false) => {
     if (!matchId) return;
@@ -136,7 +153,7 @@ const LobbyProfesor = () => {
           <div className="start-button-fixed">
             <CustomButton
               label="START"
-              onClick={() => console.log("Iniciar")}
+              onClick={handleStartClick}
               disabled={equipos.length === 0}
             />
           </div>
