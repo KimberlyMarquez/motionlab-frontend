@@ -5,6 +5,7 @@ export interface Match {
   teacher_id: string;
   teams: number;
   members: number;
+  rounds_amount: number;
   rpm: number;
   wheel_size: number;
   distance: number;
@@ -17,6 +18,7 @@ export interface Match {
 export interface CreateMatchPayload {
   teacher_id: string;
   teams: number;
+  rounds_amount: number;
   members: number;
   rpm: number;
   wheel_size: number;

@@ -15,7 +15,7 @@ const LoginCard = () => {
     const nominaRegex = /^L\d{8}$/;
 
     if (!nominaRegex.test(nomina)) {
-      alert('La nómina debe tener el formato L seguido de 8 números. Ejemplo: L12345678');
+      alert('La nómina debe tener el formato L seguido de 9 números. Ejemplo: L12345678');
       return;
     }
 
