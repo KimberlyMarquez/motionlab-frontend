@@ -1,23 +1,28 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './GoBackButtonMain.css';
 
-const GoBackButtonMain = () => {
+interface GoBackButtonProps {
+  redirectTo: string;
+}
 
+const GoBackButton: React.FC<GoBackButtonProps> = ({ redirectTo }) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate("/");
+    navigate(redirectTo);
   };
 
   return (
     <button className="button" onClick={handleGoBack}>
       <img 
         src="assets/MainPage/Return.svg" 
-        alt="Cerrar sesión"
+        alt="Regresar"
         className="icon" 
-        title="Salir"
+        title="Regresar"
       />
     </button>
   );
 };
 
-export default GoBackButtonMain;
+export default GoBackButton;

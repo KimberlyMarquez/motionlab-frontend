@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FormContainer from '../components/FormContainer';
-import LogoutButton from '../components/LogoutButton';
+import GoBackButtonMain from '../components/MainPage/GoBackButtonMain';
 import CustomButton from '../components/CustomButtonT4';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +33,7 @@ const LoginCodigo: React.FC = () => {
     <>
       <div className="background-container">
         <div className="main-content">
-          <LogoutButton /> {/* Ya no requiere la prop onClick */}
+        <GoBackButtonMain redirectTo="/Main"/>
           <FormContainer>
             <div className="text-center w-100">
               <label

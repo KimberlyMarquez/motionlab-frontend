@@ -59,7 +59,6 @@ const LoginAlumnos: React.FC = () => {
     <>
       <div className="background-container">
         <div className="main-content">
-          <LogoutButton />
           <FormContainer>
             <div className="d-flex justify-content-between align-items-center mb-5 px-4">
               <div className="btn-regresar-encabezado" onClick={() => navigate(-1)}>
