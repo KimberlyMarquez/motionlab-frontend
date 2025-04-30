@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { registrarAlumnos } from '../api/loginalumnosAPI';
 import FormContainer from '../components/FormContainer';
 import LogoutButton from '../components/LogoutButton';
 import Footer from '../components/Footer';
@@ -13,10 +14,7 @@ const LoginAlumnos: React.FC = () => {
   const location = useLocation();
   const codigo = location.state?.codigo || "sin código";
 
-  const validarMatricula = (matricula: string) => {
-    const regex = /^A0\d{7}$/;
-    return regex.test(matricula);
-  };
+  const validarMatricula = (matricula: string) => /^A0\d{7}$/.test(matricula);
 
   const handleMatriculaChange = (index: number, value: string) => {
     const nuevasMatriculas = [...matriculas];
@@ -24,56 +22,47 @@ const LoginAlumnos: React.FC = () => {
     setMatriculas(nuevasMatriculas);
   };
 
-  const handleSubmit = () => {
-    const matriculasNoVacias = matriculas.filter((m) => m.trim() !== '');
+  const handleSubmit = async () => {
+    const filtradas = matriculas.filter((m) => m.trim() !== '');
 
-    // Validar: debe haber al menos una matrícula
-    if (matriculasNoVacias.length === 0) {
+    if (filtradas.length === 0) {
       alert('Debe ingresar al menos una matrícula.');
       return;
     }
 
-    // Validar que todas las escritas estén correctas
-    const algunaInvalida = matriculasNoVacias.some((m) => !validarMatricula(m));
-    if (algunaInvalida) {
-      alert('Las matrículas escritas deben empezar con A0 y tener exactamente 7 números.');
+    if (filtradas.some((m) => !validarMatricula(m))) {
+      alert('Las matrículas deben empezar con A0 y tener exactamente 7 números.');
       return;
     }
 
-    // Validar que no haya repetidas
-    const hayRepetidas = new Set(matriculasNoVacias).size !== matriculasNoVacias.length;
-    if (hayRepetidas) {
+    if (new Set(filtradas).size !== filtradas.length) {
       alert('No puede haber matrículas repetidas.');
       return;
     }
 
-    if (codigo.trim()) {
-      navigate('/lobby');
+    const teamId = sessionStorage.getItem('teamId');
+    if (!teamId) {
+      alert('No hay equipo asociado. Reintenta.');
+      return;
     }
-  };
 
-  const setCodigoAccedido = (value: null) => {
-    console.log('Código accedido set to:', value);
-  };
+    const res = await registrarAlumnos(teamId, filtradas);
 
-  const onLogout = () => {
-    setCodigoAccedido(null);
-    console.log('Usuario cerró sesión');
-  };
-
-  const handleRegresar = () => {
-    navigate(-1);
+    if (res.success) {
+      navigate('/lobby');
+    } else {
+      alert(res.message);
+    }
   };
 
   return (
     <>
       <div className="background-container">
         <div className="main-content">
-          <LogoutButton onClick={onLogout} />
-
+          <LogoutButton onClick={() => console.log("Logout")} />
           <FormContainer>
             <div className="d-flex justify-content-between align-items-center mb-5 px-4">
-              <div className="btn-regresar-encabezado" onClick={handleRegresar}>
+              <div className="btn-regresar-encabezado" onClick={() => navigate(-1)}>
                 <ButtonRegresar label='< Regresar' />
               </div>
               <div className="codigo-box">{codigo}</div>
@@ -91,7 +80,7 @@ const LoginAlumnos: React.FC = () => {
                   className="form-control mb-2 input-matricula"
                   value={m}
                   onChange={(e) => handleMatriculaChange(i, e.target.value)}
-                  style={{ 
+                  style={{
                     backgroundColor: '#f2f2f2',
                     border: 'none',
                     borderRadius: '10px',
@@ -119,3 +108,4 @@ const LoginAlumnos: React.FC = () => {
 };
 
 export default LoginAlumnos;
+
