@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import LobbyContainer from '../components/LobbyContainer';
-import Footer from '../components/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import IconWithText from '../components/IconWithText';
 import { FaUser, FaUsers } from 'react-icons/fa';
@@ -66,8 +65,6 @@ const LobbyAlumnos = () => {
             </div>
         </LobbyContainer>
         </div>
-
-        <Footer />
       </div>
     </>
   );
