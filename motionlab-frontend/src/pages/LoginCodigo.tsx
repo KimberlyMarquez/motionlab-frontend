@@ -33,7 +33,7 @@ const LoginCodigo: React.FC = () => {
     <>
       <div className="background-container">
         <div className="main-content">
-          <LogoutButton onClick={() => console.log("Logout")} />
+          <LogoutButton /> {/* Ya no requiere la prop onClick */}
           <FormContainer>
             <div className="text-center w-100">
               <label

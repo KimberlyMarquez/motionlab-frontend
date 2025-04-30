@@ -9,12 +9,14 @@ import '../pages/Pages.css';
 const AjusteEquipos = () => {
   const [equipos, setEquipos] = useState(6);
   const [integrantes, setIntegrantes] = useState(5);
+  const [rondas, setRondas] = useState(2);
   const navigate = useNavigate();
  
   const handleSiguiente = () => {
     sessionStorage.setItem('equipos', equipos.toString());
     sessionStorage.setItem('integrantes', integrantes.toString());
-    console.log('Equipos:', equipos, 'Integrantes:', integrantes);
+    sessionStorage.setItem('rondas', rondas.toString());
+    console.log('Equipos:', equipos, 'Integrantes:', integrantes, 'Rondas:', rondas);
     navigate ('/parametros');
   };
 
@@ -38,6 +40,16 @@ const AjusteEquipos = () => {
           <EquipoControl
             label={
                 <>
+                  Rondas <br /> por equipo
+                </>
+              }
+            value={rondas}
+            onIncrement={() => setRondas(r => Math.min(5, r + 1))}
+            onDecrement={() => setRondas(r => Math.max(2, r - 1))}
+          />
+          <EquipoControl
+            label={
+                <>
                   Número de <br /> integrantes
                 </>
               }
@@ -45,6 +57,7 @@ const AjusteEquipos = () => {
             onIncrement={() => setIntegrantes(i => Math.min(5, i + 1))}
             onDecrement={() => setIntegrantes(i => Math.max(1, i - 1))}
           />
+          
         </div>
         
         <div className="text-center mt-5">

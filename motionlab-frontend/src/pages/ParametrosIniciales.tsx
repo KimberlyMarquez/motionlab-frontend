@@ -19,6 +19,7 @@ const ParametrosIniciales = () => {
     const teacherId = sessionStorage.getItem('teacherId');
     const equipos = Number(sessionStorage.getItem('equipos')) || 6;
     const integrantes = Number(sessionStorage.getItem('integrantes')) || 5;
+    const rondas = Number(sessionStorage.getItem('rondas')) || 2;
 
     if (!teacherId) {
       console.error('No se encontró el teacherId en sessionStorage');
@@ -30,6 +31,7 @@ const ParametrosIniciales = () => {
       const response = await createMatch({
         teams: equipos,
         members: integrantes,
+        rounds_amount : rondas,
         rpm,
         wheel_size: rueda,
         distance: distancia,
@@ -42,10 +44,11 @@ const ParametrosIniciales = () => {
       sessionStorage.setItem("matchId", response.payload.id.toString());
       sessionStorage.setItem("teams", response.payload.teams.toString());
       sessionStorage.setItem("members", response.payload.members.toString());
+      sessionStorage.setItem("rounds", response.payload.rounds_amount.toString());
   
       navigate('/lobbyprofesor');
   
-      console.log('Código:', response.payload.code, 'Profesor:', teacherId, 'Equipos:', response.payload.teams, 'Integrantes:', response.payload.members, 'RPM:', rpm, 'Rueda:', rueda, 'Distancia:', distancia);
+      console.log('Código:', response.payload.code, 'Profesor:', teacherId, 'Equipos:', response.payload.teams, 'Integrantes:', response.payload.members, 'Rondas:', response.payload.rounds_amount, 'RPM:', rpm, 'Rueda:', rueda, 'Distancia:', distancia);
     } catch (error) {
       console.error('Error enviando los datos al servidor:', error);
     }
