@@ -36,11 +36,12 @@ const LobbyProfesor = () => {
       const mismosEquipos = JSON.stringify(nuevosEquipos) === JSON.stringify(equipos);
       if (!mismosEquipos) {
         setEquipos(nuevosEquipos);
-      }
+      }      
+      
+      console.log("Equipos actualizados");
     } else {
       console.error(res.message);
     }
-
     if (showLoading) setLoading(false);
   };
 
