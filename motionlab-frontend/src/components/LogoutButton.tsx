@@ -2,18 +2,21 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LogoutButton.css';
 
-const LogoutButton: React.FC = () => {
+interface LogoutButtonProps {
+  redirectTo: string;            
+}
+
+const LogoutButton: React.FC<LogoutButtonProps> = ({ redirectTo}) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Aquí puedes limpiar datos si es necesario
+  const handleLogout = () => { 
     sessionStorage.clear();
-    navigate('/Main'); // Cambia la ruta si necesitas redirigir a otra página
+    navigate(redirectTo);
   };
 
   return (
     <img 
-      src="/log-out.svg" 
+      src="log-out.svg"
       alt="Cerrar sesión"
       className="logout-icon" 
       onClick={handleLogout}
