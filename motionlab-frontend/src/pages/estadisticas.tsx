@@ -27,18 +27,39 @@ const Statistics: React.FC = () => {
         console.error("Error loading statistics data:", error);
       }
     };
-  
-    // Fetch the data every 3 seconds
-    fetchData(); // Initial fetch
+
+    fetchData();
     const interval = setInterval(fetchData, 3000);
-  
-    // Cleanup the interval on component unmount
     return () => clearInterval(interval);
   }, []);
-  
 
   const toggleLeaderboard = () => {
     setShowLeaderboard(!showLeaderboard);
+  };
+
+  const downloadCSV = () => {
+    let csvContent = "";
+
+    if (activeTab === "equipos") {
+      csvContent += "Equipo,Rondas Jugadas,Tiempo Promedio,Lugar Promedio Historico\n";
+      teams.forEach((row) => {
+        csvContent += `${row.team_id},${row.played_rounds},${row.average_time},${row.average_position}\n`;
+      });
+    } else {
+      csvContent += "Alumno,Rondas Jugadas,Tiempo Promedio,Lugar Promedio Match,Lugar Promedio Historico\n";
+      students.forEach((row) => {
+        csvContent += `${row.id},${row.played_rounds},${row.average_time},${row.average_match_position},${row.average_historic_position}\n`;
+      });
+    }
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `${activeTab}_estadisticas.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -50,7 +71,7 @@ const Statistics: React.FC = () => {
               &lt; Regresar
             </button>
             <div className="icon-buttons">
-              <button className="icon-btn">
+              <button className="icon-btn" onClick={downloadCSV}>
                 <img src={descargaIcon} alt="Descargar" className="icon-img" />
               </button>
               <button className="icon-btn" onClick={toggleLeaderboard}>
@@ -97,8 +118,8 @@ const TeamsTable: React.FC<{ data: Omit<TeamData, "id">[] }> = ({ data }) => (
     <thead>
       <tr>
         <th>Equipo</th>
-        <th>Jugadas Totales</th>
-        <th>Tiempo Promedio (min)</th>
+        <th>Rondas Totales</th>
+        <th>Tiempo Promedio</th>
         <th>Lugar Promedio Histórico</th>
       </tr>
     </thead>
@@ -115,14 +136,12 @@ const TeamsTable: React.FC<{ data: Omit<TeamData, "id">[] }> = ({ data }) => (
   </table>
 );
 
-
-
 const StudentsTable: React.FC<{ data: StudentData[] }> = ({ data }) => (
   <table className="stats-table table-alumnos">
     <thead>
       <tr>
         <th>Alumno</th>
-        <th>Rondas Jugadas</th>
+        <th>Rondas Totales</th>
         <th>Tiempo Promedio</th>
         <th>Lugar Promedio Match</th>
         <th>Lugar Promedio Histórico</th>
@@ -143,3 +162,4 @@ const StudentsTable: React.FC<{ data: StudentData[] }> = ({ data }) => (
 );
 
 export default Statistics;
+

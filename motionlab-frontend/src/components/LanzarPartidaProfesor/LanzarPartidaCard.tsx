@@ -20,7 +20,7 @@ const LanzarPartidaCard = ({ nomina }: LanzarPartidaCardProps) => {
 
       <div className="lanzar-box">
         <CustomButton label="Lanzar Partida" type="button" className="lanzar-button" onClick={handleLanzarPartida}/>
-        <a href="#" className="stats-link">Estadísticas</a>
+        <a href="/estadisticas" className="stats-link">Estadísticas</a>
       </div>
     </div>
   );
