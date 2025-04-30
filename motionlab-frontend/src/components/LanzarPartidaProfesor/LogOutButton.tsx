@@ -6,7 +6,7 @@ const LogOutButton = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     navigate("/loginprofesores");
   };
 

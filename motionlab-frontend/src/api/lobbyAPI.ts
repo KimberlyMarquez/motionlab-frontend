@@ -34,7 +34,7 @@ export const lobbyAccess = async (code: string) => {
 
 export const deleteTeamFromLobby = async (id: string) => {
   try {
-    const res = await api.delete(`/lobby/teams/${id}`);
+    const res = await api.delete(`/lobby/${id}`);
     return res.data;
   } catch (error: any) {
     if (error.response) {

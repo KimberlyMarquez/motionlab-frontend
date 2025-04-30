@@ -16,7 +16,7 @@ const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) =>
   };
 
   const handleIrAtras = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     navigate("/")
   }
 
