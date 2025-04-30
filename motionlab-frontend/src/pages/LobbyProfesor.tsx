@@ -4,7 +4,7 @@ import IconWithText from '../components/IconWithText';
 import { FaUser, FaUsers, FaTrashAlt } from 'react-icons/fa';
 import CustomButton from '../components/ButtonOrange';
 import { getLobbyTeams, deleteTeamFromLobby } from '../api/lobbyAPI';
-import { changeMatchStatus } from '../api/MatchAPI';
+import { changeMatchStatus , getMatchStatus} from '../api/MatchAPI';
 import '../pages/Pages.css';
 
 interface Equipo {
@@ -16,9 +16,14 @@ interface Equipo {
 const LobbyProfesor = () => {
   const [equipos, setEquipos] = useState<Equipo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [matchActive, setMatchActive] = useState(false);  
+  const roundsAmount = Number(sessionStorage.getItem("rounds")) || 1;
+  const [startCount, setStartCount] = useState(0);
+
 
   const codigo = sessionStorage.getItem("codigo") || "SIN-CÓDIGO";
   const matchId = sessionStorage.getItem("matchId");
+  
 
   const handleStartClick = async () => {
     if (!matchId) return;
@@ -35,6 +40,21 @@ const LobbyProfesor = () => {
     }
   };
   
+  
+const fetchMatchStatus = async () => {
+  if (!matchId) return;
+  try {
+    const res = await getMatchStatus(parseInt(matchId));
+    if (res.status === "success") {
+      setMatchActive(res.payload === true);
+    } else {
+      console.error("Error al obtener estado del match:", res.message);
+    }
+  } catch (error) {
+    console.error("Error al obtener estado del match:", error);
+  }
+};
+
 
   const fetchEquipos = async (showLoading = false) => {
     if (!matchId) return;
@@ -64,15 +84,18 @@ const LobbyProfesor = () => {
 
   useEffect(() => {
     if (!matchId) return;
-
-    fetchEquipos(true); // Llamada inicial con loading
-
+  
+    fetchEquipos(true);
+    fetchMatchStatus(); // Llamada inicial
+  
     const intervalId = setInterval(() => {
-      fetchEquipos(); // Sin loading
+      fetchEquipos();
+      fetchMatchStatus();
     }, 3000);
-
+  
     return () => clearInterval(intervalId);
   }, [matchId]);
+  
 
   const eliminarEquipo = async (index: number) => {
     const equipo = equipos[index];
@@ -150,12 +173,16 @@ const LobbyProfesor = () => {
             </div>
           )}
 
-          <div className="start-button-fixed">
-            <CustomButton
-              label="START"
-              onClick={handleStartClick}
-              disabled={equipos.length === 0}
-            />
+          <div className="start-button-fixed text-center">
+          <CustomButton
+            label={`START`}
+            onClick={async () => {
+              await handleStartClick();
+              setStartCount(prev => prev + 1);
+            }}
+            ronda={`Ronda ${startCount}/${roundsAmount}`}
+            disabled={equipos.length === 0 || startCount >= roundsAmount || matchActive}
+          />
           </div>
         </LobbyContainer>
       </div>
