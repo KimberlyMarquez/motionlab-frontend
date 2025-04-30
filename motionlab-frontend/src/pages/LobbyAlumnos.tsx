@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LobbyContainer from '../components/LobbyContainer';
 import IconWithText from '../components/IconWithText';
 import { FaUser, FaUsers } from 'react-icons/fa';
 import { getLobbyTeams } from '../api/lobbyAPI';
+import { getMatchStatus } from '../api/MatchAPI';
 import '../pages/Pages.css';
 
 interface Equipo {
@@ -14,23 +16,24 @@ interface Equipo {
 const LobbyAlumnos = () => {
   const [equipos, setEquipos] = useState<Equipo[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const codigo = sessionStorage.getItem("codigo") || "SIN-CÓDIGO";
   const matchId = sessionStorage.getItem("matchId");
 
   const fetchEquipos = async (showLoading = false) => {
     if (!matchId) return;
-  
+
     if (showLoading) setLoading(true);
     const res = await getLobbyTeams(matchId);
-  
+
     if (res.status === "success") {
       const nuevosEquipos = res.payload.map((team: any, idx: number) => ({
         nombre: `Equipo ${idx + 1}`,
         matriculas: team.student_ids || [],
         teamId: team.team_id,
       }));
-  
+
       const mismosEquipos = JSON.stringify(nuevosEquipos) === JSON.stringify(equipos);
       if (!mismosEquipos) {
         setEquipos(nuevosEquipos);
@@ -40,15 +43,32 @@ const LobbyAlumnos = () => {
     } else {
       console.error(res.message);
     }
-  
+
     if (showLoading) setLoading(false);
   };
-  
+
+  const checkMatchStarted = async () => {
+    if (!matchId) return;
+    try {
+      const res = await getMatchStatus(parseInt(matchId));
+      if (res.status === "success" && res.payload === true) {
+        console.log("Partida iniciada, redirigiendo a simulación...");
+        navigate("/simulacion");
+      }
+    } catch (error) {
+      console.error("Error verificando el estado de la partida:", error);
+    }
+  };
 
   useEffect(() => {
-    fetchEquipos(true); // Llamada inicial
-    const interval = setInterval(() => fetchEquipos(), 3000); // Actualización cada 3s
-    return () => clearInterval(interval); // Limpieza
+    fetchEquipos(true);
+
+    const interval = setInterval(() => {
+      fetchEquipos();
+      checkMatchStarted();
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const totalEquipos = equipos.length;
@@ -105,3 +125,4 @@ const LobbyAlumnos = () => {
 };
 
 export default LobbyAlumnos;
+

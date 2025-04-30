@@ -1,10 +1,11 @@
 interface Props {
   label: string;
+  ronda: string;
   onClick?: () => void;
   disabled?: boolean;
 }
 
-const CustomButton: React.FC<Props> = ({ label, onClick, disabled = false }) => {
+const CustomButton: React.FC<Props> = ({ label, onClick, disabled = false, ronda }) => {
   return (
     <button
       onClick={onClick}
@@ -23,7 +24,8 @@ const CustomButton: React.FC<Props> = ({ label, onClick, disabled = false }) => 
         cursor: disabled ? "not-allowed" : "pointer",
       }}
     >
-      {label}
+      <span>{label}</span>
+      <div style={{ fontSize: "1.2rem", lineHeight: "1.2rem" }}>{ronda}</div>
     </button>
   );
 };

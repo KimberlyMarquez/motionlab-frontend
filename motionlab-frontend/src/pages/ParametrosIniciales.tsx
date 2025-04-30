@@ -45,10 +45,11 @@ const ParametrosIniciales = () => {
       sessionStorage.setItem("teams", response.payload.teams.toString());
       sessionStorage.setItem("members", response.payload.members.toString());
       sessionStorage.setItem("rounds", response.payload.rounds_amount.toString());
+      sessionStorage.setItem("status", response.payload.active.toString());
   
       navigate('/lobbyprofesor');
   
-      console.log('Código:', response.payload.code, 'Profesor:', teacherId, 'Equipos:', response.payload.teams, 'Integrantes:', response.payload.members, 'Rondas:', response.payload.rounds_amount, 'RPM:', rpm, 'Rueda:', rueda, 'Distancia:', distancia);
+      console.log('Status', response.payload.active,'Código:', response.payload.code, 'Profesor:', teacherId, 'Equipos:', response.payload.teams, 'Integrantes:', response.payload.members, 'Rondas:', response.payload.rounds_amount, 'RPM:', rpm, 'Rueda:', rueda, 'Distancia:', distancia);
     } catch (error) {
       console.error('Error enviando los datos al servidor:', error);
     }
@@ -66,7 +67,7 @@ const ParametrosIniciales = () => {
             </div>
 
             <div className="btn-orange text-center">
-              <ButtonOrange label="NUEVA PARTIDA" onClick={handleSiguiente} />
+              <ButtonOrange label="NUEVA PARTIDA" onClick={handleSiguiente} ronda= ""/>
             </div>
           </AjustesContainer>
         </div>
