@@ -1,57 +1,93 @@
 .parametro-container {
-    margin-bottom: 20px;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .parametro-label {
-    font-weight: bold;
-    color: #032B6F;
-    font-size: 1.7rem;
-    margin-bottom: 8px;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  
-  .parametro-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Ajuste el espacio entre los elementos */
-  }
-  
-  .slider {
-    flex-grow: 1;
-    width: 600px;
-    height: 8px; /* Barra más gruesa */
-    background-color: #f0f0f0;
-    accent-color: #032B6F;
-  }
-  
-  .input-box {
-    width: 60px; /* Ajusté el tamaño para que sea más pequeño */
-    height: 55px;
-    line-height: 55px;
-    align-items: center;
-    font-size: 1.5rem;;
-    text-align: center;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  
-  .reset-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #032B6F;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  
-  .reset-btn:focus {
-    outline: none;
-  }
-  
-  .slider:focus {
-    outline: none;
-  }
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.parametro-label {
+  font-weight: bold;
+  color: #032B6F;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.parametro-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.slider {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 700px;
+  height: 8px;
+  background: #032B6F;
+  border-radius: 5px;
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #032B6F;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #032B6F;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.input-box {
+  width: 100px;
+  height: 45px;
+  text-align: center;
+  font-size: 1.2rem;
+  border: 2px solid #032B6F;
+  border-radius: 25px;
+  background: white;
+  color: #032B6F;
+  font-weight: bold;
+}
+
+.input-box::-webkit-outer-spin-button,
+.input-box::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-box {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+
+.reset-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #032B6F;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.reset-btn:focus {
+  outline: none;
+}
+
+.slider:focus {
+  outline: none;
+}
   

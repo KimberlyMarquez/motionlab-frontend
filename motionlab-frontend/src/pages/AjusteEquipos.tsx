@@ -12,8 +12,10 @@ const AjusteEquipos = () => {
   const navigate = useNavigate();
  
   const handleSiguiente = () => {
+    sessionStorage.setItem('equipos', equipos.toString());
+    sessionStorage.setItem('integrantes', integrantes.toString());
     console.log('Equipos:', equipos, 'Integrantes:', integrantes);
-    navigate ('/parametros', { state : { equipos, integrantes }});
+    navigate ('/parametros');
   };
 
   return (
