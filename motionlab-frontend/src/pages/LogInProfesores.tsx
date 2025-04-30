@@ -1,4 +1,4 @@
-import './pages.css';
+import './Pages.css';
 import Footer from '../components/Footer';
 import GoBackButton from '../components/LogInProfesores/GoBackButton';
 import LogInCard from '../components/LogInProfesores/LogInCard';

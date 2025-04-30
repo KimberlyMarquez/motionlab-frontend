@@ -14,34 +14,46 @@ interface Equipo {
 
 const LobbyProfesor = () => {
   const [equipos, setEquipos] = useState<Equipo[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const codigo = sessionStorage.getItem("codigo") || "SIN-CÓDIGO";
   const matchId = sessionStorage.getItem("matchId");
 
-  const fetchEquipos = async () => {
+  const fetchEquipos = async (showLoading = false) => {
     if (!matchId) return;
 
-    setLoading(true);
+    if (showLoading) setLoading(true);
     const res = await getLobbyTeams(matchId);
 
     if (res.status === "success") {
-      const equiposReales = res.payload.map((team: any, idx: number) => ({
+      const nuevosEquipos = res.payload.map((team: any, idx: number) => ({
         nombre: `Equipo ${idx + 1}`,
-        matriculas: team.students.map((s: any) => `A${s.id}`),
-        teamId: team.teamId,
+        matriculas: team.student_ids || [],
+        teamId: team.team_id,
       }));
 
-      setEquipos(equiposReales);
+      // Solo actualizar si hay cambios
+      const mismosEquipos = JSON.stringify(nuevosEquipos) === JSON.stringify(equipos);
+      if (!mismosEquipos) {
+        setEquipos(nuevosEquipos);
+      }
     } else {
       console.error(res.message);
     }
 
-    setLoading(false);
+    if (showLoading) setLoading(false);
   };
 
   useEffect(() => {
-    fetchEquipos();
+    if (!matchId) return;
+
+    fetchEquipos(true); // Llamada inicial con loading
+
+    const intervalId = setInterval(() => {
+      fetchEquipos(); // Sin loading
+    }, 3000);
+
+    return () => clearInterval(intervalId);
   }, [matchId]);
 
   const eliminarEquipo = async (index: number) => {
@@ -52,7 +64,7 @@ const LobbyProfesor = () => {
     try {
       const res = await deleteTeamFromLobby(equipo.teamId.toString());
       if (res.status === "success") {
-        await fetchEquipos(); 
+        await fetchEquipos(true);
       } else {
         console.error(res.message);
       }
@@ -129,9 +141,9 @@ const LobbyProfesor = () => {
           </div>
         </LobbyContainer>
       </div>
-
     </div>
   );
 };
 
 export default LobbyProfesor;
+

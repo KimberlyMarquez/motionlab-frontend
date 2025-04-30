@@ -1,4 +1,4 @@
-import './pages.css';
+import './Pages.css';
 import Footer from '../components/Footer';
 import LogOutButton from '../components/LanzarPartidaProfesor/LogOutButton';
 import LanzarPartidaCard from '../components/LanzarPartidaProfesor/LanzarPartidaCard';
