@@ -129,6 +129,7 @@ const LobbyProfesor = () => {
           </div>
         </LobbyContainer>
       </div>
+
     </div>
   );
 };

@@ -48,7 +48,7 @@
     background-color: white;
     color: #547EBC;
     left: 50%;
-    bottom: 9%;
+    bottom: 6.5%;
     border-radius: 15px 15px 0 0;
     font-weight: bold;
     font-size: 1.3rem;
@@ -178,7 +178,7 @@
   
   .start-button-fixed {
     position: fixed;
-    bottom: 10px;
+    bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
