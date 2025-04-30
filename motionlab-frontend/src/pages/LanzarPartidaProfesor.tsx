@@ -4,7 +4,7 @@ import LogOutButton from '../components/LanzarPartidaProfesor/LogOutButton';
 import LanzarPartidaCard from '../components/LanzarPartidaProfesor/LanzarPartidaCard';
 
 const LanzarPartidaProfesor = () => {
-    const nomina = localStorage.getItem('nomina') || 'LXXXXXXXX';
+    const nomina = localStorage.getItem('teacherId') || 'Profesor';
 
     return(
         <>  

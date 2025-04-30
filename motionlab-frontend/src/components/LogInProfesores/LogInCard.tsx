@@ -22,7 +22,7 @@ const LoginCard = () => {
     const res = await teacherLogin(nomina, password);
 
     if (res.status === "success") {
-      localStorage.setItem('teacherId', res.payload);
+      sessionStorage.setItem('teacherId', res.payload);
       navigate('/lanzarpartidaprofesor');
     } else {
       alert(res.message);
