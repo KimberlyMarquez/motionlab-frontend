@@ -12,7 +12,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/simulador",
-                element: <Simulador equipoId="1" />,
+                element: <Simulador />,
             },
             {
                 path: "/tutorial",

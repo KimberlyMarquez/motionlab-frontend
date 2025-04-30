@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 * {
   box-sizing: border-box;
 }
@@ -288,7 +287,7 @@ body {
 
 .toggle-icon {
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .goals-label {
@@ -410,17 +409,17 @@ body {
 .parameter label {
   font-size: 12px;
   color: #032B6F;
-  width: 1000px;
+  width: 190px;
   margin: 0;
 }
 
 .parameter input[type="text"] {
-  width: 35px;
+  width: 60px;
   padding: 0px;
   text-align: end;
   border: none;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 12px !important;
   color: #547EBC;
   height: 24px;
 }
@@ -431,8 +430,8 @@ body {
   margin: 0;
   text-align: end;
   font-weight: bold;
-  font-size: 12px;
-  color: #547EBC;
+  font-size: 12px !important;
+  color: #547EBC !important;
   height: 24px;
   display: flex;
   align-items: center;
@@ -602,23 +601,25 @@ input[type="range"]:disabled ~ .slider-container::after {
 .start-btn {
   background-color: white;
   color: #547EBC;
-  width: 87px;
-  height: 44px;
+  width: 80px;
+  height: 29px;
+  text-align: center;
 }
 
 .pause-btn {
   background-color: #547EBC;
   border: 3px solid white;
-  width: 44px;
-  height: 44px;
+  width: 29px;
+  height: 29px;
+  text-align: center;
 }
 
 .cancel-btn {
   background-color: #547EBC;
   border: 3px solid white;
   color: white;
-  width: 44px;
-  height: 44px;
+  width: 29px;
+  height: 29px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -666,11 +667,12 @@ input[type="range"]:disabled ~ .slider-container::after {
 
   border-radius: 0px 15px 15px 0px;
   color: white;
-  padding: 5px 10px;
+  /* padding: 0px 20px; */
   cursor: pointer;
   transform: translateY(550%);
   position: absolute;
   left: 0%;
+  text-align: center;
 }
 
 .center-container{

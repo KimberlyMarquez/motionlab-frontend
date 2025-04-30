@@ -10,11 +10,8 @@ import {
 import FeedbackModal from "../components/FeedbackModal";
 import InfoModal from "../components/TutoModal";
 import "../styles/Simulador.css";
-import { getCalcSimulacion } from "../api/SimuladorAPI";
+import { getCalcSimulacion, getStudentsByTeamId, getMatchParameters } from "../api/SimuladorAPI";
 
-interface SimuladorProps {
-    equipoId: string;
-}
 
 type MovementData = {
     time: number; // El tiempo en segundos desde el inicio de la simulación
@@ -30,11 +27,11 @@ type MovementData = {
     progressPercent: number;
     failedToClimbHill: boolean; // Porcentaje de progreso en el recorrido total
 };
-const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
+const Simulador = () => {
     // Parametros del profesor
-    const [rpm, setRpm] = useState<number>(2000);
-    const [wheelSize, setWheelSize] = useState<number>(24);
-    const [distance, setDistance] = useState<number>(22.6); // min: 5, max: 22.6
+    const [rpm, setRpm] = useState<number>(0);
+    const [wheelSize, setWheelSize] = useState<number>(0);
+    const [distance, setDistance] = useState<number>(0); // min: 5, max: 22.6
     // Parametros del usuario
     const [pilotMass, setPilotMass] = useState<number>(70);
     const [chassisMass, setChassisMass] = useState<number>(50);
@@ -60,10 +57,11 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const [statusType, setStatusType] = useState<
         "success" | "warning" | "error" | ""
     >("");
-    const [alumnos, setAlumnos] = useState<string[]>([
-        "A01255262",
-        "A23456007",
-    ]);
+    const [alumnos, setAlumnos] = useState<string[]>([]);
+    const [teamId, setTeamId] = useState<number | null>(null);
+    const [matchId, setMatchId] = useState<number | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const [alumnoActualIndex, setAlumnoActualIndex] = useState<number>(0);
     const [tiemposRegistrados, setTiemposRegistrados] = useState<{
         [key: string]: number;
@@ -74,8 +72,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const [allStudentsCompleted, setAllStudentsCompleted] =
         useState<boolean>(false);
     const [hasRunSimulation, setHasRunSimulation] = useState<boolean>(false);
-    const [simulationCompleted, setSimulationCompleted] =
-        useState<boolean>(false);
+    const [simulationCompleted, setSimulationCompleted] = useState<boolean>(false);
 
     // Modales
     const [showInfoModal, setShowInfoModal] = useState(false);
@@ -92,6 +89,31 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     const simulationTimerRef = useRef<number | null>(null);
     const movementDataRef = useRef<MovementData[]>([]);
 
+    const loadMatchParameters = async () => {
+        if (!matchId) return;
+    
+        setLoading(true);
+        setError(null);
+    
+        try {
+            const response = await getMatchParameters(matchId);
+    
+            if (response.status === 'success' && response.payload) {
+                setRpm(response.payload.rpm);
+                setWheelSize(response.payload.wheel_size);
+                setDistance(response.payload.distance);
+                console.log("Parámetros de la partida:", response.payload);
+            } else {
+                setError('No se pudieron cargar los parámetros de la partida');
+            }
+        } catch (err) {
+            setError('Error al cargar los parámetros de la partida');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
     // Constantes
     const GRAVITY = 9.81;
     const HP_TO_WATTS = 745.7;
@@ -186,16 +208,74 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
     };
 
     useEffect(() => {
+        const storedTeamId = sessionStorage.getItem('teamId');
+        const storedMatchId = sessionStorage.getItem('matchId');
+    
+        if (storedTeamId) {
+            setTeamId(Number(storedTeamId));
+        } else {
+            setTeamId(null);
+            console.log("No se encontró el teamId.");
+        }
+    
+        if (storedMatchId) {
+            setMatchId(Number(storedMatchId));
+        } else {
+            setMatchId(null);
+            console.log("No se encontró el matchId.");
+        }
+    }, []);
+
+    // Función para cargar los estudiantes
+    const loadStudents = async () => {
+        if (!teamId) return;
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            const response = await getStudentsByTeamId(teamId);
+
+            if (response.status === 'success' && response.payload) {
+                const matriculas = response.payload.map((student: { studentId: string; teamId: number }) =>
+                    student.studentId
+                );
+                setAlumnos(matriculas);
+            } else {
+                setError('No se pudieron cargar los estudiantes');
+            }
+        } catch (err) {
+            setError('Error al cargar los estudiantes');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    useEffect(() => {
         setPilotMassInput(pilotMass.toFixed(2));
         setChassisMassInput(chassisMass.toFixed(2));
         setAdditionalMassInput(additionalMass.toFixed(2));
         setMotorPowerInput(motorPower.toFixed(2));
     }, [pilotMass, chassisMass, additionalMass, motorPower]);
 
+    useEffect(() => {
+        if (teamId) {
+            loadStudents();
+        }
+    }, [teamId]);
+
+    useEffect(() => {
+        if (matchId) {
+            loadMatchParameters();
+        }
+    }, [matchId]);
+    
+
     const toggleGoalsPanel = () => {
         setIsGoalsPanelCollapsed(!isGoalsPanelCollapsed);
     };
-
 
     // Calcular ángulo de la rampaZ
     const calculateRampAngle = () => {
@@ -207,6 +287,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
         if (xPos < rampStartX || xPos > rampEndX) return 0;
         return -calculateRampAngle();
     };
+
     // Comienzo de la simulación
     const startSimulation = async () => {
         if (isRunning && !isPaused) return;
@@ -216,7 +297,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             chassisMass: chassisMass,
             additionalMass: additionalMass,
             motorPower: motorPower,
-            matchId: 1,
+            matchId: matchId,
         };
 
         const response = await getCalcSimulacion(dataToSend);
@@ -515,7 +596,7 @@ const Simulador: React.FC<SimuladorProps> = ({ equipoId }) => {
             <div className="top-bar">
                 <div className="team-info">
                     <img src="/Users.svg" alt="" className="icon" />
-                    <span className="team-text">EQUIPO {equipoId}</span>
+                    <span className="team-text">EQUIPO {teamId}</span>
                     <FaCrown className="icon" />
                     <FaLightbulb
                         className="icon"
