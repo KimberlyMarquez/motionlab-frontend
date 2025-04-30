@@ -2,7 +2,7 @@ import api from ".";
 
 export const getLobbyTeams = async (matchId: string) => {
     try {
-      const res = await api.get(`/lobby/${matchId}`);
+      const res = await api.get(`/lobby/teams/${matchId}`);
       return res.data;
     } catch (error: any) {
       if (error.response) {
@@ -34,7 +34,7 @@ export const lobbyAccess = async (code: string) => {
 
 export const deleteTeamFromLobby = async (id: string) => {
   try {
-    const res = await api.delete(`/lobby/team/${id}`);
+    const res = await api.delete(`/lobby/teams/${id}`);
     return res.data;
   } catch (error: any) {
     if (error.response) {
