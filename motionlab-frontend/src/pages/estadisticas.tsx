@@ -10,7 +10,7 @@ import { getTeamData, getStudentData } from "../api/estadistica";
 const Statistics: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"equipos" | "alumnos">("equipos");
   const [showLeaderboard, setShowLeaderboard] = useState(false);
-  const [teams, setTeams] = useState<TeamData[]>([]);
+  const [teams, setTeams] = useState<Omit<TeamData, "id">[]>([]);
   const [students, setStudents] = useState<StudentData[]>([]);
   const navigate = useNavigate();
 
@@ -27,8 +27,15 @@ const Statistics: React.FC = () => {
         console.error("Error loading statistics data:", error);
       }
     };
-    fetchData();
+  
+    // Fetch the data every 3 seconds
+    fetchData(); // Initial fetch
+    const interval = setInterval(fetchData, 3000);
+  
+    // Cleanup the interval on component unmount
+    return () => clearInterval(interval);
   }, []);
+  
 
   const toggleLeaderboard = () => {
     setShowLeaderboard(!showLeaderboard);
@@ -56,17 +63,13 @@ const Statistics: React.FC = () => {
 
         <div className="tabs-container">
           <button
-            className={`tab-btn ${
-              activeTab === "equipos" ? "tab-equipos" : ""
-            }`}
+            className={`tab-btn ${activeTab === "equipos" ? "tab-equipos" : ""}`}
             onClick={() => setActiveTab("equipos")}
           >
             Equipos
           </button>
           <button
-            className={`tab-btn ${
-              activeTab === "alumnos" ? "tab-alumnos" : ""
-            }`}
+            className={`tab-btn ${activeTab === "alumnos" ? "tab-alumnos" : ""}`}
             onClick={() => setActiveTab("alumnos")}
           >
             Alumnos
@@ -89,8 +92,7 @@ const Statistics: React.FC = () => {
   );
 };
 
-// Tabla de Equipos
-const TeamsTable: React.FC<{ data: TeamData[] }> = ({ data }) => (
+const TeamsTable: React.FC<{ data: Omit<TeamData, "id">[] }> = ({ data }) => (
   <table className="stats-table">
     <thead>
       <tr>
@@ -103,34 +105,37 @@ const TeamsTable: React.FC<{ data: TeamData[] }> = ({ data }) => (
     <tbody>
       {data.map((row, index) => (
         <tr key={index}>
-          <td>{row.team}</td>
-          <td>{row.totalPlays}</td>
-          <td>{row.avgTime}</td>
-          <td>{row.avgPlaceHistoric}</td>
+          <td>{row.team_id}</td>
+          <td>{row.played_rounds}</td>
+          <td>{row.average_time}</td>
+          <td>{row.average_position}</td>
         </tr>
       ))}
     </tbody>
   </table>
 );
 
-// Tabla de Alumnos
+
+
 const StudentsTable: React.FC<{ data: StudentData[] }> = ({ data }) => (
   <table className="stats-table table-alumnos">
     <thead>
       <tr>
         <th>Alumno</th>
-        <th>Score</th>
-        <th>Time</th>
-        <th>Position</th>
+        <th>Rondas Jugadas</th>
+        <th>Tiempo Promedio</th>
+        <th>Lugar Promedio Match</th>
+        <th>Lugar Promedio Histórico</th>
       </tr>
     </thead>
     <tbody>
       {data.map((row, index) => (
         <tr key={index}>
-          <td>{row.student_id}</td>
-          <td>{row.score}</td>
-          <td>{row.time}</td>
-          <td>{row.avgPlaceHistoric}</td>
+          <td>{row.id}</td>
+          <td>{row.played_rounds}</td>
+          <td>{row.average_time}</td>
+          <td>{row.average_match_position}</td>
+          <td>{row.average_historic_position}</td>
         </tr>
       ))}
     </tbody>
