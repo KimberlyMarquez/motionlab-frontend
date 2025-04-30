@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -6,7 +7,7 @@ html, body {
 }
 
 .background-container {
-  background-image: url('/background.svg');
+  background-image: url("/background.svg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -30,7 +31,7 @@ html, body {
   top: 140px;
 }
 
-.btn-orange{
+.btn-orange {
   position: absolute;
   width: 100%;
   left: 50%;
@@ -39,21 +40,21 @@ html, body {
 }
 
 .input-matricula {
-max-width: 500px;
-width: 100%;
-background-color: #f2f2f2;
-border: none;
-border-radius: 10px;
-padding: 0.75rem;
-font-size: 1.1rem;
-box-shadow: none;
-outline: none;
-margin: 0 auto;
+  max-width: 500px;
+  width: 100%;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  box-shadow: none;
+  outline: none;
+  margin: 0 auto;
 }
 
-.loading{
+.loading {
   background-color: white;
-  color: #547EBC;
+  color: #547ebc;
   left: 50%;
   bottom: 9%;
   border-radius: 15px 15px 0 0;
@@ -66,14 +67,14 @@ margin: 0 auto;
 
 .codigo-box {
   background-color: white;
-  color: #4E79A7;
+  color: #4e79a7;
   font-weight: bold;
   font-size: 1.9rem;
   border-radius: 10px;
   padding: 0 1rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position:absolute;
+  position: absolute;
   top: 140px;
   right: 270px;
 }
@@ -87,17 +88,17 @@ margin: 0 auto;
 
 .equipo-card {
   text-align: center;
-  width:250px;
+  width: 250px;
 }
 
 .equipo-title {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url('/nube.svg');
+  background-image: url("/nube.svg");
   display: flex;
   flex-direction: column;
-  color: #C85332;
+  color: #c85332;
   border-radius: 12px 12px 0 0;
   width: 250px;
   padding: 1.5rem 1.5rem 0.7rem;
@@ -109,7 +110,7 @@ margin: 0 auto;
 }
 
 .integrantes-list {
-  background: #F3F8FF;
+  background: #f3f8ff;
   border-radius: 0 0 16px 16px;
   padding: 0.4rem;
   width: 150px;
@@ -118,7 +119,7 @@ margin: 0 auto;
 }
 
 .integrante-name {
-  color: #547EBC;
+  color: #547ebc;
   font-weight: bold;
   font-size: 1rem;
   margin: 0;
@@ -128,15 +129,15 @@ margin: 0 auto;
   display: flex;
   gap: 1rem;
   top: 70px;
-  right:160px;
-  position:absolute;
+  right: 160px;
+  position: absolute;
 }
 
 .icon-with-text {
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  background-color: #C85332;
+  background-color: #c85332;
   color: white;
   padding: 0rem 2rem;
   border-radius: 12px;
@@ -150,8 +151,8 @@ margin: 0 auto;
 
 .boton-eliminar {
   background-color: white;
-  color: #C85332;
-  border: 3px solid #C85332;
+  color: #c85332;
+  border: 3px solid #c85332;
   border-radius: 30%;
   width: 40px;
   height: 40px;
@@ -161,10 +162,10 @@ margin: 0 auto;
   font-size: 1.5rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   z-index: 1;
-}  
+}
 
 .bg-personalized {
-  background-color: #C85332;
+  background-color: #c85332;
   border-radius: 13px;
   display: flex;
   align-items: center;
@@ -172,7 +173,7 @@ margin: 0 auto;
 
 .plus-inside-btn {
   background-color: white;
-  color: #C85332;
+  color: #c85332;
   border: none;
   border-radius: 8px;
   margin-left: 8px;
