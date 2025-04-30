@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import LobbyContainer from '../components/LobbyContainer';
-import Footer from '../components/Footer';
-import { useLocation, useNavigate } from 'react-router-dom';
-import IconWithText from '../components/IconWithText';
-import { FaUser, FaUsers } from 'react-icons/fa';
-import '../pages/Pages.css';
+import { useState } from "react";
+import LobbyContainer from "../components/LobbyContainer";
+import Footer from "../components/Footer";
+import { useLocation, useNavigate } from "react-router-dom";
+import IconWithText from "../components/IconWithText";
+import { FaUser, FaUsers } from "react-icons/fa";
+import "../pages/Pages.css";
 
 const LobbyAlumnos = () => {
   const [equipos, setEquipos] = useState(7);
@@ -12,14 +12,17 @@ const LobbyAlumnos = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const codigo = location.state?.codigo || 'SIN-CÓDIGO';
- 
+  const codigo = location.state?.codigo || "SIN-CÓDIGO";
+
   const handleSiguiente = () => {
-    console.log('Equipos:', equipos, 'Integrantes:', integrantes);
-    navigate('/parametros');
+    console.log("Equipos:", equipos, "Integrantes:", integrantes);
+    navigate("/parametros");
   };
 
-  const Equipos: React.FC<{ equipos: number; integrantes: number }> = ({ equipos, integrantes }) => {
+  const Equipos: React.FC<{ equipos: number; integrantes: number }> = ({
+    equipos,
+    integrantes,
+  }) => {
     const renderEquipos = () => {
       const equiposArray = [];
 
@@ -29,7 +32,9 @@ const LobbyAlumnos = () => {
             <h5 className="equipo-title">Equipo {i}</h5>
             <div className="integrantes-list">
               {[...Array(integrantes)].map((_, idx) => (
-                <div key={idx} className="integrante-name">AXXXXXXX</div>
+                <div key={idx} className="integrante-name">
+                  AXXXXXXX
+                </div>
               ))}
             </div>
           </div>
@@ -39,24 +44,22 @@ const LobbyAlumnos = () => {
       return equiposArray;
     };
 
-    return (
-      <div className="equipos-container">
-        {renderEquipos()}
-      </div>
-    );
+    return <div className="equipos-container">{renderEquipos()}</div>;
   };
 
   return (
     <>
       <div className="background-container">
         <div className="main-content">
-        <LobbyContainer label={codigo} pag_anterior="/">
-
+          <LobbyContainer label={codigo} pag_anterior="/">
             <div className="info-icons">
-                <IconWithText icon={<FaUser size={30} />} text={integrantes*equipos} />
-                <IconWithText icon={<FaUsers size={40} />} text={equipos} />
+              <IconWithText
+                icon={<FaUser size={30} />}
+                text={integrantes * equipos}
+              />
+              <IconWithText icon={<FaUsers size={40} />} text={equipos} />
             </div>
-            
+
             <div className="d-flex justify-content-around flex-wrap">
               <Equipos equipos={equipos} integrantes={integrantes} />
             </div>
@@ -64,7 +67,7 @@ const LobbyAlumnos = () => {
             <div className="loading start-50 translate-middle-x">
               Esperando a que inicie la partida...
             </div>
-        </LobbyContainer>
+          </LobbyContainer>
         </div>
 
         <Footer />

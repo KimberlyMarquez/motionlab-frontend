@@ -1,18 +1,16 @@
 declare module "my-types" {
   export interface TeamData {
-    team: string;
+    team: number;
     totalPlays: number;
     avgTime: number;
-    avgPlaceToday: number;
     avgPlaceHistoric: number;
   }
 
   export interface StudentData {
-    student: string;
-    team: string;
-    totalPlays: number;
-    avgTime: number;
-    avgPlaceToday: number;
+    student_id: string;
+    round_id: number;
+    score: number;
+    time: number;
     avgPlaceHistoric: number;
   }
 

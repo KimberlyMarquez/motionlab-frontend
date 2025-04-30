@@ -1,186 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { TeamData } from "my-types";
-import { StudentData } from "my-types";
+import { TeamData, StudentData } from "my-types";
 import "./estadisticas.css";
 import Leaderboard from "../components/Leaderboard";
 import descargaIcon from "/descarga.png";
 import coronaIcon from "/corona.png";
-
-// Datos de equipos
-const teamData: TeamData[] = [
-  {
-    team: "Equipo 1",
-    totalPlays: 12,
-    avgTime: 1.3,
-    avgPlaceToday: 2,
-    avgPlaceHistoric: 3,
-  },
-  {
-    team: "Equipo 2",
-    totalPlays: 10,
-    avgTime: 1.8,
-    avgPlaceToday: 1,
-    avgPlaceHistoric: 4,
-  },
-  {
-    team: "Equipo 3",
-    totalPlays: 11,
-    avgTime: 1.2,
-    avgPlaceToday: 4,
-    avgPlaceHistoric: 2,
-  },
-  {
-    team: "Equipo 4",
-    totalPlays: 13,
-    avgTime: 1.8,
-    avgPlaceToday: 3,
-    avgPlaceHistoric: 1,
-  },
-  {
-    team: "Equipo 5",
-    totalPlays: 11,
-    avgTime: 1.5,
-    avgPlaceToday: 6,
-    avgPlaceHistoric: 5,
-  },
-  {
-    team: "Equipo 6",
-    totalPlays: 11,
-    avgTime: 1.3,
-    avgPlaceToday: 6,
-    avgPlaceHistoric: 6,
-  },
-];
-
-// Datos de alumnos
-const studentData: StudentData[] = [
-  {
-    student: "AXXXX",
-    team: "1",
-    totalPlays: 4,
-    avgTime: 1.8,
-    avgPlaceToday: 2,
-    avgPlaceHistoric: 2,
-  },
-  {
-    student: "AXXXX",
-    team: "4",
-    totalPlays: 1,
-    avgTime: 1.9,
-    avgPlaceToday: 3,
-    avgPlaceHistoric: 1,
-  },
-  {
-    student: "AXXXX",
-    team: "2",
-    totalPlays: 4,
-    avgTime: 1.2,
-    avgPlaceToday: 1,
-    avgPlaceHistoric: 3,
-  },
-  {
-    student: "AXXXX",
-    team: "2",
-    totalPlays: 4,
-    avgTime: 1.5,
-    avgPlaceToday: 2,
-    avgPlaceHistoric: 2,
-  },
-  {
-    student: "AXXXX",
-    team: "3",
-    totalPlays: 4,
-    avgTime: 0.9,
-    avgPlaceToday: 4,
-    avgPlaceHistoric: 1,
-  },
-  {
-    student: "AXXXX",
-    team: "2",
-    totalPlays: 4,
-    avgTime: 1.5,
-    avgPlaceToday: 2,
-    avgPlaceHistoric: 2,
-  },
-  {
-    student: "AXXXX",
-    team: "3",
-    totalPlays: 4,
-    avgTime: 0.9,
-    avgPlaceToday: 4,
-    avgPlaceHistoric: 1,
-  },
-  {
-    student: "AXXXX",
-    team: "2",
-    totalPlays: 4,
-    avgTime: 1.5,
-    avgPlaceToday: 2,
-    avgPlaceHistoric: 2,
-  },
-  {
-    student: "AXXXX",
-    team: "3",
-    totalPlays: 4,
-    avgTime: 0.9,
-    avgPlaceToday: 4,
-    avgPlaceHistoric: 1,
-  },
-  {
-    student: "AXXXX",
-    team: "2",
-    totalPlays: 4,
-    avgTime: 1.5,
-    avgPlaceToday: 2,
-    avgPlaceHistoric: 2,
-  },
-  {
-    student: "AXXXX",
-    team: "3",
-    totalPlays: 4,
-    avgTime: 0.9,
-    avgPlaceToday: 4,
-    avgPlaceHistoric: 1,
-  },
-  {
-    student: "AXXXX",
-    team: "2",
-    totalPlays: 4,
-    avgTime: 1.5,
-    avgPlaceToday: 2,
-    avgPlaceHistoric: 2,
-  },
-  {
-    student: "AXXXX",
-    team: "3",
-    totalPlays: 4,
-    avgTime: 0.9,
-    avgPlaceToday: 4,
-    avgPlaceHistoric: 1,
-  },
-  {
-    student: "AXXXX",
-    team: "2",
-    totalPlays: 4,
-    avgTime: 1.5,
-    avgPlaceToday: 2,
-    avgPlaceHistoric: 2,
-  },
-  {
-    student: "AXXXX",
-    team: "3",
-    totalPlays: 4,
-    avgTime: 0.9,
-    avgPlaceToday: 4,
-    avgPlaceHistoric: 1,
-  },
-];
+import { getTeamData, getStudentData } from "../api/estadistica";
 
 const Statistics: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"equipos" | "alumnos">("equipos");
-  const [showLeaderboard, setShowLeaderboard] = useState<boolean>(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [teams, setTeams] = useState<TeamData[]>([]);
+  const [students, setStudents] = useState<StudentData[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [teamsResponse, studentsResponse] = await Promise.all([
+          getTeamData(),
+          getStudentData(),
+        ]);
+        setTeams(teamsResponse);
+        setStudents(studentsResponse);
+      } catch (error) {
+        console.error("Error loading statistics data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const toggleLeaderboard = () => {
     setShowLeaderboard(!showLeaderboard);
@@ -227,10 +75,10 @@ const Statistics: React.FC = () => {
 
         <div className="table-container">
           {activeTab === "equipos" ? (
-            <TeamsTable data={teamData} />
+            <TeamsTable data={teams} />
           ) : (
             <div className="table-container-scrollable">
-              <StudentsTable data={studentData} />
+              <StudentsTable data={students} />
             </div>
           )}
         </div>
@@ -249,7 +97,6 @@ const TeamsTable: React.FC<{ data: TeamData[] }> = ({ data }) => (
         <th>Equipo</th>
         <th>Jugadas Totales</th>
         <th>Tiempo Promedio (min)</th>
-        <th>Lugar Promedio Hoy</th>
         <th>Lugar Promedio Histórico</th>
       </tr>
     </thead>
@@ -259,7 +106,6 @@ const TeamsTable: React.FC<{ data: TeamData[] }> = ({ data }) => (
           <td>{row.team}</td>
           <td>{row.totalPlays}</td>
           <td>{row.avgTime}</td>
-          <td>{row.avgPlaceToday}</td>
           <td>{row.avgPlaceHistoric}</td>
         </tr>
       ))}
@@ -273,21 +119,17 @@ const StudentsTable: React.FC<{ data: StudentData[] }> = ({ data }) => (
     <thead>
       <tr>
         <th>Alumno</th>
-        <th>Equipo</th>
-        <th>Jugadas Totales</th>
-        <th>Tiempo Promedio</th>
-        <th>Lugar Promedio Hoy</th>
-        <th>Lugar Promedio Histórico</th>
+        <th>Score</th>
+        <th>Time</th>
+        <th>Position</th>
       </tr>
     </thead>
     <tbody>
       {data.map((row, index) => (
         <tr key={index}>
-          <td>{row.student}</td>
-          <td>{row.team}</td>
-          <td>{row.totalPlays}</td>
-          <td>{row.avgTime}</td>
-          <td>{row.avgPlaceToday}</td>
+          <td>{row.student_id}</td>
+          <td>{row.score}</td>
+          <td>{row.time}</td>
           <td>{row.avgPlaceHistoric}</td>
         </tr>
       ))}

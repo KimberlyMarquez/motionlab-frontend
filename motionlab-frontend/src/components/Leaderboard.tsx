@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TeamInfo } from "my-types";
 import { StudentInfo } from "my-types";
 import "./Leaderboard.css";
 import { FaCrown } from "react-icons/fa";
+import { getTeamInfo, getStudentInfo } from "../api/leaderboard"; // Ajustar ruta de importación
 
-const teamInfo: TeamInfo[] = [
-  { name: "Equipo 1", time: 0.02, position: 1 },
-  { name: "Equipo 2", time: 0.02, position: 2 },
-  { name: "Equipo 3", time: 0.02, position: 3 },
-  { name: "Equipo 4", time: 0.02, position: 4 },
-  { name: "Equipo 5", time: 0.02, position: 5 },
-  { name: "Equipo 6", time: 0.02, position: 6 },
-];
+// Función para obtener datos de equipos
+const fetchTeamInfo = async (): Promise<TeamInfo[]> => {
+  try {
+    const response = await getTeamInfo();
+    return response;
+  } catch (error) {
+    console.error("Error fetching team info:", error);
+    return [];
+  }
+};
 
-const studentInfo: StudentInfo[] = [
-  { name: "Estudiante 1", time: 0.02, position: 1 },
-  { name: "Estudiante 4", time: 0.02, position: 2 },
-  { name: "Estudiante 5", time: 0.02, position: 3 },
-  { name: "Estudiante 2", time: 0.02, position: 4 },
-  { name: "Estudiante 3", time: 0.02, position: 5 },
-  { name: "Estudiante 6", time: 0.02, position: 6 },
-];
+// Función para obtener datos de alumnos
+const fetchStudentInfo = async (): Promise<StudentInfo[]> => {
+  try {
+    const response = await getStudentInfo();
+    return response;
+  } catch (error) {
+    console.error("Error fetching student info:", error);
+    return [];
+  }
+};
 
 interface LeaderboardProps {
   onClose?: () => void;
@@ -42,6 +47,18 @@ const getTimeContainerClass = (position: number): string => {
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState<"equipos" | "alumnos">("equipos");
+  const [teamInfo, setTeamInfo] = useState<TeamInfo[]>([]);
+  const [studentInfo, setStudentInfo] = useState<StudentInfo[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const teams = await fetchTeamInfo();
+      const students = await fetchStudentInfo();
+      setTeamInfo(teams);
+      setStudentInfo(students);
+    };
+    fetchData();
+  }, []);
 
   const dataToDisplay = activeTab === "equipos" ? teamInfo : studentInfo;
 
