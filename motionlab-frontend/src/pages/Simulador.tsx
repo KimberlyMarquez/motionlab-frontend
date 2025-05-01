@@ -10,7 +10,7 @@ import {
 import FeedbackModal from "../components/FeedbackModal";
 import InfoModal from "../components/TutoModal";
 import "../styles/Simulador.css";
-import { getCalcSimulacion, getStudentsByTeamId, getMatchParameters } from "../api/SimuladorAPI";
+import { getCalcSimulacion, getStudentsByTeamId, getMatchParameters, getRoundId, sendStudentScores } from "../api/SimuladorAPI";
 
 
 type MovementData = {
@@ -60,10 +60,15 @@ const Simulador = () => {
     const [alumnos, setAlumnos] = useState<string[]>([]);
     const [teamId, setTeamId] = useState<number | null>(null);
     const [matchId, setMatchId] = useState<number | null>(null);
+    const [roundId, setRoundId] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [alumnoActualIndex, setAlumnoActualIndex] = useState<number>(0);
     const [tiemposRegistrados, setTiemposRegistrados] = useState<{
+        [key: string]: number;
+    }>({});
+    // Agrega esta línea cerca de donde declaras el estado tiemposRegistrados
+    const [distanciasRegistradas, setDistanciasRegistradas] = useState<{
         [key: string]: number;
     }>({});
     const [tiempoTotalGlobal, setTiempoTotalGlobal] = useState<number>(0);
@@ -91,13 +96,13 @@ const Simulador = () => {
 
     const loadMatchParameters = async () => {
         if (!matchId) return;
-    
+
         setLoading(true);
         setError(null);
-    
+
         try {
             const response = await getMatchParameters(matchId);
-    
+
             if (response.status === 'success' && response.payload) {
                 setRpm(response.payload.rpm);
                 setWheelSize(response.payload.wheel_size);
@@ -113,7 +118,23 @@ const Simulador = () => {
             setLoading(false);
         }
     };
-    
+
+    const loadRoundId = async (matchId: number) => {
+        if (!matchId) return;
+
+        try {
+            const response = await getRoundId(matchId);
+            if (response.status === 'success' && response.payload) {
+                setRoundId(response.payload.id);
+                console.log("ID de ronda:", response.payload.id);
+            } else {
+                console.error("Error al cargar la ronda.");
+            }
+        } catch (error) {
+            console.error("Error al cargar la ronda:", error);
+        }
+    }
+
     // Constantes
     const GRAVITY = 9.81;
     const HP_TO_WATTS = 745.7;
@@ -210,14 +231,14 @@ const Simulador = () => {
     useEffect(() => {
         const storedTeamId = sessionStorage.getItem('teamId');
         const storedMatchId = sessionStorage.getItem('matchId');
-    
+
         if (storedTeamId) {
             setTeamId(Number(storedTeamId));
         } else {
             setTeamId(null);
             console.log("No se encontró el teamId.");
         }
-    
+
         if (storedMatchId) {
             setMatchId(Number(storedMatchId));
         } else {
@@ -271,7 +292,12 @@ const Simulador = () => {
             loadMatchParameters();
         }
     }, [matchId]);
-    
+
+    useEffect(() => {
+        if (matchId) {
+            loadRoundId(matchId);
+        }
+    }, [matchId]);
 
     const toggleGoalsPanel = () => {
         setIsGoalsPanelCollapsed(!isGoalsPanelCollapsed);
@@ -493,46 +519,81 @@ const Simulador = () => {
 
         ensureTimerRunning();
     };
-    const handleReadyClick = () => {
-        // Registrar el tiempo del alumno actual
-        const alumnoActual = alumnos[alumnoActualIndex];
-        const tiempoAlumno = tiempoTotalGlobal - tiempoInicioAlumnoActual;
-        setTiemposRegistrados((prev) => ({
-            ...prev,
-            [alumnoActual]: tiempoAlumno,
-        }));
+    // Modificación para el handleReadyClick()
+const handleReadyClick = () => {
+    // Registrar el tiempo del alumno actual
+    const alumnoActual = alumnos[alumnoActualIndex];
+    const tiempoAlumno = tiempoTotalGlobal - tiempoInicioAlumnoActual;
+    setTiemposRegistrados((prev) => ({
+        ...prev,
+        [alumnoActual]: tiempoAlumno,
+    }));
 
-        // Verificar si hay más alumnos en la lista
-        if (alumnoActualIndex < alumnos.length - 1) {
-            setAlumnoActualIndex((prev) => prev + 1);
-            cancelSimulation();
-            setTiempoInicioAlumnoActual(tiempoTotalGlobal);
-            setHasRunSimulation(false);
-            setSimulationCompleted(false);
+    setDistanciasRegistradas((prev) => ({
+        ...prev,
+        [alumnoActual]: distanceTraveled,
+    }));
 
-            ensureTimerRunning();
+    // Verificar si hay más alumnos en la lista
+    if (alumnoActualIndex < alumnos.length - 1) {
+        setAlumnoActualIndex((prev) => prev + 1);
+        cancelSimulation();
+        setTiempoInicioAlumnoActual(tiempoTotalGlobal);
+        setHasRunSimulation(false);
+        setSimulationCompleted(false);
+
+        ensureTimerRunning();
+    } else {
+        setStatusMessage("¡Todos los alumnos han completado la simulación!");
+        setStatusType("success");
+        setAllStudentsCompleted(true);
+
+        if (roundId) {
+            // Asegurar que todos los alumnos tienen un registro válido
+            const results = alumnos.map(studentId => ({
+                student_id: studentId,
+                time: tiemposRegistrados[studentId] || (studentId === alumnoActual ? tiempoAlumno : 0),
+                distance: distanciasRegistradas[studentId] || (studentId === alumnoActual ? distanceTraveled : 0)
+            }));
+
+            // Verificar si hay tiempos en 0 y loguear para depuración
+            const alumnosConTiempoCero = results.filter(r => r.time === 0);
+            if (alumnosConTiempoCero.length > 0) {
+                console.log("Alumnos con tiempo 0:", alumnosConTiempoCero);
+                console.log("Estado actual de tiemposRegistrados:", tiemposRegistrados);
+            }
+
+            // Enviar resultados al backend
+            sendStudentScores(roundId, results)
+                .then(response => {
+                    console.log("Resultados enviados exitosamente:", response);
+                })
+                .catch(error => {
+                    console.error("Error al enviar resultados:", error);
+                    setError("Error al enviar resultados al servidor");
+                    console.log("Data enviada:", roundId, results);
+                });
         } else {
-            setStatusMessage("¡Todos los alumnos han completado la simulación!");
-            setStatusType("success");
-            setAllStudentsCompleted(true);
-
-            //Detener temporizadores
-            if (timerRef.current) {
-                clearInterval(timerRef.current);
-                timerRef.current = null;
-            }
-            if (animationRef.current) {
-                cancelAnimationFrame(animationRef.current);
-                animationRef.current = null;
-            }
-
-            setIsRunning(false);
-            setIsPaused(false);
-            console.log("Tiempos registrados:", tiemposRegistrados);
-
-            setShowFeedbackModal(true);
+            console.error("No se puede enviar resultados: roundId es null");
         }
-    };
+
+        // Detener temporizadores
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+        }
+        if (animationRef.current) {
+            cancelAnimationFrame(animationRef.current);
+            animationRef.current = null;
+        }
+
+        setIsRunning(false);
+        setIsPaused(false);
+        console.log("Tiempos registrados:", tiemposRegistrados);
+
+        setShowFeedbackModal(true);
+    }
+};
     const resetParameters = () => {
         if (!isRunning) {
             setPilotMass(70);
