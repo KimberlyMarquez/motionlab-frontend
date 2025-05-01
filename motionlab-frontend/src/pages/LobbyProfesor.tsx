@@ -192,7 +192,6 @@ const LobbyProfesor = () => {
               label={`START`}
               onClick={async () => {
                 await handleStartClick();
-                setStartCount((prev) => prev + 1);
               }}
               ronda={`Ronda ${startCount}/${roundsAmount}`}
               disabled={

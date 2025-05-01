@@ -6,7 +6,7 @@ declare module "my-types" {
     average_match_position: number;
     average_historic_position: number;
   }
-  
+
   export interface TeamData {
     id: number;
     team_id: number;
@@ -16,14 +16,14 @@ declare module "my-types" {
   }
 
   export interface TeamInfo {
-    name: string;
+    id: number;
     time: number;
-    position: number;
+    score: number;
   }
 
   export interface StudentInfo {
-    name: string;
+    id: number;
     time: number;
-    position: number;
+    score: number;
   }
 }

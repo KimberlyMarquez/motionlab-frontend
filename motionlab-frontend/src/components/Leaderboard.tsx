@@ -61,6 +61,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
   }, []);
 
   const dataToDisplay = activeTab === "equipos" ? teamInfo : studentInfo;
+  console.log(dataToDisplay);
 
   return (
     <div className="leaderboard-overlay">
@@ -118,12 +119,14 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
                   : ""
               }`}
             >
-              <span className="position">{item.position}</span>
+              <span className="position">{index + 1}</span>
 
-              <div className={getTimeContainerClass(item.position)}>
-                <span className="time">{item.time.toFixed(2)}s</span>
+              <div className={getTimeContainerClass(index + 1)}>
+                <span className="time">{item.score.toFixed(0)}</span>
               </div>
-              <span className="name">{item.name}</span>
+              <span className="name">
+                {dataToDisplay === teamInfo ? `Equipo ${item.id}` : item.id}
+              </span>
             </div>
           ))}
         </div>
