@@ -10,7 +10,8 @@ import {
 import FeedbackModal from "../components/FeedbackModal";
 import InfoModal from "../components/TutoModal";
 import "../styles/Simulador.css";
-import { getCalcSimulacion, getStudentsByTeamId, getMatchParameters, getRoundId, sendStudentScores } from "../api/SimuladorAPI";
+import { getCalcSimulacion, getStudentsByTeamId, getMatchParameters, getRoundId, sendStudentScores, sendTeamScores, getMatchStatus, changeMatchStatus, getSimulationStatus} from "../api/SimuladorAPI";
+import { useNavigate } from "react-router-dom"
 
 
 type MovementData = {
@@ -28,6 +29,7 @@ type MovementData = {
     failedToClimbHill: boolean; // Porcentaje de progreso en el recorrido total
 };
 const Simulador = () => {
+    const navigate = useNavigate();
     // Parametros del profesor
     const [rpm, setRpm] = useState<number>(0);
     const [wheelSize, setWheelSize] = useState<number>(0);
@@ -227,6 +229,37 @@ const Simulador = () => {
         setter(value);
         inputSetter(value.toFixed(2));
     };
+
+    const handleSimulationStatus = async () => {
+        if (!roundId) return;
+        if (!matchId) return;
+
+        try {
+            const response = await getSimulationStatus(roundId);
+
+            if (response.payload) {
+                await changeMatchStatus(matchId);
+                    setStatusMessage("La partida ha finalizado. Redirigiendo en 10 segundos...");
+                    setStatusType("warning");
+                    setTimeout(() => navigate("/lobby"), 10000);
+            } else {
+                setError(response.message || "Error al obtener el estado de la partida");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setError("Error al procesar la solicitud");
+        }
+    };
+
+    useEffect(() => {
+        handleSimulationStatus();
+
+        const interval = setInterval(() => {
+            handleSimulationStatus();
+        },3000)
+
+        return() => clearInterval(interval);
+       },[roundId]);
 
     useEffect(() => {
         const storedTeamId = sessionStorage.getItem('teamId');
@@ -575,6 +608,33 @@ const handleReadyClick = () => {
                 });
         } else {
             console.error("No se puede enviar resultados: roundId es null");
+        }
+
+        if (roundId && teamId) {
+            // FIX: Crear el objeto de resultado según la estructura esperada por el backend
+            const teamResult = {
+                team_id: teamId,
+                time: tiempoTotalGlobal
+            };
+
+            // Verificar los datos para depuración
+            console.log("Enviando resultados del equipo:", {
+                roundId: roundId,
+                results: teamResult
+            });
+
+            // Enviar resultados del equipo al backend
+            sendTeamScores(roundId, teamResult)
+                .then(response => {
+                    console.log("Resultados del equipo enviados exitosamente:", response);
+                })
+                .catch(error => {
+                    console.error("Error al enviar resultados del equipo:", error);
+                    setError("Error al enviar resultados del equipo al servidor");
+                    console.log("Data enviada:", roundId, teamResult);
+                });
+        } else {
+            console.error("No se puede enviar resultados del equipo: roundId o teamId es null");
         }
 
         // Detener temporizadores

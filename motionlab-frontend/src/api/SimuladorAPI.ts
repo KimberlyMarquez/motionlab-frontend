@@ -38,8 +38,8 @@ export const getRoundId = async (matchId: number) => {
         return res.data;
     } catch (error) {
         console.error("Error al obtener ronda.", error);
-        throw error;
-    }
+        throw error;
+    }
 }
 
 
@@ -56,4 +56,34 @@ export const sendStudentScores = async (roundId: number, results: any[]) => {
         console.error("Error al enviar puntuaciones de estudiantes.", error);
         throw error;
     }
+}
+
+export const sendTeamScores = async (roundId: number, results: any) => {
+    try {
+        const payload = {
+            roundId: roundId,
+            results: results
+        };
+
+        const res = await api.post('/teamscores', payload);
+        return res.data;
+    } catch (error) {
+        console.error("Error al enviar puntuaciones de equipos.", error);
+        throw error;
+    }
+}
+
+export const getMatchStatus = async (round_id: number) => {
+    const response = await api.get(`/match/status/${round_id}`);
+    return response.data;
+};
+
+export const changeMatchStatus = async (match_id: number) => {
+  const response = await api.post("/match/status", { match_id });
+  return response.data;
+};
+
+export const getSimulationStatus = async (round_id: number) => {
+    const response = await api.get(`/sim/${round_id}`);
+    return response.data;
 }
