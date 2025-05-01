@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import LobbyContainer from '../components/LobbyContainer';
 import IconWithText from '../components/IconWithText';
 import { FaUser, FaUsers, FaTrashAlt } from 'react-icons/fa';
+import { IoIosStats } from "react-icons/io";
 import CustomButton from '../components/ButtonOrange';
 import { getLobbyTeams, deleteTeamFromLobby } from '../api/lobbyAPI';
 import { changeMatchStatus , getMatchStatus} from '../api/MatchAPI';
@@ -122,13 +123,9 @@ const fetchMatchStatus = async () => {
       <div className="main-content">
         <LobbyContainer label={codigo} pag_anterior="/">
           <div className="info-icons">
+            <IconWithText icon={<IoIosStats size={40} />} text="" onClick={() => window.open("/estadistics", "_blank") } className="icon-button-style" />
             <IconWithText icon={<FaUser size={30} />} text={totalAlumnos} />
-            <div className="d-flex align-items-center gap-2 bg-personalized px-3 py-1">
-              <FaUsers size={40} color="#fff" />
-              <span className="text-white fw-bold" style={{ fontFamily: '"Jersey 20", sans-serif', fontSize: '2rem' }}>
-                {totalEquipos}
-              </span>
-            </div>
+            <IconWithText icon={<FaUsers size={40} />} text={totalEquipos} />
           </div>
 
           {loading ? (
