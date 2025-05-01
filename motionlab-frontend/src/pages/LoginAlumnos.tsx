@@ -9,7 +9,8 @@ import ButtonRegresar from '../components/ButtonRegresar';
 import '../pages/Pages.css';
 
 const LoginAlumnos: React.FC = () => {
-  const [matriculas, setMatriculas] = useState(['', '', '', '', '']);
+  const miembros = parseInt(sessionStorage.getItem("members") || "5");
+  const [matriculas, setMatriculas] = useState<string[]>(Array(miembros).fill(''));
   const navigate = useNavigate();
   const location = useLocation();
   const codigo = location.state?.codigo || "sin código";
@@ -61,7 +62,16 @@ const LoginAlumnos: React.FC = () => {
         <div className="main-content">
           <FormContainer>
             <div className="d-flex justify-content-between align-items-center mb-5 px-4">
-              <div className="btn-regresar-encabezado" onClick={() => navigate(-1)}>
+              <div
+                className="btn-regresar-encabezado"
+                onClick={() => {
+                  sessionStorage.removeItem("codigo");
+                  sessionStorage.removeItem("matchId");
+                  sessionStorage.removeItem("teamId");
+                  sessionStorage.removeItem("members");
+                  navigate(-1);
+                }}
+              >
                 <ButtonRegresar label='< Regresar' />
               </div>
               <div className="codigo-box">{codigo}</div>
