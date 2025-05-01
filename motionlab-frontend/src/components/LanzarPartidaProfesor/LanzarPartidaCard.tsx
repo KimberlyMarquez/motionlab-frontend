@@ -12,6 +12,7 @@ const LanzarPartidaCard = ({ nomina }: LanzarPartidaCardProps) => {
   const handleLanzarPartida = () => {
     navigate('/ajuste-equipos', { state: { codigo: 'SIN-CÓDIGO' } });
   };
+  
   return (
     <div className="lanzar-container">
       <h2 className="lanzar-title">

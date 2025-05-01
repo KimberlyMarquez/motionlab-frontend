@@ -1,17 +1,17 @@
-.logout-icon {
+.button {
     position: fixed;
     top: 0;
     left: 0;
     margin: 0;
     padding: 0;
-    width: 91px !important;
-    height: 91px !important;
+    width: 48px;
+    height: 48px;
     cursor: pointer;
     z-index: 1000;
 
     transition: transform 0.2s ease;
 }
 
-.logout-icon:hover {
+.button:hover {
     transform: scale(1.05);
 }

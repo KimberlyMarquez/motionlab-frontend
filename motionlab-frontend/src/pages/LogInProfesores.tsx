@@ -1,6 +1,6 @@
-import './pages.css';
+import './Pages.css';
 import Footer from '../components/Footer';
-import GoBackButton from '../components/LogInProfesores/GoBackButton';
+import GoBackButtonMain from '../components/MainPage/GoBackButtonMain';
 import LogInCard from '../components/LogInProfesores/LogInCard';
 
 const LogInProfesores = () => {
@@ -8,7 +8,7 @@ const LogInProfesores = () => {
         <>  
             <div className="background-container flex-column">
                 <LogInCard />
-            <GoBackButton />
+            <GoBackButtonMain redirectTo="/Main"/>
             <Footer />
             </div>
         </>

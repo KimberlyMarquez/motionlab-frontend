@@ -1,18 +1,14 @@
-.button {
+.icon {
     position: fixed;
     top: 0;
     left: 0;
-    background: none;
-    border: none;
     margin: 0;
     padding: 0;
-    cursor: pointer;
-    z-index: 1000;
-}
-
-.icon {
     width: 70px;
     height: 70px;
+    cursor: pointer;
+    z-index: 1000;
+
     transition: transform 0.2s ease;
 }
 

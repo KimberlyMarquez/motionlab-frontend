@@ -2,24 +2,31 @@ import { useNavigate } from 'react-router-dom';
 import CustomButton from '../CustomButton';
 import './LoginCard.css';
 import { useState } from 'react';
+import { teacherLogin } from '../../api/authAPI';
 
 const LoginCard = () => {
   const navigate = useNavigate();
   const [nomina, setNomina] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const nominaRegex = /^L\d{8}$/;
 
     if (!nominaRegex.test(nomina)) {
-      alert('La nómina debe tener el formato L seguido de 8 números. Ejemplo: L12345678');
+      alert('La nómina debe tener el formato L seguido de 9 números. Ejemplo: L12345678');
       return;
     }
 
-    localStorage.setItem('nomina', nomina);
-    navigate('/lanzarpartidaprofesor');
+    const res = await teacherLogin(nomina, password);
+
+    if (res.status === "success") {
+      sessionStorage.setItem('teacherId', res.payload);
+      navigate('/lanzarpartidaprofesor');
+    } else {
+      alert(res.message);
+    }
   };
 
   return (
