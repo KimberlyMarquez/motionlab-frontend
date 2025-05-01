@@ -114,7 +114,6 @@ const LobbyAlumnos = () => {
               ))}
             </div>
           )}
-
           <div className="loading start-50 translate-middle-x mt-4">
             Esperando a que inicie la partida...
           </div>

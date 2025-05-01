@@ -1,0 +1,222 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5eacc;
+}
+
+.background-container {
+  background-image: url('/background.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.tabs-container {
+  padding: 0 15px;
+  margin: 10px 0 0 20px;
+  font-size: 20px;
+  display: flex;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.tab-btn {
+  border: none;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  padding: 10px 24px;
+  margin-right: 0;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #f2f2f2;
+  color: #333;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tab-equipos {
+  background-color: #547EBC;
+  color: white;
+  font-weight: bold;
+}
+
+.tab-alumnos {
+  background-color: #70c2ad;
+  color: white;
+  font-weight: bold;
+}
+
+.tab-btn:hover {
+  opacity: 0.9;
+}
+
+.table-container {
+  padding: 0 15px 15px 15px;
+  color: white;
+}
+
+/* Fixed height container for the students table with scrollbar */
+.table-container-scrollable-team {
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 15px;
+}
+
+/* Styling the scrollbar */
+.table-container-scrollable-team::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-container-scrollable-team::-webkit-scrollbar-track {
+  background: #dde9fc;
+  border-radius: 10px;
+}
+
+.table-container-scrollable-team::-webkit-scrollbar-thumb {
+  background: #547ebc;
+  border-radius: 10px;
+}
+
+.table-container-scrollable-team::-webkit-scrollbar-thumb:hover {
+  background: #3a5d96;
+}
+
+
+.table-container-scrollable-student {
+  max-height: 400px;
+  overflow-y: auto;
+  border-radius: 15px;
+}
+
+/* Styling the scrollbar */
+.table-container-scrollable-student::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-container-scrollable-student::-webkit-scrollbar-track {
+  background: #dde9fc;
+  border-radius: 10px;
+}
+
+.table-container-scrollable-student::-webkit-scrollbar-thumb {
+  background: #70C2AD;
+  border-radius: 10px;
+}
+
+.table-container-scrollable-student::-webkit-scrollbar-thumb:hover {
+  background: #3a5d96;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+
+  min-width: 100%; 
+  table-layout: fixed; 
+}
+
+.stats-table thead tr {
+  background-color: #547EBC;
+  color: white;
+  font-weight: normal;
+}
+
+.stats-table th {
+  padding: 12px 15px;
+  text-align: center;
+  font-weight: bolder;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: auto;   
+  white-space: nowrap;
+}
+
+.stats-table {
+  width: auto; 
+  table-layout: auto; 
+}
+
+.stats-table tbody tr {
+  background-color: #92b3e6;
+}
+
+.stats-table tbody tr:nth-child(odd) {
+  background-color: #92b3e6;
+}
+
+.stats-table tbody tr:nth-child(even) {
+  background-color: #a4c2f0;
+}
+
+.stats-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.stats-table td:first-child {
+  text-align: left;
+}
+
+.table-alumnos thead tr {
+  background-color: #70C2AD;
+}
+
+.table-alumnos tbody tr {
+  background-color: #6dab9b;
+}
+
+.table-alumnos tbody tr:nth-child(odd) {
+  background-color: #6dab9b;
+}
+
+.table-alumnos tbody tr:nth-child(even) {
+  background-color: #7dbcab;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+
+  .header {
+    font-size: 1.3rem;
+    max-width: 250px;
+  }
+
+  .stats-table {
+    font-size: 0.9rem;
+  }
+
+  .stats-table th,
+  .stats-table td {
+    padding: 8px 10px;
+  }
+
+  .tab-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .table-container-scrollable {
+    max-height: 300px;
+  }
+}
