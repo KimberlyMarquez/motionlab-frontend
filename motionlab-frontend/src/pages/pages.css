@@ -48,7 +48,7 @@
     background-color: white;
     color: #547EBC;
     left: 50%;
-    bottom: 9%;
+    bottom: 6.5%;
     border-radius: 15px 15px 0 0;
     font-weight: bold;
     font-size: 1.3rem;
@@ -120,8 +120,8 @@
   .info-icons {
     display: flex;
     gap: 1rem;
-    top: 70px;
-    right:160px;
+    top: 80px;
+    right:155px;
     position:absolute;
   }
   
@@ -131,7 +131,7 @@
     gap: 0.3rem;
     background-color: #C85332;
     color: white;
-    padding: 0rem 2rem;
+    padding: 0rem 1.5rem;
     border-radius: 12px;
   }
   
@@ -183,3 +183,14 @@
     transform: translateX(-50%);
     z-index: 999;
   }
+
+  .icon-button-style {
+    background-color: #749862;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease;
+  }
+  
+  .icon-button-style:hover {
+    background-color: #a1cd8b;
+  }
+  
