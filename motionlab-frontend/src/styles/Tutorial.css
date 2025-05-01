@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #547EBC;
+}
+
+#root {
+    height: 100%;
+    background-color: #547EBC;
+}
+
+.tutorial-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tutorial-titulo {
+    font-family: 'Jersey 20';
+    font-size: 70px;
+    color: #C85332;
+    text-align: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #E8F1FF;
+    padding: 5px;
+}
+
+.imagen-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.imagen-tuto {
+    max-width: 75%;
+    border-radius: 15px;
+    border: white solid 10px;
+}
+
+.contador {
+    font-family: 'Roboto Condensed';
+    text-align: center;
+    color: #E8F1FF;
+}
+
+.contador-number {
+    color: white;
+    text-align: center;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    max-width: 200px;
+    z-index: 10;
+    text-align: center !important;
+}
+
+.tooltip::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+}
+
+.tooltip.arrow-top::before {
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+}
+
+.tooltip.arrow-bottom::before {
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+}
+
+.tooltip.arrow-left::before {
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
+}
+
+.tooltip.arrow-right::before {
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: bounce 1.5s infinite;
+}
