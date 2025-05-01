@@ -48,7 +48,7 @@
     background-color: white;
     color: #547EBC;
     left: 50%;
-    bottom: 6.5%;
+    bottom: 9%;
     border-radius: 15px 15px 0 0;
     font-weight: bold;
     font-size: 1.3rem;
@@ -120,8 +120,8 @@
   .info-icons {
     display: flex;
     gap: 1rem;
-    top: 80px;
-    right:155px;
+    top: 70px;
+    right:160px;
     position:absolute;
   }
   
@@ -131,7 +131,7 @@
     gap: 0.3rem;
     background-color: #C85332;
     color: white;
-    padding: 0rem 1.5rem;
+    padding: 0rem 2rem;
     border-radius: 12px;
   }
   
@@ -193,4 +193,3 @@
   .icon-button-style:hover {
     background-color: #a1cd8b;
   }
-  

@@ -15,7 +15,6 @@ interface Props {
 const StatsContainer: React.FC<Props> = ({ 
   label, 
   children, 
-  pag_anterior,
   onDownload,
   activeTab 
 }) => {
@@ -23,7 +22,7 @@ const StatsContainer: React.FC<Props> = ({
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   const handleRegresar = () => {
-    navigate(pag_anterior);
+    navigate(-1);
   };
 
   const toggleLeaderboard = () => {
