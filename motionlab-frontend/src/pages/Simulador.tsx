@@ -10,8 +10,10 @@ import {
 import FeedbackModal from "../components/FeedbackModal";
 import InfoModal from "../components/TutoModal";
 import "../styles/Simulador.css";
-import { getCalcSimulacion, getStudentsByTeamId, getMatchParameters, getRoundId, sendStudentScores, sendTeamScores, getMatchStatus, changeMatchStatus, getSimulationStatus} from "../api/SimuladorAPI";
+import { getCalcSimulacion, getStudentsByTeamId, getMatchParameters, getRoundId, sendStudentScores, sendTeamScores, getMatchStatus, changeMatchStatus, getSimulationStatus } from "../api/SimuladorAPI";
 import { useNavigate } from "react-router-dom"
+import Leaderboard from '../components/Leaderboard';
+
 
 
 type MovementData = {
@@ -163,6 +165,17 @@ const Simulador = () => {
     const tramo3Pixels = flag3X - flag2X;
     const totalCoursePixels = tramo1Pixels + tramo2Pixels + tramo3Pixels;
 
+    //Leaderboard
+    const [showLeaderboard, setShowLeaderboard] = useState(false);
+
+    const handleRegresar = () => {
+        navigate(-1);
+    };
+
+    const toggleLeaderboard = () => {
+        setShowLeaderboard(!showLeaderboard);
+    };
+
     // Handles
     const handlePilotMassInputChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -239,9 +252,9 @@ const Simulador = () => {
 
             if (response.payload) {
                 await changeMatchStatus(matchId);
-                    setStatusMessage("La partida ha finalizado. Redirigiendo en 10 segundos...");
-                    setStatusType("warning");
-                    setTimeout(() => navigate("/lobby"), 10000);
+                setStatusMessage("La partida ha finalizado. Redirigiendo en 10 segundos...");
+                setStatusType("warning");
+                setTimeout(() => navigate("/lobby"), 10000);
             } else {
                 setError(response.message || "Error al obtener el estado de la partida");
             }
@@ -256,10 +269,10 @@ const Simulador = () => {
 
         const interval = setInterval(() => {
             handleSimulationStatus();
-        },3000)
+        }, 3000)
 
-        return() => clearInterval(interval);
-       },[roundId]);
+        return () => clearInterval(interval);
+    }, [roundId]);
 
     useEffect(() => {
         const storedTeamId = sessionStorage.getItem('teamId');
@@ -553,107 +566,107 @@ const Simulador = () => {
         ensureTimerRunning();
     };
     // Modificación para el handleReadyClick()
-const handleReadyClick = () => {
-    // Registrar el tiempo del alumno actual
-    const alumnoActual = alumnos[alumnoActualIndex];
-    const tiempoAlumno = tiempoTotalGlobal - tiempoInicioAlumnoActual;
-    setTiemposRegistrados((prev) => ({
-        ...prev,
-        [alumnoActual]: tiempoAlumno,
-    }));
+    const handleReadyClick = () => {
+        // Registrar el tiempo del alumno actual
+        const alumnoActual = alumnos[alumnoActualIndex];
+        const tiempoAlumno = tiempoTotalGlobal - tiempoInicioAlumnoActual;
+        setTiemposRegistrados((prev) => ({
+            ...prev,
+            [alumnoActual]: tiempoAlumno,
+        }));
 
-    setDistanciasRegistradas((prev) => ({
-        ...prev,
-        [alumnoActual]: distanceTraveled,
-    }));
+        setDistanciasRegistradas((prev) => ({
+            ...prev,
+            [alumnoActual]: distanceTraveled,
+        }));
 
-    // Verificar si hay más alumnos en la lista
-    if (alumnoActualIndex < alumnos.length - 1) {
-        setAlumnoActualIndex((prev) => prev + 1);
-        cancelSimulation();
-        setTiempoInicioAlumnoActual(tiempoTotalGlobal);
-        setHasRunSimulation(false);
-        setSimulationCompleted(false);
+        // Verificar si hay más alumnos en la lista
+        if (alumnoActualIndex < alumnos.length - 1) {
+            setAlumnoActualIndex((prev) => prev + 1);
+            cancelSimulation();
+            setTiempoInicioAlumnoActual(tiempoTotalGlobal);
+            setHasRunSimulation(false);
+            setSimulationCompleted(false);
 
-        ensureTimerRunning();
-    } else {
-        setStatusMessage("¡Todos los alumnos han completado la simulación!");
-        setStatusType("success");
-        setAllStudentsCompleted(true);
+            ensureTimerRunning();
+        } else {
+            setStatusMessage("¡Todos los alumnos han completado la simulación!");
+            setStatusType("success");
+            setAllStudentsCompleted(true);
 
-        if (roundId) {
-            // Asegurar que todos los alumnos tienen un registro válido
-            const results = alumnos.map(studentId => ({
-                student_id: studentId,
-                time: tiemposRegistrados[studentId] || (studentId === alumnoActual ? tiempoAlumno : 0),
-                distance: distanciasRegistradas[studentId] || (studentId === alumnoActual ? distanceTraveled : 0)
-            }));
+            if (roundId) {
+                // Asegurar que todos los alumnos tienen un registro válido
+                const results = alumnos.map(studentId => ({
+                    student_id: studentId,
+                    time: tiemposRegistrados[studentId] || (studentId === alumnoActual ? tiempoAlumno : 0),
+                    distance: distanciasRegistradas[studentId] || (studentId === alumnoActual ? distanceTraveled : 0)
+                }));
 
-            // Verificar si hay tiempos en 0 y loguear para depuración
-            const alumnosConTiempoCero = results.filter(r => r.time === 0);
-            if (alumnosConTiempoCero.length > 0) {
-                console.log("Alumnos con tiempo 0:", alumnosConTiempoCero);
-                console.log("Estado actual de tiemposRegistrados:", tiemposRegistrados);
+                // Verificar si hay tiempos en 0 y loguear para depuración
+                const alumnosConTiempoCero = results.filter(r => r.time === 0);
+                if (alumnosConTiempoCero.length > 0) {
+                    console.log("Alumnos con tiempo 0:", alumnosConTiempoCero);
+                    console.log("Estado actual de tiemposRegistrados:", tiemposRegistrados);
+                }
+
+                // Enviar resultados al backend
+                sendStudentScores(roundId, results)
+                    .then(response => {
+                        console.log("Resultados enviados exitosamente:", response);
+                    })
+                    .catch(error => {
+                        console.error("Error al enviar resultados:", error);
+                        setError("Error al enviar resultados al servidor");
+                        console.log("Data enviada:", roundId, results);
+                    });
+            } else {
+                console.error("No se puede enviar resultados: roundId es null");
             }
 
-            // Enviar resultados al backend
-            sendStudentScores(roundId, results)
-                .then(response => {
-                    console.log("Resultados enviados exitosamente:", response);
-                })
-                .catch(error => {
-                    console.error("Error al enviar resultados:", error);
-                    setError("Error al enviar resultados al servidor");
-                    console.log("Data enviada:", roundId, results);
+            if (roundId && teamId) {
+                // FIX: Crear el objeto de resultado según la estructura esperada por el backend
+                const teamResult = {
+                    team_id: teamId,
+                    time: tiempoTotalGlobal
+                };
+
+                // Verificar los datos para depuración
+                console.log("Enviando resultados del equipo:", {
+                    roundId: roundId,
+                    results: teamResult
                 });
-        } else {
-            console.error("No se puede enviar resultados: roundId es null");
+
+                // Enviar resultados del equipo al backend
+                sendTeamScores(roundId, teamResult)
+                    .then(response => {
+                        console.log("Resultados del equipo enviados exitosamente:", response);
+                    })
+                    .catch(error => {
+                        console.error("Error al enviar resultados del equipo:", error);
+                        setError("Error al enviar resultados del equipo al servidor");
+                        console.log("Data enviada:", roundId, teamResult);
+                    });
+            } else {
+                console.error("No se puede enviar resultados del equipo: roundId o teamId es null");
+            }
+
+            // Detener temporizadores
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+                timerRef.current = null;
+            }
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+                animationRef.current = null;
+            }
+
+            setIsRunning(false);
+            setIsPaused(false);
+            console.log("Tiempos registrados:", tiemposRegistrados);
+
+            setShowFeedbackModal(true);
         }
-
-        if (roundId && teamId) {
-            // FIX: Crear el objeto de resultado según la estructura esperada por el backend
-            const teamResult = {
-                team_id: teamId,
-                time: tiempoTotalGlobal
-            };
-
-            // Verificar los datos para depuración
-            console.log("Enviando resultados del equipo:", {
-                roundId: roundId,
-                results: teamResult
-            });
-
-            // Enviar resultados del equipo al backend
-            sendTeamScores(roundId, teamResult)
-                .then(response => {
-                    console.log("Resultados del equipo enviados exitosamente:", response);
-                })
-                .catch(error => {
-                    console.error("Error al enviar resultados del equipo:", error);
-                    setError("Error al enviar resultados del equipo al servidor");
-                    console.log("Data enviada:", roundId, teamResult);
-                });
-        } else {
-            console.error("No se puede enviar resultados del equipo: roundId o teamId es null");
-        }
-
-        // Detener temporizadores
-        if (timerRef.current) {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
-        }
-        if (animationRef.current) {
-            cancelAnimationFrame(animationRef.current);
-            animationRef.current = null;
-        }
-
-        setIsRunning(false);
-        setIsPaused(false);
-        console.log("Tiempos registrados:", tiemposRegistrados);
-
-        setShowFeedbackModal(true);
-    }
-};
+    };
     const resetParameters = () => {
         if (!isRunning) {
             setPilotMass(70);
@@ -714,11 +727,12 @@ const handleReadyClick = () => {
     };
     return (
         <div className="simulador-container">
+            {showLeaderboard && <Leaderboard onClose={() => setShowLeaderboard(false)} />}
             <div className="top-bar">
                 <div className="team-info">
                     <img src="/Users.svg" alt="" className="icon" />
                     <span className="team-text">EQUIPO {teamId}</span>
-                    <FaCrown className="icon" />
+                    <FaCrown className="icon" onClick={toggleLeaderboard}/>
                     <FaLightbulb
                         className="icon"
                         onClick={() => setShowInfoModal(true)}

@@ -31,7 +31,7 @@ interface LeaderboardProps {
   onClose?: () => void;
 }
 
-// 🔧 Función para asignar clase según posición
+// Función para asignar clase según posición
 const getTimeContainerClass = (position: number): string => {
   switch (position) {
     case 1:

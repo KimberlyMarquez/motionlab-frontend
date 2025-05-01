@@ -12,11 +12,11 @@ interface Props {
   activeTab: "equipos" | "alumnos";
 }
 
-const StatsContainer: React.FC<Props> = ({ 
-  label, 
-  children, 
+const StatsContainer: React.FC<Props> = ({
+  label,
+  children,
   onDownload,
-  activeTab 
+  activeTab
 }) => {
   const navigate = useNavigate();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
@@ -32,7 +32,7 @@ const StatsContainer: React.FC<Props> = ({
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
       {showLeaderboard && <Leaderboard onClose={() => setShowLeaderboard(false)} />}
-      
+
       <div className="ajustes-box shadow-lg p-4">
         <div>
           <div className="d-flex justify-content-between align-items-center mb-3">
@@ -44,7 +44,7 @@ const StatsContainer: React.FC<Props> = ({
               <div className="me-2" onClick={onDownload}>
                 <img src="/descarga.png" alt="DOWNLOAD" className="icon-size" />
               </div>
-              
+
               <div className="me-2" onClick={toggleLeaderboard}>
                 <img src="/leaderboard.svg" alt="LEADERBOARD" className="icon-size" />
               </div>

@@ -697,6 +697,7 @@ input[type="range"]:disabled ~ .slider-container::after {
 .time{
   display: flex;
   padding-bottom: 3px;
+  justify-content: center;
 }
 
 .icon-bottom {
