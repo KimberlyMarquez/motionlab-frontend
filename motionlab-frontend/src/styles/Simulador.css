@@ -697,6 +697,8 @@ input[type="range"]:disabled ~ .slider-container::after {
 .time{
   display: flex;
   padding-bottom: 3px;
+  display: flex;
+  justify-content: center;
 }
 
 .icon-bottom {
@@ -717,6 +719,10 @@ input[type="range"]:disabled ~ .slider-container::after {
   font-family: Inter;
   font-size: 25px;
   font-weight: 700;
+}
+
+.time-display span{
+  width: 120px;
 }
 
 .ready-btn {
