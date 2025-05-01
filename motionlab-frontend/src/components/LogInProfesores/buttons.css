@@ -1,0 +1,17 @@
+.icon {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    z-index: 1000;
+
+    transition: transform 0.2s ease;
+}
+
+.icon:hover {
+    transform: scale(1.05);
+}

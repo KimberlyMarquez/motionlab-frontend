@@ -1,0 +1,57 @@
+/* Ensure the full viewport is utilized */
+html, body {
+    overflow: hidden;
+    height: 100%; 
+    margin: 0; /* Removes default margin */
+}
+
+/* Main container layout for the landing page */
+.landing-page-container {
+    background-image: url('/assets/LandingPage/LandingBackground.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; 
+    display: flex;
+    flex-direction: column; /* Stack wrapper and footer vertically */
+}
+
+.wrapper {
+    flex: 1; /* Expands to fill remaining space between the footer and top */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.comenzarbutton {
+    font-family: 'Jersey 20', sans-serif;
+    font-size: 55px;
+    text-decoration: none !important;
+    color: white !important;
+    background-color: #547EBC;
+    border-radius: 20px;
+    border: 7px solid #4971B4;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.655); /* Solid box shadow without blur */
+    padding: 15px 70px; /* Combines padding-left and padding-right */
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.comenzar{
+    transition: transform 0.2s ease; /* Smooth hover effect */
+}
+
+.comenzar:hover {
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+/* Logo size */
+.Logo {
+    width: 610px !important;
+    height: 288px !important;
+}
+
+
+button {
+    all: unset;
+}
