@@ -1,4 +1,4 @@
-import api from "."
+import api from ".";
 
 export interface Match {
   id: number;
@@ -31,12 +31,15 @@ export const createMatch = async (payload: CreateMatchPayload) => {
   return response.data;
 };
 
-export const changeMatchStatus = async (match_id: number) => {
-    const response = await api.post("/match/status", { match_id });
-    return response.data;
-  };
+export const changeMatchStatus = async (
+  match_id: number,
+  newStatus: boolean
+) => {
+  const response = await api.post("/match/status", { match_id, newStatus });
+  return response.data;
+};
 
-  export const getMatchStatus = async (match_id: number) => {
-    const response = await api.get(`/match/status/${match_id}`);
-    return response.data;
-  };
+export const getMatchStatus = async (match_id: number) => {
+  const response = await api.get(`/match/status/${match_id}`);
+  return response.data;
+};
