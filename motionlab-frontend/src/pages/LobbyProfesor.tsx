@@ -6,6 +6,7 @@ import { IoIosStats } from "react-icons/io";
 import CustomButton from '../components/ButtonOrange';
 import { getLobbyTeams, deleteTeamFromLobby } from '../api/lobbyAPI';
 import { changeMatchStatus , getMatchStatus} from '../api/MatchAPI';
+import { createRound } from '../api/rondaAPI';
 import '../pages/Pages.css';
 
 interface Equipo {
@@ -30,14 +31,22 @@ const LobbyProfesor = () => {
     if (!matchId) return;
   
     try {
-      const response = await changeMatchStatus(parseInt(matchId));
-      if (response.status === "success") {
+      const responseStatus = await changeMatchStatus(parseInt(matchId));
+      if (responseStatus.status === "success") {
         console.log("Partida iniciada");
+  
+        const responseRound = await createRound(parseInt(matchId));
+        if (responseRound.status === "success") {
+          console.log("Ronda creada exitosamente:", responseRound.payload);
+          setStartCount(prev => prev + 1);
+        } else {
+          console.error("Error al crear la ronda:", responseRound.message);
+        }
       } else {
-        console.error("Error al iniciar la partida:", response.message);
+        console.error("Error al iniciar la partida:", responseStatus.message);
       }
     } catch (error) {
-      console.error("Error en la petición al iniciar la partida:", error);
+      console.error("Error al iniciar partida o crear ronda:", error);
     }
   };
   
@@ -123,7 +132,7 @@ const fetchMatchStatus = async () => {
       <div className="main-content">
         <LobbyContainer label={codigo} pag_anterior="/">
           <div className="info-icons">
-            <IconWithText icon={<IoIosStats size={40} />} text="" onClick={() => window.open("/estadistics", "_blank") } className="icon-button-style" />
+            <IconWithText icon={<IoIosStats size={40} />} text="" onClick={() => window.open("/estadisticas", "_blank") } className="icon-button-style" />
             <IconWithText icon={<FaUser size={30} />} text={totalAlumnos} />
             <IconWithText icon={<FaUsers size={40} />} text={totalEquipos} />
           </div>
