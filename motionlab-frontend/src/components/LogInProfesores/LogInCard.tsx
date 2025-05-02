@@ -37,21 +37,21 @@ const LoginCard = () => {
       <form className="login-form" onSubmit={handleSubmit}>
         <label>
           <b>Nómina</b>
-          <input 
-            type="text" 
-            required 
-            value={nomina} 
-            onChange={(e) => setNomina(e.target.value)} 
-            placeholder="L12345678"
+          <input
+            type="text"
+            required
+            value={nomina}
+            onChange={(e) => setNomina(e.target.value)}
+            placeholder="L00000000"
           />
         </label>
         <label>
           <b>Contraseña</b>
-          <input 
-            type="password" 
-            required 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
+          <input
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
           />
         </label>

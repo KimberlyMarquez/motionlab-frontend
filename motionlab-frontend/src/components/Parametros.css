@@ -1,6 +1,7 @@
 .parametro-container {
   margin-bottom: 20px;
   font-family: 'Inter', sans-serif;
+  width: 50%;
 }
 
 .parametro-label {
@@ -14,11 +15,14 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  width: 100%;
 }
 
 .slider {
   appearance: none;
   -webkit-appearance: none;
+  flex: 1;
+
   width: 700px;
   height: 8px;
   background: #032B6F;
@@ -90,4 +94,3 @@
 .slider:focus {
   outline: none;
 }
-  

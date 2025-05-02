@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { registrarAlumnos } from '../api/loginalumnosAPI';
 import FormContainer from '../components/FormContainer';
-import LogoutButton from '../components/LogoutButton';
 import Footer from '../components/Footer';
 import CustomButton from '../components/CustomButtonT4';
 import ButtonRegresar from '../components/ButtonRegresar';

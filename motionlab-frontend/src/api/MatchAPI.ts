@@ -25,7 +25,6 @@ export interface CreateMatchPayload {
   distance: number;
 }
 
-// Crear una nueva partida
 export const createMatch = async (payload: CreateMatchPayload) => {
   const response = await api.post("/match", payload);
   return response.data;

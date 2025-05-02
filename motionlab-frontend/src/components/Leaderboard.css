@@ -3,6 +3,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -33,16 +34,14 @@
 }
 
 .close-btn {
-  background-color: transparent;
-  color: #ffffff;
-  border-color: #ffffff;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: bold;
   box-shadow: none;
   position: relative;
-  left: 90%;
+  left: 88%;
   z-index: 1001;
+}
+
+.img-close {
+  width: 45px;
 }
 
 .popup-header-container {
@@ -56,7 +55,7 @@
   justify-content: center;
   align-items: center;
   background: white;
-  padding: 10px;
+  padding: 10px 10px;
   font-family: "Jersey 20", cursive;
   color: #c85332;
   font-weight: bold;
@@ -65,8 +64,8 @@
 }
 
 .popup-header h2 {
-  font-size: 50px; /* Ajusta este valor según necesites */
-  margin: 0; /* Para eliminar márgenes predeterminados */
+  font-size: 50px;
+  margin: 0;
 }
 
 .icon-crown {
@@ -116,7 +115,6 @@
 }
 
 .ranking-list {
-  /* max-width: 400px; */
   max-height: 400px;
   overflow-y: auto;
   padding: 20px;
@@ -160,7 +158,6 @@
   color: #ffffff;
   padding: 6px 10px;
   outline: 4px solid #a2def0;
-  /* outline-color: #a2def0; */
 }
 
 .ranking-item.third {

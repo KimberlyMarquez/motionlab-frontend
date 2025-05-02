@@ -75,7 +75,6 @@ const LobbyProfesor = () => {
         teamId: team.team_id,
       }));
 
-      // Solo actualizar si hay cambios
       const mismosEquipos =
         JSON.stringify(nuevosEquipos) === JSON.stringify(equipos);
       if (!mismosEquipos) {
@@ -93,7 +92,7 @@ const LobbyProfesor = () => {
     if (!matchId) return;
 
     fetchEquipos(true);
-    fetchMatchStatus(); // Llamada inicial
+    fetchMatchStatus();
 
     const intervalId = setInterval(() => {
       fetchEquipos();
@@ -131,18 +130,19 @@ const LobbyProfesor = () => {
       <div className="main-content">
         <LobbyContainer label={codigo} pag_anterior="/">
           <div className="info-icons">
-            <IconWithText
-              icon={<IoIosStats size={40} />}
-              text=""
-              onClick={() => window.open("/estadisticas", "_blank")}
-              className="icon-button-style"
-            />
+            <div className="icon-button-style">
+              <button
+                onClick={() => window.open("/estadisticas", "_blank")}
+                className="stats">
+                <IoIosStats size={50} color="white" />
+              </button>
+            </div>
             <IconWithText icon={<FaUser size={30} />} text={totalAlumnos} />
             <IconWithText icon={<FaUsers size={40} />} text={totalEquipos} />
           </div>
 
           {loading ? (
-            <p className="text-center mt-3">Cargando equipos...</p>
+            <p className="text-center mt-3 loading-text">Cargando equipos...</p>
           ) : equipos.length === 0 ? (
             <p className="text-center mt-4 text-muted">
               Aún no hay equipos creados

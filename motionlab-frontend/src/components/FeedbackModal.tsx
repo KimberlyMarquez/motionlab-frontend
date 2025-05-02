@@ -4,7 +4,7 @@ import '../styles/FeedbackModal.css';
 interface FeedbackModalProps {
     show: boolean;
     onHide: () => void;
-    tiemposRegistrados?: {[key: string]: number};
+    tiemposRegistrados?: { [key: string]: number };
     goalsCompleted?: {
         goal1: boolean;
         goal2: boolean;
@@ -12,11 +12,11 @@ interface FeedbackModalProps {
     };
 }
 
-const FeedbackModal: React.FC<FeedbackModalProps> = ({ 
-    show, 
-    onHide, 
-    tiemposRegistrados = {}, 
-    goalsCompleted = { goal1: false, goal2: false, goal3: false } 
+const FeedbackModal: React.FC<FeedbackModalProps> = ({
+    show,
+    onHide,
+    tiemposRegistrados = {},
+    goalsCompleted = { goal1: false, goal2: false, goal3: false }
 }) => {
     const formatTime = (time: number) => {
         const minutes = Math.floor(time / 60);
@@ -27,12 +27,10 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
             .padStart(2, "0")}.${milliseconds.toString().padStart(2, "0")}`;
     };
 
-    // Calculate average time
-    const avgTime = Object.values(tiemposRegistrados).length > 0 
+    const avgTime = Object.values(tiemposRegistrados).length > 0
         ? Object.values(tiemposRegistrados).reduce((a, b) => a + b, 0) / Object.values(tiemposRegistrados).length
         : 0;
 
-    // Determine the message based on goals completed
     let feedbackMessage = "¡Simulación completada!";
     if (goalsCompleted.goal3) {
         feedbackMessage = "¡Excelente trabajo! Han logrado completar todo el recorrido.";
@@ -65,19 +63,19 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({
                     <div className='reminder'>
                         <span>Resumen de la simulación</span>
                     </div>
-                   <ul className='list'>
-                    <li>Tiempo promedio: {formatTime(avgTime)}</li>
-                    <li>Metas alcanzadas: {
-                        [
-                            goalsCompleted.goal1 ? "Base de la rampa" : "", 
-                            goalsCompleted.goal2 ? "Cima de la rampa" : "", 
-                            goalsCompleted.goal3 ? "Recorrido completo" : ""
-                        ].filter(Boolean).join(", ") || "Ninguna"
-                    }</li>
-                    <li>Recuerda que la masa y potencia afectan el desempeño del carro</li>
-                    <li>Incrementar la potencia del motor ayuda a subir la rampa</li>
-                    <li>Reducir la masa total mejora la velocidad y aceleración</li>
-                   </ul>
+                    <ul className='list'>
+                        <li>Tiempo promedio: {formatTime(avgTime)}</li>
+                        <li>Metas alcanzadas: {
+                            [
+                                goalsCompleted.goal1 ? "Base de la rampa" : "",
+                                goalsCompleted.goal2 ? "Cima de la rampa" : "",
+                                goalsCompleted.goal3 ? "Recorrido completo" : ""
+                            ].filter(Boolean).join(", ") || "Ninguna"
+                        }</li>
+                        <li>Recuerda que la masa y potencia afectan el desempeño del carro</li>
+                        <li>Incrementar la potencia del motor ayuda a subir la rampa</li>
+                        <li>Reducir la masa total mejora la velocidad y aceleración</li>
+                    </ul>
                 </div>
             </Modal.Body>
         </Modal>

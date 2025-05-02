@@ -24,6 +24,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import Leaderboard from '../components/Leaderboard';
 import SimLogoutButton from "../components/Simulador/SimLogoutButton";
+import { FaUsers } from "react-icons/fa";
+
 
 type MovementData = {
     time: number; // El tiempo en segundos desde el inicio de la simulación
@@ -80,7 +82,6 @@ const Simulador = () => {
     const [tiemposRegistrados, setTiemposRegistrados] = useState<{
         [key: string]: number;
     }>({});
-    // Agrega esta línea cerca de donde declaras el estado tiemposRegistrados
     const [distanciasRegistradas, setDistanciasRegistradas] = useState<{
         [key: string]: number;
     }>({});
@@ -161,7 +162,7 @@ const Simulador = () => {
     const HP_TO_WATTS = 745.7;
     const CM_TO_M = 0.01;
     const PIXELS_PER_METER = 30;
-    const groundLevel = 200; //Se cambio el alto del groun level
+    const groundLevel = 200;
     // Dimensiones del carro
     const CAR_WIDTH = 50;
     // Calculos de las posiciones de la rampa
@@ -424,17 +425,11 @@ const Simulador = () => {
         const movementData = movementDataRef.current;
         let currentFrameIndex = 0;
         const animationStartTime = performance.now();
-
-        // Reset simulation state
         lastTimeRef.current = animationStartTime;
 
         const animate = (timestamp: number) => {
             if (!isRunning || isPaused) return;
-
-            // Calculate how much time has passed since the animation started
             const elapsedTime = (timestamp - animationStartTime) / 1000;
-
-            // Find the appropriate frame in our precalculated data
             while (
                 currentFrameIndex < movementData.length - 1 &&
                 movementData[currentFrameIndex + 1].time <= elapsedTime
@@ -452,7 +447,6 @@ const Simulador = () => {
             setCurrentVelocity(velocityRef.current);
             setDistanceTraveled(distanceRef.current);
 
-            // Check if the cart failed to climb the hill
             if (currentFrame.failedToClimbHill && velocityRef.current < 0) {
                 setStatusMessage(
                     "El carro no puede subir la rampa. La masa es demasiada y/o la potencia muy poca."
@@ -494,7 +488,6 @@ const Simulador = () => {
                 return;
             }
 
-            // Check if simulation should end based on other conditions
             if (currentFrameIndex >= movementData.length - 1) {
                 const isOnRamp =
                     currentFrame.x >= rampStartX && currentFrame.x <= rampEndX;
@@ -533,7 +526,6 @@ const Simulador = () => {
     const pauseSimulation = () => {
         setIsPaused(true);
 
-        // Detener la animación
         if (animationRef.current) cancelAnimationFrame(animationRef.current);
 
         if (simulationTimerRef.current) {
@@ -543,7 +535,6 @@ const Simulador = () => {
 
         ensureTimerRunning();
     };
-    // Cancelar la simulación
     const cancelSimulation = () => {
         if (simulationTimerRef.current) {
             clearInterval(simulationTimerRef.current);
@@ -572,128 +563,12 @@ const Simulador = () => {
 
         ensureTimerRunning();
     };
-    // Modificación para el handleReadyClick()
-    // const handleReadyClick = () => {
-    //   // Registrar el tiempo del alumno actual
-    //   const alumnoActual = alumnos[alumnoActualIndex];
-    //   const tiempoAlumno = tiempoTotalGlobal - tiempoInicioAlumnoActual;
-    //   setTiemposRegistrados((prev) => ({
-    //     ...prev,
-    //     [alumnoActual]: tiempoAlumno,
-    //   }));
-
-    //   setDistanciasRegistradas((prev) => ({
-    //     ...prev,
-    //     [alumnoActual]: distanceTraveled,
-    //   }));
-
-    //   // Verificar si hay más alumnos en la lista
-    //   if (alumnoActualIndex < alumnos.length - 1) {
-    //     setAlumnoActualIndex((prev) => prev + 1);
-    //     cancelSimulation();
-    //     setTiempoInicioAlumnoActual(tiempoTotalGlobal);
-    //     setHasRunSimulation(false);
-    //     setSimulationCompleted(false);
-
-    //     ensureTimerRunning();
-    //   } else {
-    //     setStatusMessage("¡Todos los alumnos han completado la simulación!");
-    //     setStatusType("success");
-    //     setAllStudentsCompleted(true);
-
-    //     if (roundId) {
-    //       // Asegurar que todos los alumnos tienen un registro válido
-    //       const results = alumnos.map((studentId) => ({
-    //         student_id: studentId,
-    //         time:
-    //           tiemposRegistrados[studentId] ||
-    //           (studentId === alumnoActual ? tiempoAlumno : 0),
-    //         distance:
-    //           distanciasRegistradas[studentId] ||
-    //           (studentId === alumnoActual ? distanceTraveled : 0),
-    //       }));
-
-    //       // Verificar si hay tiempos en 0 y loguear para depuración
-    //       const alumnosConTiempoCero = results.filter((r) => r.time === 0);
-    //       if (alumnosConTiempoCero.length > 0) {
-    //         console.log("Alumnos con tiempo 0:", alumnosConTiempoCero);
-    //         console.log(
-    //           "Estado actual de tiemposRegistrados:",
-    //           tiemposRegistrados
-    //         );
-    //       }
-
-    //       // Enviar resultados al backend
-    //       sendStudentScores(roundId, results)
-    //         .then((response) => {
-    //           console.log("Resultados enviados exitosamente:", response);
-    //         })
-    //         .catch((error) => {
-    //           console.error("Error al enviar resultados:", error);
-    //           setError("Error al enviar resultados al servidor");
-    //           console.log("Data enviada:", roundId, results);
-    //         });
-    //     } else {
-    //       console.error("No se puede enviar resultados: roundId es null");
-    //     }
-
-    //     if (roundId && teamId) {
-    //       // FIX: Crear el objeto de resultado según la estructura esperada por el backend
-    //       const teamResult = {
-    //         team_id: teamId,
-    //         time: tiempoTotalGlobal,
-    //       };
-
-    //       // Verificar los datos para depuración
-    //       console.log("Enviando resultados del equipo:", {
-    //         roundId: roundId,
-    //         results: teamResult,
-    //       });
-
-    //       // Enviar resultados del equipo al backend
-    //       sendTeamScores(roundId, teamResult)
-    //         .then((response) => {
-    //           console.log(
-    //             "Resultados del equipo enviados exitosamente:",
-    //             response
-    //           );
-    //         })
-    //         .catch((error) => {
-    //           console.error("Error al enviar resultados del equipo:", error);
-    //           setError("Error al enviar resultados del equipo al servidor");
-    //           console.log("Data enviada:", roundId, teamResult);
-    //         });
-    //     } else {
-    //       console.error(
-    //         "No se puede enviar resultados del equipo: roundId o teamId es null"
-    //       );
-    //     }
-
-    //     // Detener temporizadores
-    //     if (timerRef.current) {
-    //       clearInterval(timerRef.current);
-    //       timerRef.current = null;
-    //     }
-    //     if (animationRef.current) {
-    //       cancelAnimationFrame(animationRef.current);
-    //       animationRef.current = null;
-    //     }
-
-    //     setIsRunning(false);
-    //     setIsPaused(false);
-    //     console.log("Tiempos registrados:", tiemposRegistrados);
-
-    //     setShowFeedbackModal(true);
-    //   }
-    // };
 
     const handleReadyClick = async () => {
         try {
-            // Registrar el tiempo del alumno actual
             const alumnoActual = alumnos[alumnoActualIndex];
             const tiempoAlumno = tiempoTotalGlobal - tiempoInicioAlumnoActual;
 
-            // Use functional updates to ensure we're working with the latest state
             setTiemposRegistrados((prev) => {
                 const updated = {
                     ...prev,
@@ -712,7 +587,6 @@ const Simulador = () => {
                 return updated;
             });
 
-            // Verificar si hay más alumnos en la lista
             if (alumnoActualIndex < alumnos.length - 1) {
                 setAlumnoActualIndex((prev) => prev + 1);
                 cancelSimulation();
@@ -722,7 +596,6 @@ const Simulador = () => {
 
                 ensureTimerRunning();
             } else {
-                // Stop timers first to prevent any further state changes
                 if (timerRef.current) {
                     clearInterval(timerRef.current);
                     timerRef.current = null;
@@ -739,7 +612,6 @@ const Simulador = () => {
                 setStatusType("success");
                 setAllStudentsCompleted(true);
 
-                // Get the latest state for calculations
                 const currentTiemposRegistrados = {
                     ...tiemposRegistrados,
                     [alumnoActual]: tiempoAlumno,
@@ -756,28 +628,24 @@ const Simulador = () => {
                 );
 
                 if (roundId) {
-                    // Create the results with the latest state data
                     const results = alumnos.map((studentId) => ({
                         student_id: studentId,
                         time: currentTiemposRegistrados[studentId] || 0,
                         distance: currentDistanciasRegistradas[studentId] || 0,
                     }));
 
-                    // Debug logging
                     const alumnosConTiempoCero = results.filter((r) => r.time === 0);
                     if (alumnosConTiempoCero.length > 0) {
                         console.log("Alumnos con tiempo 0:", alumnosConTiempoCero);
                     }
 
                     try {
-                        // Enviar resultados al backend - await to ensure completion
                         const studentResponse = await sendStudentScores(roundId, results);
                         console.log(
                             "Resultados de estudiantes enviados exitosamente:",
                             studentResponse
                         );
 
-                        // Only proceed with team score submission after student scores are sent
                         if (teamId) {
                             const teamResult = {
                                 team_id: teamId,
@@ -790,14 +658,12 @@ const Simulador = () => {
                             });
 
                             try {
-                                // Use await to ensure this completes
                                 const teamResponse = await sendTeamScores(roundId, teamResult);
                                 console.log(
                                     "Resultados del equipo enviados exitosamente:",
                                     teamResponse
                                 );
 
-                                // Show feedback after both submissions are successful
                                 setShowFeedbackModal(true);
                             } catch (teamError) {
                                 console.error(
@@ -895,9 +761,9 @@ const Simulador = () => {
             {showLeaderboard && <Leaderboard onClose={() => setShowLeaderboard(false)} />}
             <div className="top-bar">
                 <div className="team-info">
-                    <img src="/Users.svg" alt="" className="icon" />
+                    <FaUsers size={40} color="#C85332" />
                     <span className="team-text">EQUIPO {teamId}</span>
-                    <FaCrown className="icon" onClick={toggleLeaderboard} />
+                    <FaCrown className="icon" onClick={toggleLeaderboard} style={{ marginLeft: "10px" }} />
                     <FaLightbulb
                         className="icon"
                         onClick={() => setShowInfoModal(true)}

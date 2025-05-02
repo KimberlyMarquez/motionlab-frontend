@@ -33,7 +33,7 @@ const LoginCodigo: React.FC = () => {
     <>
       <div className="background-container">
         <div className="main-content">
-        <GoBackButtonMain redirectTo="/Main"/>
+          <GoBackButtonMain redirectTo="/Main" />
           <FormContainer>
             <div className="text-center w-100">
               <label
@@ -60,6 +60,7 @@ const LoginCodigo: React.FC = () => {
                   outline: 'none',
                   width: '19%',
                   margin: '0 auto',
+                  textAlign: 'center'
                 }}
               />
               <CustomButton label="ACCEDER" onClick={handleSubmit} />

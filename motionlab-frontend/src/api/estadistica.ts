@@ -12,7 +12,7 @@ export const getTeamData = async (): Promise<Omit<TeamData, "id">[]> => {
     console.log("Teams data without id:", response.data.payload.map(({ id, ...rest }: TeamData) => rest));
 
     return response.data.payload.map(({ id, ...rest }: TeamData) => rest);
-    
+
   } catch (error) {
     console.error("Error al obtener datos de equipos:", error);
     throw error;

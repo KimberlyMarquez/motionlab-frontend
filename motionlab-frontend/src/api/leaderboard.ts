@@ -7,7 +7,7 @@ export const getTeamInfo = async (): Promise<TeamInfo[]> => {
       payload: TeamInfo[];
       message: string;
       status: string;
-    }>("/teamscores"); //Ajusatar ruta
+    }>("/teamscores");
     return response.data.payload;
   } catch (error) {
     console.error("Error fetching info:", error);
@@ -21,7 +21,7 @@ export const getStudentInfo = async (): Promise<StudentInfo[]> => {
       payload: StudentInfo[];
       message: string;
       status: string;
-    }>("/studentscores"); //Ajusatar ruta
+    }>("/studentscores");
     return response.data.payload;
   } catch (error) {
     console.error("Error fetching products:", error);

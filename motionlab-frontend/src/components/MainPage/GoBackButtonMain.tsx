@@ -15,10 +15,9 @@ const GoBackButton: React.FC<GoBackButtonProps> = ({ redirectTo }) => {
 
   return (
     <button className="button" onClick={handleGoBack}>
-      <img 
-        src="assets/MainPage/Return.svg" 
+      <img
+        src="assets/MainPage/Return.svg"
         alt="Regresar"
-        className="icon" 
         title="Regresar"
       />
     </button>

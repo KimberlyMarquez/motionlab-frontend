@@ -3,9 +3,8 @@ import { TeamInfo } from "my-types";
 import { StudentInfo } from "my-types";
 import "./Leaderboard.css";
 import { FaCrown } from "react-icons/fa";
-import { getTeamInfo, getStudentInfo } from "../api/leaderboard"; // Ajustar ruta de importación
+import { getTeamInfo, getStudentInfo } from "../api/leaderboard";
 
-// Función para obtener datos de equipos
 const fetchTeamInfo = async (): Promise<TeamInfo[]> => {
   try {
     const response = await getTeamInfo();
@@ -16,7 +15,6 @@ const fetchTeamInfo = async (): Promise<TeamInfo[]> => {
   }
 };
 
-// Función para obtener datos de alumnos
 const fetchStudentInfo = async (): Promise<StudentInfo[]> => {
   try {
     const response = await getStudentInfo();
@@ -31,7 +29,6 @@ interface LeaderboardProps {
   onClose?: () => void;
 }
 
-// 🔧 Función para asignar clase según posición
 const getTimeContainerClass = (position: number): string => {
   switch (position) {
     case 1:
@@ -69,7 +66,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
         <div className="popup-header-container">
           {onClose && (
             <button className="close-btn" onClick={onClose}>
-              <b>X</b>
+              <img src="/close-btn.svg" alt="Close-Button" className="img-close" />
             </button>
           )}
           <div className="popup-header">
@@ -82,17 +79,15 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
 
         <div className="tabs">
           <button
-            className={`tab tab-left ${
-              activeTab === "equipos" ? "active" : ""
-            }`}
+            className={`tab tab-left ${activeTab === "equipos" ? "active" : ""
+              }`}
             onClick={() => setActiveTab("equipos")}
           >
             Equipos
           </button>
           <button
-            className={`tab tab-right ${
-              activeTab === "alumnos" ? "active" : ""
-            }`}
+            className={`tab tab-right ${activeTab === "alumnos" ? "active" : ""
+              }`}
             onClick={() => setActiveTab("alumnos")}
           >
             Alumnos
@@ -100,24 +95,22 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
         </div>
 
         <div
-          className={`ranking-list ${
-            activeTab === "equipos" ? "ranking-equipos" : "ranking-alumnos"
-          }`}
+          className={`ranking-list ${activeTab === "equipos" ? "ranking-equipos" : "ranking-alumnos"
+            }`}
         >
           <div className="subtitulo">Online HighScore</div>
 
           {dataToDisplay.map((item, index) => (
             <div
               key={index}
-              className={`ranking-item ${
-                index === 0
+              className={`ranking-item ${index === 0
                   ? "first"
                   : index === 1
-                  ? "second"
-                  : index === 2
-                  ? "third"
-                  : ""
-              }`}
+                    ? "second"
+                    : index === 2
+                      ? "third"
+                      : ""
+                }`}
             >
               <span className="position">{index + 1}</span>
 

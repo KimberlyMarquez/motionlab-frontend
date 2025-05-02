@@ -32,30 +32,30 @@
     background-color: white;
     color: #C85332;
     border: 4px solid #C85332;
-    border-radius: 12px; 
+    border-radius: 12px;
     width: 36px;
     height: 36px;
     font-size: 20px;
     font-weight: bold;
-    display: flex;           
-    align-items: center;     
-    justify-content: center; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    position: relative;     
+    position: relative;
 }
 
 .custom-close-button:hover {
-    background-color: #C85332; 
+    background-color: #C85332;
     color: white;
 }
 
 .custom-close-button .close-icon {
     font-weight: 900;
-    font-size: 24px; 
-    position: absolute;      
-    top: 50%;              
-    left: 50%;             
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -60%);
     line-height: 1;
 }

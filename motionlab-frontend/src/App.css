@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -57,11 +59,11 @@ html, body, #root {
 
 .form-inner {
   background-color: white;
-  border-radius: 16px; 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   padding: 2rem 3rem;
   width: 100%;
-  max-width: 420px; 
+  max-width: 420px;
   height: 300px;
   display: flex;
   flex-direction: column;
@@ -69,7 +71,6 @@ html, body, #root {
   align-items: center;
 }
 
-/* Título */
 .form-inner h5 {
   color: #cc3b3b;
   font-weight: bold;
@@ -78,14 +79,14 @@ html, body, #root {
 }
 
 .btn-primary {
-  background-color: #4C7CBD !important;  
-  border: 2px solid #2e4f87;            
+  background-color: #4C7CBD !important;
+  border: 2px solid #2e4f87;
   font-weight: bold;
   color: white;
   padding: 10px 0;
   letter-spacing: 1px;
   text-shadow: none;
-  box-shadow: 2px 2px 0 #2a2a2a;   
+  box-shadow: 2px 2px 0 #2a2a2a;
   border-radius: 6px;
   transition: all 0.2s ease-in-out;
 }
@@ -107,4 +108,3 @@ html, body, #root {
   font-weight: bold;
   font-size: 1.5rem;
 }
-

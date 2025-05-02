@@ -39,7 +39,7 @@ body {
   margin-right: 0;
   font-weight: 500;
   cursor: pointer;
-  background-color: #f2f2f2;
+  background-color: white;
   color: #333;
   transition: background-color 0.2s, color 0.2s;
 }
@@ -65,14 +65,12 @@ body {
   color: white;
 }
 
-/* Fixed height container for the students table with scrollbar */
 .table-container-scrollable-team {
   max-height: 400px;
   overflow-y: auto;
   border-radius: 15px;
 }
 
-/* Styling the scrollbar */
 .table-container-scrollable-team::-webkit-scrollbar {
   width: 10px;
 }
@@ -98,7 +96,6 @@ body {
   border-radius: 15px;
 }
 
-/* Styling the scrollbar */
 .table-container-scrollable-student::-webkit-scrollbar {
   width: 10px;
 }
@@ -114,7 +111,7 @@ body {
 }
 
 .table-container-scrollable-student::-webkit-scrollbar-thumb:hover {
-  background: #3a5d96;
+  background: #6DAB9B;
 }
 
 .stats-table {
@@ -128,8 +125,8 @@ body {
   text-align: center;
   font-weight: bold;
 
-  min-width: 100%; 
-  table-layout: fixed; 
+  min-width: 100%;
+  table-layout: fixed;
 }
 
 .stats-table thead tr {
@@ -145,13 +142,13 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
-  width: auto;   
+  width: auto;
   white-space: nowrap;
 }
 
 .stats-table {
-  width: auto; 
-  table-layout: auto; 
+  width: auto;
+  table-layout: auto;
 }
 
 .stats-table tbody tr {
@@ -191,7 +188,6 @@ body {
   background-color: #7dbcab;
 }
 
-/* Mobile responsive */
 @media (max-width: 768px) {
   .container {
     width: 95%;

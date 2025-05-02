@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const SiguienteButton = () => {
 
@@ -8,9 +8,9 @@ const SiguienteButton = () => {
     navigate("/loginprofesores");
   };
 
-    return(
-        <button className="siguiente" onClick={handleGoBack}> SIGUIENTE </button>
-    )
+  return (
+    <button className="siguiente" onClick={handleGoBack}> SIGUIENTE </button>
+  )
 }
 
 export default SiguienteButton

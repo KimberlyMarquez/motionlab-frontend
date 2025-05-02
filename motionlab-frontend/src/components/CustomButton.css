@@ -1,4 +1,4 @@
-.custombutton{
+.custombutton {
     width: 200px;
     background-color: #547EBC;
     color: #fff;
@@ -10,14 +10,13 @@
     text-transform: uppercase;
     display: block;
     margin: 0 auto;
-    text-align: center;              
-    display: flex;          
-    justify-content: center;  
+    text-align: center;
+    display: flex;
+    justify-content: center;
     margin-top: 5px;
-    transition: transform 0.2s ease;   
+    transition: transform 0.2s ease;
 }
 
 .custombutton:hover {
     transform: scale(1.05);
 }
-

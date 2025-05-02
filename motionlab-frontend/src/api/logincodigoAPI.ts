@@ -2,7 +2,6 @@ import api from ".";
 
 export const accederConCodigo = async (codigo: string) => {
   try {
-    // Validar el código y obtener el ID del match
     const response = await api.get(`/lobby/access/${codigo}`);
     const matchId = response.data.payload.id;
     const integrantes = response.data.payload.members
@@ -10,13 +9,11 @@ export const accederConCodigo = async (codigo: string) => {
 
     if (!matchId) throw new Error("No se pudo obtener el ID de la partida.");
 
-    // Guardar en sessionStorage
     sessionStorage.setItem("matchId", matchId);
     sessionStorage.setItem("codigo", codigo);
     sessionStorage.setItem("members", integrantes);
     console.log(integrantes);
 
-    // Crear un nuevo equipo en la partida
     const createTeamRes = await api.post("/team", {
       match_id: matchId,
     });
@@ -24,10 +21,9 @@ export const accederConCodigo = async (codigo: string) => {
     const teamId = createTeamRes.data.payload?.team_id;
     if (!teamId) throw new Error("No se pudo crear el equipo.");
 
-    // Guardar también el teamId para usarlo después
     sessionStorage.setItem("teamId", teamId);
 
-    return { matchId, teamId,success: true,};
+    return { matchId, teamId, success: true, };
   } catch (error: any) {
     console.error("Error en accederConCodigo:", error);
     return {

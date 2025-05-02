@@ -3,22 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import '../LogoutButton.css';
 
 interface SimLogoutButtonProps {
-  redirectTo: string;            
+  redirectTo: string;
 }
 
-const SimLogoutButton: React.FC<SimLogoutButtonProps> = ({ redirectTo}) => {
+const SimLogoutButton: React.FC<SimLogoutButtonProps> = ({ redirectTo }) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => { 
+  const handleLogout = () => {
     sessionStorage.clear();
     navigate(redirectTo);
   };
 
   return (
-    <img 
+    <img
       src="/logoutsim.svg"
       alt="Cerrar sesión"
-      className="logout-icon" 
+      className="logout-icon"
       onClick={handleLogout}
       title="Salir"
     />

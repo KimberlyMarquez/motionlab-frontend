@@ -4,12 +4,12 @@ import GoBackButtonMain from '../components/MainPage/GoBackButtonMain';
 import LogInCard from '../components/LogInProfesores/LogInCard';
 
 const LogInProfesores = () => {
-    return(
-        <>  
+    return (
+        <>
             <div className="background-container flex-column">
                 <LogInCard />
-            <GoBackButtonMain redirectTo="/Main"/>
-            <Footer />
+                <GoBackButtonMain redirectTo="/Main" />
+                <Footer />
             </div>
         </>
     );

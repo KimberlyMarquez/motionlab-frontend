@@ -25,11 +25,9 @@ const Statistics: React.FC = () => {
       }
     };
 
-    // Fetch the data every 3 seconds
-    fetchData(); // Initial fetch
+    fetchData();
     const interval = setInterval(fetchData, 3000);
 
-    // Cleanup the interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
@@ -61,8 +59,8 @@ const Statistics: React.FC = () => {
   return (
     <div className="background-container">
       <div className="main-content">
-        <StatsContainer 
-          label="ESTADÍSTICAS" 
+        <StatsContainer
+          label="ESTADÍSTICAS"
           pag_anterior="/"
           onDownload={downloadCSV}
           activeTab={activeTab}

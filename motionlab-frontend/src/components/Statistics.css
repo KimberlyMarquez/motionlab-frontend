@@ -73,7 +73,9 @@
     height: 45px
 }
 
-.actions-section{
-    gap: 20px;
-    padding-right: 30px;
+.actions-section {
+    display: flex;
+    justify-content: end;
+    gap: 50px;
+    padding-right: 70px;
 }

@@ -8,29 +8,29 @@ interface Tooltip {
     y: number;
     text: string;
     visible: boolean;
-    arrowPosition: 'arrow-top' | 'arrow-bottom' | 'arrow-left' | 'arrow-right';
+    arrowPosition: 'arrow-top' | 'arrow-bottom' | 'arrow-left' | 'arrow-right' | 'arrow-topright';
 }
 
 const Tutorial = () => {
     const [tooltips, setTooltips] = useState<Tooltip[]>([
-        { id: 1, x: 22, y: 27, text: "Leaderboard", visible: false, arrowPosition: 'arrow-top' },
-        { id: 2, x: 31, y: 20, text: "Tutorial", visible: false, arrowPosition: 'arrow-left' },
-        { id: 3, x: 48, y: 31, text: "Metas completadas", visible: false, arrowPosition: 'arrow-right' },
-        { id: 3, x: 49.5, y: 37, text: "Meta Pendientes", visible: false, arrowPosition: 'arrow-right' },
-        { id: 1, x: 39, y: 11, text: "Turno del Estudiante", visible: false, arrowPosition: 'arrow-bottom' },
-        { id: 3, x: 29, y: 42, text: "Tiempos por Estudiante", visible: false, arrowPosition: 'arrow-left' },
-        { id: 1, x: 22, y: 60, text: "Meta Asignada", visible: false, arrowPosition: 'arrow-bottom' },
-        { id: 1, x: 14, y: 74, text: "Salida", visible: false, arrowPosition: 'arrow-bottom' },
-        { id: 1, x: 36.5, y: 68, text: "Tiempo Transcurrido por Estudiante", visible: false, arrowPosition: 'arrow-bottom' },
-        { id: 1, x: 30, y: 82, text: "Finalizar Turno", visible: false, arrowPosition: 'arrow-right' },
-        { id: 3, x: 58, y: 82, text: "Comenzar Simulación", visible: false, arrowPosition: 'arrow-right' },
-        { id: 3, x: 56, y: 11, text: "Tiempo total transcurrido del equipo", visible: false, arrowPosition: 'arrow-bottom' },
-        { id: 3, x: 78, y: 12, text: "Reiniciar parametros", visible: false, arrowPosition: 'arrow-bottom' },
-        { id: 2, x: 86, y: 28, text: "Parametros definidos por profesor", visible: false, arrowPosition: 'arrow-left' },
-        { id: 2, x: 86, y: 49, text: "Parametros definidos por estudiante", visible: false, arrowPosition: 'arrow-left' },
-        { id: 2, x: 86, y: 67, text: "Estadísticas por simulación", visible: false, arrowPosition: 'arrow-left' },
-        { id: 3, x: 73.8, y: 88, text: "Pausar simulación", visible: false, arrowPosition: 'arrow-top' },
-        { id: 3, x: 86, y: 82.5, text: "Cancelar simulación", visible: false, arrowPosition: 'arrow-left' },
+        { id: 1, x: 22, y: 22, text: "Leaderboard", visible: false, arrowPosition: 'arrow-top' },
+        { id: 2, x: 31, y: 15, text: "Tutorial", visible: false, arrowPosition: 'arrow-left' },
+        { id: 3, x: 48, y: 25, text: "Metas completadas", visible: false, arrowPosition: 'arrow-right' },
+        { id: 3, x: 49.5, y: 32, text: "Meta pendientes", visible: false, arrowPosition: 'arrow-right' },
+        { id: 1, x: 35, y: 25, text: "Turno del estudiante", visible: false, arrowPosition: 'arrow-topright' },
+        { id: 3, x: 29, y: 35, text: "Tiempos por estudiante", visible: false, arrowPosition: 'arrow-left' },
+        { id: 1, x: 22, y: 55, text: "Meta asignada", visible: false, arrowPosition: 'arrow-bottom' },
+        { id: 1, x: 14, y: 69, text: "Salida", visible: false, arrowPosition: 'arrow-bottom' },
+        { id: 1, x: 36.5, y: 63, text: "Tiempo transcurrido por estudiante", visible: false, arrowPosition: 'arrow-bottom' },
+        { id: 1, x: 29, y: 77, text: "Finalizar turno", visible: false, arrowPosition: 'arrow-right' },
+        { id: 3, x: 58, y: 77, text: "Comenzar simulación", visible: false, arrowPosition: 'arrow-right' },
+        { id: 3, x: 56, y: 5, text: "Tiempo transcurrido del equipo", visible: false, arrowPosition: 'arrow-bottom' },
+        { id: 3, x: 87, y: 13, text: "Reiniciar parametros", visible: false, arrowPosition: 'arrow-left' },
+        { id: 2, x: 86, y: 23, text: "Parametros definidos por profesor", visible: false, arrowPosition: 'arrow-left' },
+        { id: 2, x: 86, y: 43, text: "Parametros definidos por estudiante", visible: false, arrowPosition: 'arrow-left' },
+        { id: 2, x: 86, y: 60, text: "Estadísticas por simulación", visible: false, arrowPosition: 'arrow-left' },
+        { id: 3, x: 73.9, y: 84, text: "Pausar simulación", visible: false, arrowPosition: 'arrow-top' },
+        { id: 3, x: 86, y: 77, text: "Cancelar simulación", visible: false, arrowPosition: 'arrow-left' },
     ]);
 
     useEffect(() => {
