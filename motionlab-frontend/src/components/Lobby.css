@@ -6,17 +6,17 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-  }
+}
 
-  .main-content {
+.main-content {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1rem;
     overflow: hidden;
-  }
-  
+}
+
 .lobby-box {
     background-color: #E8F1FF;
     width: 90%;
@@ -25,8 +25,8 @@
     border-radius: 80px;
     padding: 0;
 }
-  
-  
+
+
 .lobby-label {
     top: 5%;
     background-color: #547EBC;
@@ -38,7 +38,7 @@
     padding: 1rem 3rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
-  
+
 .lobby-content {
     margin-top: 90px;
     height: 80%;
@@ -50,8 +50,8 @@
     color: #E8F1FF;
 }
 
-.logo{
-    position:absolute;
+.logo {
+    position: absolute;
     top: 15px;
-    left:130px;
+    left: 130px;
 }

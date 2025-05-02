@@ -12,7 +12,7 @@ const LanzarPartidaCard = ({ nomina }: LanzarPartidaCardProps) => {
   const handleLanzarPartida = () => {
     navigate('/ajuste-equipos', { state: { codigo: 'SIN-CÓDIGO' } });
   };
-  
+
   return (
     <div className="lanzar-container">
       <h2 className="lanzar-title">
@@ -20,8 +20,10 @@ const LanzarPartidaCard = ({ nomina }: LanzarPartidaCardProps) => {
       </h2>
 
       <div className="lanzar-box">
-        <CustomButton label="Lanzar Partida" type="button" className="lanzar-button" onClick={handleLanzarPartida}/>
-        <a href="#" className="stats-link">Estadísticas</a>
+        <CustomButton label="Lanzar Partida" type="button" className="lanzar-button" onClick={handleLanzarPartida} />
+        <span className="stats-link" onClick={() => window.open("/estadisticas", "_blank")} style={{ cursor: 'pointer' }}>
+          Estadísticas
+        </span>
       </div>
     </div>
   );

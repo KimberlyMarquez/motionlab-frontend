@@ -8,7 +8,7 @@ export const registrarAlumnos = async (teamId: string, matriculas: string[]) => 
       ids: matriculas,
       team_id: teamId,
     }
-  );
+    );
 
     return {
       success: true,

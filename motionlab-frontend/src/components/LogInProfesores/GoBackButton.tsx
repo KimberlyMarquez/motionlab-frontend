@@ -10,13 +10,13 @@ const GoBackButton = () => {
   };
 
   return (
-      <img 
-        src="assets/LogInProfesores/gobackbutton.svg" 
-        alt="Cerrar sesión"
-        className="icon" 
-        title="Salir"
-        onClick={handleGoBack}
-      />
+    <img
+      src="assets/LogInProfesores/gobackbutton.svg"
+      alt="Cerrar sesión"
+      className="icon"
+      title="Salir"
+      onClick={handleGoBack}
+    />
   );
 };
 

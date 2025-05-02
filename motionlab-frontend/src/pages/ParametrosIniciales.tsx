@@ -31,13 +31,13 @@ const ParametrosIniciales = () => {
       const response = await createMatch({
         teams: equipos,
         members: integrantes,
-        rounds_amount : rondas,
+        rounds_amount: rondas,
         rpm,
         wheel_size: rueda,
         distance: distancia,
         teacher_id: teacherId
       });
-  
+
       console.log('Partida creada:', response.payload);
 
       sessionStorage.setItem("codigo", response.payload.code);
@@ -46,14 +46,14 @@ const ParametrosIniciales = () => {
       sessionStorage.setItem("members", response.payload.members.toString());
       sessionStorage.setItem("rounds", response.payload.rounds_amount.toString());
       sessionStorage.setItem("status", response.payload.active.toString());
-  
+
       navigate('/lobbyprofesor');
-  
-      console.log('Status', response.payload.active,'Código:', response.payload.code, 'Profesor:', teacherId, 'Equipos:', response.payload.teams, 'Integrantes:', response.payload.members, 'Rondas:', response.payload.rounds_amount, 'RPM:', rpm, 'Rueda:', rueda, 'Distancia:', distancia);
+
+      console.log('Status', response.payload.active, 'Código:', response.payload.code, 'Profesor:', teacherId, 'Equipos:', response.payload.teams, 'Integrantes:', response.payload.members, 'Rondas:', response.payload.rounds_amount, 'RPM:', rpm, 'Rueda:', rueda, 'Distancia:', distancia);
     } catch (error) {
       console.error('Error enviando los datos al servidor:', error);
     }
-  };  
+  };
 
   return (
     <>
@@ -61,13 +61,13 @@ const ParametrosIniciales = () => {
         <div className="main-content">
           <AjustesContainer label="PARÁMETROS INICIALES" pag_anterior="/ajuste-equipos">
             <div className="d-flex flex-column align-items-center  mt-2">
-              <Parametros label="Revoluciones por minuto" unidad="rpm" valorInicial={2000}  step={0.01} min={2000} max={4500} onChange={setRPM}/>
-              <Parametros label="Tamaño de la rueda" unidad="cm" valorInicial={20} min={20}  step={0.01} max={25} onChange={setRueda}/>
-              <Parametros label="Distancia" unidad="m" valorInicial={5} min={5} max={22.6}  step={0.01} onChange={setDistancia}/>
+              <Parametros label="Revoluciones por minuto" unidad="rpm" valorInicial={2000} step={0.01} min={600} max={4500} onChange={setRPM} />
+              <Parametros label="Tamaño de la rueda" unidad="cm" valorInicial={20} min={20} step={0.01} max={80} onChange={setRueda} />
+              <Parametros label="Distancia" unidad="m" valorInicial={20} min={5} max={22.6} step={0.01} onChange={setDistancia} />
             </div>
 
             <div className="btn-orange text-center">
-              <ButtonOrange label="NUEVA PARTIDA" onClick={handleSiguiente} ronda= ""/>
+              <ButtonOrange label="NUEVA PARTIDA" onClick={handleSiguiente} ronda="" />
             </div>
           </AjustesContainer>
         </div>

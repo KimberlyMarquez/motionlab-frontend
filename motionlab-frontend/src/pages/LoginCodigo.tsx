@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import FormContainer from '../components/FormContainer';
 import GoBackButtonMain from '../components/MainPage/GoBackButtonMain';
 import CustomButton from '../components/CustomButtonT4';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import '../pages/Pages.css';
 import { accederConCodigo } from '../api/logincodigoAPI';
 
-const LoginCodigo: React.FC = () => {
+const LoginCodigo = () => {
   const [codigo, setCodigo] = useState('');
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const LoginCodigo: React.FC = () => {
     <>
       <div className="background-container">
         <div className="main-content">
-        <GoBackButtonMain redirectTo="/Main"/>
+          <GoBackButtonMain redirectTo="/Main" />
           <FormContainer>
             <div className="text-center w-100">
               <label
@@ -60,6 +60,7 @@ const LoginCodigo: React.FC = () => {
                   outline: 'none',
                   width: '19%',
                   margin: '0 auto',
+                  textAlign: 'center'
                 }}
               />
               <CustomButton label="ACCEDER" onClick={handleSubmit} />

@@ -15,7 +15,7 @@ const LoginCard = () => {
     const nominaRegex = /^L\d{8}$/;
 
     if (!nominaRegex.test(nomina)) {
-      alert('La nómina debe tener el formato L seguido de 9 números. Ejemplo: L12345678');
+      alert('La nómina debe tener el formato L seguido de 8 números. Ejemplo: L12345678');
       return;
     }
 
@@ -37,21 +37,21 @@ const LoginCard = () => {
       <form className="login-form" onSubmit={handleSubmit}>
         <label>
           <b>Nómina</b>
-          <input 
-            type="text" 
-            required 
-            value={nomina} 
-            onChange={(e) => setNomina(e.target.value)} 
-            placeholder="L12345678"
+          <input
+            type="text"
+            required
+            value={nomina}
+            onChange={(e) => setNomina(e.target.value)}
+            placeholder="L00000000"
           />
         </label>
         <label>
           <b>Contraseña</b>
-          <input 
-            type="password" 
-            required 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
+          <input
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
           />
         </label>

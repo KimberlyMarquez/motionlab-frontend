@@ -8,7 +8,7 @@ interface Props {
   pag_anterior: string;
 }
 
-const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) => {
+const AjustesContainer = ({ label, children, pag_anterior }: Props) => {
   const navigate = useNavigate();
 
   const handleRegresar = () => {
@@ -19,13 +19,13 @@ const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) =>
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
       <div className="ajustes-box shadow-lg p-4">
         <div>
-            <div className="btn-reg"onClick={handleRegresar}>
+          <div className="btn-reg" onClick={handleRegresar}>
             < ButtonRegresar label='< Regresar' />
-            </div>
+          </div>
 
-            <div className="ajustes-label position-absolute start-50 translate-middle-x">
+          <div className="ajustes-label position-absolute start-50 translate-middle-x">
             {label}
-            </div>
+          </div>
         </div>
 
         <div className="ajustes-content">

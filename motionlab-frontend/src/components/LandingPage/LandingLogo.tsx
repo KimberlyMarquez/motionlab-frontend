@@ -1,7 +1,7 @@
 const LandingLogo = () => {
-    return(
+    return (
         <div>
-            <img src="/assets/LandingPage/Logo.png" className="Logo" alt="Logo"/>
+            <img src="/assets/LandingPage/Logo.png" className="Logo" alt="Logo" />
         </div>
     )
 }

@@ -9,7 +9,7 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-const CustomButton: React.FC<Props> = ({ label, onClick, type = 'button', className = '', style }) => {
+const CustomButton = ({ label, onClick, type = 'button', className = '', style }: Props) => {
   return (
     <button
       type={type}

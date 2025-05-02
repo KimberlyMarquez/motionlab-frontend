@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
+
+.tutorial-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-dialog {
+    margin: 0 auto;
+    max-width: 800px;
+    width: 90%;
+}
+
+.modal-header-custom {
+    background-color: #FFFFFF;
+    padding: 15px;
+    border-bottom: black;
+}
+
+.modal-title {
+    font-weight: bold;
+    color: #C85332 !important;
+    font-family: "Jersey 20", sans-serif;
+    font-size: 37px !important;
+    padding-left: 15px;
+    width: 100%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.custom-close-button {
+    background-color: white;
+    color: #C85332;
+    border: 4px solid #C85332;
+    border-radius: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    position: relative;
+}
+
+.custom-close-button:hover {
+    background-color: #C85332;
+    color: white;
+}
+
+.custom-close-button .close-icon {
+    font-weight: 900;
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    line-height: 1;
+}
+
+.image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+}
+
+.simulator-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tooltip {
+    position: absolute;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    max-width: 200px;
+    z-index: 10;
+    text-align: center !important;
+}
+
+.tooltip::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+}
+
+.tooltip.arrow-top::before {
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+}
+
+.tooltip.arrow-bottom::before {
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+}
+
+.tooltip.arrow-left::before {
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
+}
+
+.tooltip.arrow-right::before {
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-1px);
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-title {
+        font-size: 28px;
+    }
+
+    .simulator-image {
+        max-width: 100%;
+    }
+
+    .tooltip {
+        max-width: 150px;
+        font-size: 12px;
+    }
+
+    .tooltip::before {
+        width: 16px;
+        height: 16px;
+    }
+
+    .tooltip.arrow-top::before {
+        top: -12px;
+    }
+
+    .tooltip.arrow-bottom::before {
+        bottom: -12px;
+    }
+
+    .tooltip.arrow-left::before {
+        left: -12px;
+    }
+
+    .tooltip.arrow-right::before {
+        right: -12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-title {
+        font-size: 24px;
+    }
+
+    .tooltip {
+        max-width: 120px;
+        padding: 8px 12px;
+    }
+
+    .tooltip::before {
+        width: 12px;
+        height: 12px;
+    }
+
+    .tooltip.arrow-top::before {
+        top: -10px;
+    }
+
+    .tooltip.arrow-bottom::before {
+        bottom: -10px;
+    }
+
+    .tooltip.arrow-left::before {
+        left: -10px;
+    }
+
+    .tooltip.arrow-right::before {
+        right: -10px;
+    }
+}

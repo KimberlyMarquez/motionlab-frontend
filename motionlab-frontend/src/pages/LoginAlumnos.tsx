@@ -2,13 +2,12 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { registrarAlumnos } from '../api/loginalumnosAPI';
 import FormContainer from '../components/FormContainer';
-import LogoutButton from '../components/LogoutButton';
 import Footer from '../components/Footer';
 import CustomButton from '../components/CustomButtonT4';
 import ButtonRegresar from '../components/ButtonRegresar';
 import '../pages/Pages.css';
 
-const LoginAlumnos: React.FC = () => {
+const LoginAlumnos = () => {
   const miembros = parseInt(sessionStorage.getItem("members") || "5");
   const [matriculas, setMatriculas] = useState<string[]>(Array(miembros).fill(''));
   const navigate = useNavigate();

@@ -6,12 +6,12 @@ import LanzarPartidaCard from '../components/LanzarPartidaProfesor/LanzarPartida
 const LanzarPartidaProfesor = () => {
     const nomina = sessionStorage.getItem('teacherId') || 'Profesor';
 
-    return(
-        <>  
+    return (
+        <>
             <div className="background-container flex-column">
-                <LanzarPartidaCard nomina={nomina}/>
-                <LogoutButton redirectTo="/loginprofesores"/>
-            <Footer />
+                <LanzarPartidaCard nomina={nomina} />
+                <LogoutButton redirectTo="/loginprofesores" />
+                <Footer />
             </div>
         </>
     );

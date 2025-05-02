@@ -53,7 +53,7 @@ const LobbyAlumnos = () => {
       const res = await getMatchStatus(parseInt(matchId));
       if (res.status === "success" && res.payload === true) {
         console.log("Partida iniciada, redirigiendo a simulación...");
-        navigate("/simulacion");
+        navigate("/tutorial");
       }
     } catch (error) {
       console.error("Error verificando el estado de la partida:", error);
@@ -114,7 +114,6 @@ const LobbyAlumnos = () => {
               ))}
             </div>
           )}
-
           <div className="loading start-50 translate-middle-x mt-4">
             Esperando a que inicie la partida...
           </div>

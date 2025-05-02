@@ -1,26 +1,25 @@
-/* Ensure the full viewport is utilized */
-html, body {
+html,
+body {
     overflow: hidden;
-    height: 100%; 
-    margin: 0; /* Removes default margin */
+    height: 100%;
+    margin: 0;
 }
 
-/* Main container layout for the landing page */
 .landing-page-container {
     background-image: url('/assets/LandingPage/LandingBackground.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh; 
+    height: 100vh;
     display: flex;
-    flex-direction: column; /* Stack wrapper and footer vertically */
+    flex-direction: column;
 }
 
 .wrapper {
-    flex: 1; /* Expands to fill remaining space between the footer and top */
+    flex: 1;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    align-items: center;
 }
 
 .comenzarbutton {
@@ -31,21 +30,20 @@ html, body {
     background-color: #547EBC;
     border-radius: 20px;
     border: 7px solid #4971B4;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.655); /* Solid box shadow without blur */
-    padding: 15px 70px; /* Combines padding-left and padding-right */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.655);
+    padding: 15px 70px;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-.comenzar{
-    transition: transform 0.2s ease; /* Smooth hover effect */
+.comenzar {
+    transition: transform 0.2s ease;
 }
 
 .comenzar:hover {
-    transform: scale(1.05); /* Slightly scale up on hover */
+    transform: scale(1.05);
 }
 
-/* Logo size */
 .Logo {
     width: 610px !important;
     height: 288px !important;

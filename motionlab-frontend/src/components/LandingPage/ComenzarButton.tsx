@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const ComenzarButton = () => {
 
@@ -8,9 +8,9 @@ const ComenzarButton = () => {
     navigate("/Main");
   };
 
-    return(
-        <button className="comenzarbutton" onClick={handleGoBack}> COMENZAR </button>
-    )
+  return (
+    <button className="comenzarbutton" onClick={handleGoBack}> COMENZAR </button>
+  )
 }
 
 export default ComenzarButton
