@@ -5,7 +5,7 @@ interface Props {
   onClick?: () => void;
 }
 
-const CustomButton: React.FC<Props> = ({ label, onClick }) => {
+const CustomButton = ({ label, onClick }: Props) => {
   return (
     <button className="regresarbutton"
       onClick={onClick}

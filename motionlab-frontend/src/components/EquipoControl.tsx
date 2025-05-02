@@ -7,7 +7,7 @@ interface ControlProps {
   onDecrement: () => void;
 }
 
-const Control: React.FC<ControlProps> = ({ label, value, onIncrement, onDecrement }) => (
+const Control = ({ label, value, onIncrement, onDecrement }: ControlProps) => (
   <div className="text-center mb-4">
 
     <h2 className="fw-bold mb-3" style={{ color: '#547EBC', fontSize: '2.5rem', fontFamily: '"Inter", sans-serif' }}>

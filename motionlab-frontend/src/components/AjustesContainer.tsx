@@ -8,7 +8,7 @@ interface Props {
   pag_anterior: string;
 }
 
-const AjustesContainer: React.FC<Props> = ({ label, children, pag_anterior }) => {
+const AjustesContainer = ({ label, children, pag_anterior }: Props) => {
   const navigate = useNavigate();
 
   const handleRegresar = () => {

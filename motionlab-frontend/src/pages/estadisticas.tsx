@@ -5,7 +5,7 @@ import "./estadisticas.css";
 import { getTeamData, getStudentData } from "../api/estadistica";
 import StatsContainer from '../components/StatsContainer';
 
-const Statistics: React.FC = () => {
+const Statistics = () => {
   const [activeTab, setActiveTab] = useState<"equipos" | "alumnos">("equipos");
   const [teams, setTeams] = useState<Omit<TeamData, "id">[]>([]);
   const [students, setStudents] = useState<StudentData[]>([]);
@@ -97,7 +97,7 @@ const Statistics: React.FC = () => {
   );
 };
 
-const TeamsTable: React.FC<{ data: Omit<TeamData, "id">[] }> = ({ data }) => (
+const TeamsTable = ({ data }: { data: Omit<TeamData, "id">[] }) => (
   <table className="stats-table">
     <thead>
       <tr>
@@ -120,7 +120,7 @@ const TeamsTable: React.FC<{ data: Omit<TeamData, "id">[] }> = ({ data }) => (
   </table>
 );
 
-const StudentsTable: React.FC<{ data: StudentData[] }> = ({ data }) => (
+const StudentsTable = ({ data }: { data: StudentData[] }) => (
   <table className="stats-table table-alumnos">
     <thead>
       <tr>

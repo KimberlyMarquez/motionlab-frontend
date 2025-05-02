@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LogoutButton.css';
 
@@ -6,7 +5,7 @@ interface LogoutButtonProps {
   redirectTo: string;            
 }
 
-const LogoutButton: React.FC<LogoutButtonProps> = ({ redirectTo}) => {
+const LogoutButton = ({ redirectTo}: LogoutButtonProps) => {
   const navigate = useNavigate();
 
   const handleLogout = () => { 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import '../styles/TutoModal.css';
 
@@ -16,7 +16,7 @@ interface Tooltip {
     arrowPosition: 'arrow-top' | 'arrow-bottom' | 'arrow-left' | 'arrow-right';
 }
 
-const InfoModal: React.FC<InfoModalProps> = ({ show, onHide }) => {
+const InfoModal = ({ show, onHide }: InfoModalProps) => {
     const [tooltips, setTooltips] = useState<Tooltip[]>([
         { id: 1, x: 11.5, y: 19, text: "Leaderboard", visible: false, arrowPosition: 'arrow-top' },
         { id: 2, x: 26, y: 8, text: "Tutorial", visible: false, arrowPosition: 'arrow-left' },

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { TeamInfo } from "my-types";
 import { StudentInfo } from "my-types";
 import "./Leaderboard.css";
 import { FaCrown } from "react-icons/fa";
 import { getTeamInfo, getStudentInfo } from "../api/leaderboard";
 
-const fetchTeamInfo = async (): Promise<TeamInfo[]> => {
+const fetchTeamInfo = async () => {
   try {
     const response = await getTeamInfo();
     return response;
@@ -15,7 +15,7 @@ const fetchTeamInfo = async (): Promise<TeamInfo[]> => {
   }
 };
 
-const fetchStudentInfo = async (): Promise<StudentInfo[]> => {
+const fetchStudentInfo = async () => {
   try {
     const response = await getStudentInfo();
     return response;
@@ -42,7 +42,7 @@ const getTimeContainerClass = (position: number): string => {
   }
 };
 
-const Leaderboard: React.FC<LeaderboardProps> = ({ onClose }) => {
+const Leaderboard = ({ onClose }: LeaderboardProps) => {
   const [activeTab, setActiveTab] = useState<"equipos" | "alumnos">("equipos");
   const [teamInfo, setTeamInfo] = useState<TeamInfo[]>([]);
   const [studentInfo, setStudentInfo] = useState<StudentInfo[]>([]);

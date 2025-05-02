@@ -5,7 +5,7 @@ interface IconWithTextProps {
   className?: string;
 }
 
-const IconWithText: React.FC<IconWithTextProps> = ({ icon, text, onClick, className }) => {
+const IconWithText = ({ icon, text, onClick, className }: IconWithTextProps) => {
   return (
     <div
       className={`icon-with-text ${className || ''}`}

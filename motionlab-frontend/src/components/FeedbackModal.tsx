@@ -12,12 +12,12 @@ interface FeedbackModalProps {
     };
 }
 
-const FeedbackModal: React.FC<FeedbackModalProps> = ({
+const FeedbackModal = ({
     show,
     onHide,
     tiemposRegistrados = {},
     goalsCompleted = { goal1: false, goal2: false, goal3: false }
-}) => {
+}: FeedbackModalProps) => {
     const formatTime = (time: number) => {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);

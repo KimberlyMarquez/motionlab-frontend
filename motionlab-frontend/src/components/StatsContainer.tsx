@@ -11,12 +11,12 @@ interface Props {
   activeTab: "equipos" | "alumnos";
 }
 
-const StatsContainer: React.FC<Props> = ({
+const StatsContainer = ({
   label,
   children,
   onDownload,
   activeTab
-}) => {
+}: Props) => {
   const navigate = useNavigate();
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 

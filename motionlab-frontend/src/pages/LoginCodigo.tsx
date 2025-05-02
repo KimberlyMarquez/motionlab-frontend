@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import FormContainer from '../components/FormContainer';
 import GoBackButtonMain from '../components/MainPage/GoBackButtonMain';
 import CustomButton from '../components/CustomButtonT4';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import '../pages/Pages.css';
 import { accederConCodigo } from '../api/logincodigoAPI';
 
-const LoginCodigo: React.FC = () => {
+const LoginCodigo = () => {
   const [codigo, setCodigo] = useState('');
   const navigate = useNavigate();
 

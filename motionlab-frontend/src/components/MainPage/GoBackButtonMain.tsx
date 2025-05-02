@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './GoBackButtonMain.css';
 
@@ -6,7 +5,7 @@ interface GoBackButtonProps {
   redirectTo: string;
 }
 
-const GoBackButton: React.FC<GoBackButtonProps> = ({ redirectTo }) => {
+const GoBackButton = ({ redirectTo }: GoBackButtonProps) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {

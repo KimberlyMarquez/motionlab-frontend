@@ -102,22 +102,22 @@ const LobbyProfesor = () => {
     return () => clearInterval(intervalId);
   }, [matchId]);
 
-  const eliminarEquipo = async (index: number) => {
-    const equipo = equipos[index];
-    const confirmacion = window.confirm(`¿Eliminar ${equipo.nombre}?`);
-    if (!confirmacion) return;
+  // const eliminarEquipo = async (index: number) => {
+  //   const equipo = equipos[index];
+  //   const confirmacion = window.confirm(`¿Eliminar ${equipo.nombre}?`);
+  //   if (!confirmacion) return;
 
-    try {
-      const res = await deleteTeamFromLobby(equipo.teamId.toString());
-      if (res.status === "success") {
-        await fetchEquipos(true);
-      } else {
-        console.error(res.message);
-      }
-    } catch (error) {
-      console.error("Error al eliminar equipo:", error);
-    }
-  };
+  //   try {
+  //     const res = await deleteTeamFromLobby(equipo.teamId.toString());
+  //     if (res.status === "success") {
+  //       await fetchEquipos(true);
+  //     } else {
+  //       console.error(res.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al eliminar equipo:", error);
+  //   }
+  // };
 
   const totalAlumnos = equipos.reduce(
     (acc, eq) => acc + eq.matriculas.length,
@@ -160,12 +160,12 @@ const LobbyProfesor = () => {
             >
               {equipos.map((equipo, i) => (
                 <div key={i} className="equipo-card position-relative">
-                  <button
+                  {/* <button
                     onClick={() => eliminarEquipo(i)}
                     className="boton-eliminar position-absolute top-0 start-50 translate-middle"
                   >
                     <FaTrashAlt />
-                  </button>
+                  </button> */}
 
                   <h5 className="equipo-title">{equipo.nombre}</h5>
 

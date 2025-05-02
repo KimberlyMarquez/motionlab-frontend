@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import './CustomButtonT4.css';
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   onClick?: () => void;
 }
 
-const CustomButton: React.FC<Props> = ({ label, onClick }) => {
+const CustomButton = ({ label, onClick }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (

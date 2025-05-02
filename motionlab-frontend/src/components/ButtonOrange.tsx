@@ -5,7 +5,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const CustomButton: React.FC<Props> = ({ label, onClick, disabled = false, ronda }) => {
+const CustomButton = ({ label, onClick, disabled = false, ronda } : Props) => {
   return (
     <button
       onClick={onClick}

@@ -2,7 +2,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const FormContainer: React.FC<Props> = ({ children }) => {
+const FormContainer = ({ children }: Props) => {
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center vh-100">
       <div className="rounded-4 shadow-lg p-4"

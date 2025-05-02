@@ -7,7 +7,7 @@ import CustomButton from '../components/CustomButtonT4';
 import ButtonRegresar from '../components/ButtonRegresar';
 import '../pages/Pages.css';
 
-const LoginAlumnos: React.FC = () => {
+const LoginAlumnos = () => {
   const miembros = parseInt(sessionStorage.getItem("members") || "5");
   const [matriculas, setMatriculas] = useState<string[]>(Array(miembros).fill(''));
   const navigate = useNavigate();
