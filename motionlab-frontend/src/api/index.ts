@@ -1,6 +1,8 @@
 import axios from "axios";
 
+const apiUrl: string = import.meta.env.VITE_API_URL as string;
+
 export default axios.create({
-  baseURL: "https://motionlab-backend-b18l.onrender.com/",
+  baseURL: apiUrl,
   headers: { "Content-Type": "application/json" },
 });
