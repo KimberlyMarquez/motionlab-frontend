@@ -44,24 +44,9 @@
   margin: 0 auto;
 }
 
-<<<<<<< HEAD
-.loading{
-    background-color: white;
-    color: #547EBC;
-    left: 50%;
-    bottom: 9%;
-    border-radius: 15px 15px 0 0;
-    font-weight: bold;
-    font-size: 1.3rem;
-    font-family: 'Roboto Condensed', sans-serif;
-    padding: 0.5rem 5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    position: absolute;
-=======
 .loading-text {
   font-size: 40px !important;
   font-family: 'Inter', sans-serif !important;
->>>>>>> 95a4bcbb0bc9ca2b66e582b05f1d9fbe1fb841bc
 }
 
 .loading {
@@ -92,45 +77,12 @@
   right: 270px;
 }
 
-<<<<<<< HEAD
-  .integrante-name {
-    color: #547EBC;
-    font-weight: bold;
-    font-size: 1rem;
-    margin: 0;
-    font-family: 'Roboto Condensed', sans-serif;
-  }
-  
-  .info-icons {
-    display: flex;
-    gap: 1rem;
-    top: 70px;
-    right:160px;
-    position:absolute;
-  }
-  
-  .icon-with-text {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    background-color: #C85332;
-    color: white;
-    padding: 0rem 2rem;
-    border-radius: 12px;
-  }
-  
-  .icon-text {
-    font-size: 2rem;
-    font-family: "Jersey 20", sans-serif;
-  }
-=======
 .equipos-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
 }
->>>>>>> 95a4bcbb0bc9ca2b66e582b05f1d9fbe1fb841bc
 
 .equipo-card {
   text-align: center;
@@ -153,29 +105,6 @@
   margin-bottom: 0;
 }
 
-<<<<<<< HEAD
-  .plus-inside-btn {
-    background-color: white;
-    color: #C85332;
-    border: none;
-    border-radius: 8px;
-    margin-left: 8px;
-    width: 24px;
-    height: 24px;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .start-button-fixed {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-  }
-=======
 .integrantes-list {
   background: #F3F8FF;
   border-radius: 0 0 16px 16px;
@@ -277,4 +206,3 @@
   transform: translateX(-50%);
   z-index: 999;
 }
->>>>>>> 95a4bcbb0bc9ca2b66e582b05f1d9fbe1fb841bc
