@@ -12,7 +12,7 @@ const LoginCard = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const nominaRegex = /^L\d{8}$/;
+    const nominaRegex = /^L\d{7}$/;
 
     if (!nominaRegex.test(nomina)) {
       alert('La nómina debe tener el formato L seguido de 8 números. Ejemplo: L12345678');
@@ -42,7 +42,7 @@ const LoginCard = () => {
             required
             value={nomina}
             onChange={(e) => setNomina(e.target.value)}
-            placeholder="L00000000"
+            placeholder="L0000000"
           />
         </label>
         <label>
