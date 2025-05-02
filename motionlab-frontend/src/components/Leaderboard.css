@@ -1,0 +1,204 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.leaderboard-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  width: 450px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  font-family: "Segoe UI", sans-serif;
+  animation: fadeInUp 0.3s ease-in-out;
+  position: relative;
+}
+
+.close-btn {
+  box-shadow: none;
+  position: relative;
+  left: 88%;
+  z-index: 1001;
+}
+
+.img-close {
+  width: 45px;
+}
+
+.popup-header-container {
+  background-color: #dd9787;
+  padding: 15px 0px 0px 0px;
+  position: relative;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  padding: 10px 10px;
+  font-family: "Jersey 20", cursive;
+  color: #c85332;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  border: none;
+}
+
+.popup-header h2 {
+  font-size: 50px;
+  margin: 0;
+}
+
+.icon-crown {
+  margin: 0px 10px 5px 10px;
+  font-size: 45px;
+}
+
+.tabs {
+  display: flex;
+  background: #ffffff;
+}
+
+.tab {
+  padding: 5px 35px;
+  background: #dce9ff;
+  border: none;
+  font-family: "Roboto condensed", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+  cursor: pointer;
+  color: #ffffff;
+  text-shadow: 0px 0px 2px rgba(3, 43, 111, 0.4),
+    0px 0px 2px rgba(3, 43, 111, 0.4), -1px 1px 2px rgba(0, 0, 0, 0.3),
+    1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.tab-left {
+  background-color: #547ebc;
+  border-top-right-radius: 17px;
+  border-top-left-radius: 17px;
+}
+
+.tab-right {
+  background-color: #70c2ad;
+  border-top-right-radius: 17px;
+  border-top-left-radius: 17px;
+}
+
+.subtitulo {
+  padding: 5px 0px 10px 0px;
+  font-weight: bold;
+  font-size: 30px;
+  color: #fff;
+  font-family: "Roboto condensed", sans-serif;
+  text-shadow: -2px -2px 0 #032b6f, 2px -2px 0 #032b6f, -2px 2px 0 #032b6f,
+    2px 2px 0 #032b6f;
+}
+
+.ranking-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 20px;
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+.ranking-equipos {
+  background: linear-gradient(to bottom, #547ebc, #73589e);
+}
+
+.ranking-alumnos {
+  background: linear-gradient(to bottom, #70c2ad, #0653d5);
+}
+
+.ranking-item {
+  background: #bfd3f3;
+  border-radius: 25px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;
+  outline: 4px solid #dfecff;
+  margin-bottom: 20px;
+  font-family: "Jersey 20", cursive;
+}
+
+.ranking-item.first {
+  background: #fec74f;
+  color: #ffffff;
+  outline: 4px solid #ffe9a8;
+  padding: 15px 10px;
+  border-radius: 15px;
+}
+
+.ranking-item.second {
+  background: #69bfda;
+  color: #ffffff;
+  padding: 6px 10px;
+  outline: 4px solid #a2def0;
+}
+
+.ranking-item.third {
+  background: #f1a285;
+  color: #ffffff;
+  outline: 4px solid #ffcfbd;
+}
+
+.position {
+  width: 30px;
+  margin: 0px 10px;
+}
+
+.time-container {
+  padding: 0rem 10px;
+  border-radius: 15px;
+  background-color: #92b3e6;
+}
+
+.time-container.first-place {
+  background-color: #e9a016;
+}
+
+.time-container.second-place {
+  background-color: #1f98bd;
+}
+
+.time-container.third-place {
+  background-color: #e77951;
+}
+
+.time {
+  width: 60px;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+}
+
+.name {
+  flex: 1;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+}
